@@ -1,0 +1,61 @@
+// ================ Palette ================ //
+
+// From Google Material design color palette
+// https://material.io/guidelines/style/color.html
+
+$white-font-palette: (
+  red: #F44336,
+  pink: #E91E63,
+  purple: #9C27B0,
+  deeppurple: #673AB7,
+  cyan: #00BCD4,
+  indigo: #3F51B5,
+  lightblue: #03A9F4,
+  blue: #2196F3,
+  green: #4CAF50,
+  teal: #009688,
+  orange: #FF9800,
+  deeporange: #FF5722,
+  brown: #795548,
+  black: #333,
+  darkgray: #4f4f4f,
+  bluegray: #607D8B,
+  link: #167ac6,
+  fullblack: #000,
+  );
+
+$black-font-palette: (
+  lightgreen: #8BC34A,
+  lime: #CDDC39,
+  yellow: #FFEB3B,
+  amber: #FFC107,
+  lightgray: #d8d8d8,
+  gray: #9E9E9E,
+  white: #fff,
+  whitesmoke: #fafafa,
+);
+
+
+@function color($key) {
+  @if map-has-key($white-font-palette, $key) {
+    @return map-get($white-font-palette, $key);
+  }
+  @else if map-has-key($black-font-palette, $key){
+    @return map-get($black-font-palette, $key);
+  }
+  @else {
+    @return $key;
+  }
+}
+// Switch the font color acording to the background.
+@function font-color($key) {
+  @if map-has-key($black-font-palette, $key) {
+    @return color(black);
+  }
+  @else if $key == transparent {
+    @return inherit;
+  }
+  @else {
+    @return color(white);
+  }
+}

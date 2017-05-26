@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title= `${title} | ${h.siteName}`
+    link(rel='stylesheet', href='/dist/style.css') 
+    script(src="http://localhost:8080/public/dist/bundle.js")  
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body
+    header
+      h1= h.siteName
+    main 
+      nav
+        each i in h.menu
+          a(href=i.url) #{i.title}  
+      block content
