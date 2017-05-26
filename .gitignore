@@ -1,0 +1,10 @@
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+*.log
+variables.env
+node_modules
+
+dist
+sasso
