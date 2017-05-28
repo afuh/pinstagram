@@ -1,0 +1,20 @@
+mixin imgCard(img = {})
+  section
+    .img-card
+      .img-card__header.row
+        a.img(href="/user") 
+          img(src="https://unsplash.it/30/30", alt="a")
+        span nombre de usuario
+      .img-card__image
+        img(src="https://unsplash.it/600/600")  
+      .img-card__content
+        .content__icons
+          span ♥️
+          span 💬
+        .content__likes
+          span 15 Me gusta
+        .content__comments
+          span Lorem ipsum dolor sit amet, consectetur adipisicing elit
+      .img-card__form
+        form.comment(id="comment", method="POST", action="#")
+          input(name="text", placeholder="Añade un comentario...")

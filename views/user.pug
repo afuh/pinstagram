@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  section
+    .user
+      .header.row
+        .header__img.row
+          img(src="https://unsplash.it/152/152", alt="test")
+        .header__data.col
+          .header__data--name.row
+            h2 nombre de la cuenta
+            button editar
+          .header__data--statistics.row 
+            span 30 publicaciones
+            span 49 seguidores
+            span 27 seguidos
+          .header__data--name
+            span nombre del usuario  
+      .gallery.row
+        each i in h.img
+          img.gallery__img(src=`${i}`, alt="")
+      

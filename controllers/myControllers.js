@@ -12,3 +12,7 @@
 exports.showMain = (req, res) => {
   res.render('main', { title: "Main section" });
 }
+
+exports.showUser = (req, res) => {
+  res.render('user', { title: "User section" });
+}

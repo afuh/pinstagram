@@ -1,0 +1,65 @@
+// ================ Reset ================ //
+
+$family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif
+$shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)
+
+*
+  box-sizing: border-box
+  list-style-type: none
+  text-decoration: none
+
+body
+  /* optional */
+  font-family: $family
+  line-height: 1.15
+  padding: 0
+  margin: 0 auto
+  max-width: 1920px
+  background: #fafafa
+
+button, input, optgroup, select, textarea
+  font:
+    family: $family
+    size: 100%
+    line-height: 1.15
+    margin: 0
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+  appearance: none
+  margin: 0
+
+ul
+  padding-left: 0
+  margin: 0
+
+// ================ Style ================ //
+h1, h2, h3, h4, h5, h6
+  margin: 2px 0
+  color: color(black)
+  font-weight: 600
+  letter-spacing: 0.06em
+
+h1
+  font-size: 32px
+
+p
+  font-weight: 300
+
+a
+  &:hover
+    text-decoration: underline
+
+img
+  width: 100%
+  height: auto
+  display: block
+
+button
+  padding: 8px
+  cursor: pointer
+  transition: all 0.2s ease
+  &:hover
+    box-shadow: 0 1px 5px color(lightgray), 0 -1px 5px color(lightgray)
+  &:focus
+    outline: 0

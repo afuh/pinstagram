@@ -1,0 +1,23 @@
+.user
+  width: 960px
+  margin: 0 auto
+  padding: 20px
+  .header
+    justify-content: center
+    align-items: center
+    padding: 30px 0
+    &__img
+      +grid(2, 6)
+      justify-content: center
+      img
+        +size(150px, 150px)
+        border-radius: 50%
+    &__data
+      +grid(4, 6)
+      padding: 10px
+  .gallery
+    flex-wrap: wrap
+    justify-content: space-between
+    &__img
+      +grid(3, 12)
+      margin: 12px 0

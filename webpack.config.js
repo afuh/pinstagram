@@ -37,7 +37,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(sass|scss)$/,
+        test: /\.(s+(a|c)ss|css)$/,
         use: isProd ? cssProd : cssDev
       },
       {
@@ -46,6 +46,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
+        // use: 'file-loader'
         use: 'file-loader?name=images/[hash:6].[ext]'
       }
     ]

@@ -7,9 +7,11 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     header
-      h1= h.siteName
     main 
-      nav
-        each i in h.menu
-          a(href=i.url) #{i.title}  
+      nav.nav.row
+        .nav__logo
+          a(href="#") Logo
+        .nav__user
+          a(href="#") Likes
+          a(href="#") Cuenta // Log in
       block content
