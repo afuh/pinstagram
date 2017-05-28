@@ -1,0 +1,10 @@
+extends layout
+include mixins/_formAccount
+include mixins/_formPassword
+
+block content
+  .form
+    h1 nombre de cuenta
+    p Edit Profile
+    +formAccount()
+    +formPassword()

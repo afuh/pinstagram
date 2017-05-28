@@ -1,4 +1,5 @@
 .img-card
+  font-size: 14px
   margin: 60px auto
   width: 600px
   border: 1px solid #e6e6e6
@@ -17,9 +18,31 @@
     margin: 4px 16px
     padding: 10px
     border-bottom: 1px solid #efefef
-  &__form
+  &__date
+    font-size: 10px
+    text-transform: uppercase
+    color: color(gray)
+  &__comment
     input
       width: 100%
       border: none
       height: 40px
       padding: 16px
+      margin-bottom: 10px
+      &:focus
+        outline: none
+
+.content
+  &__icons
+    margin: 10px 0
+  &__comments
+    li
+      margin: 8px 0
+      a
+        color: color(black)
+        font-weight: 600
+        &:hover
+          text-decoration: none
+  &__likes
+    font-weight: 600
+    color: colo(black)

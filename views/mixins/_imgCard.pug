@@ -14,7 +14,15 @@ mixin imgCard(img = {})
         .content__likes
           span 15 Me gusta
         .content__comments
-          span Lorem ipsum dolor sit amet, consectetur adipisicing elit
-      .img-card__form
+          ul
+            li
+              a(href="#") usuario1 
+              span Lorem ipsum dolor sit amet, consectetur elit
+            li
+              a(href="#") usuario2 
+              span Lorem ipsum dolor sit amet, consectetur adipisicing elit  
+        .img-card__date
+          p hace 14 horas
+      .img-card__comment
         form.comment(id="comment", method="POST", action="#")
           input(name="text", placeholder="Añade un comentario...")

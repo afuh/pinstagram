@@ -1,0 +1,7 @@
+mixin formLogin()
+  form.form__login.col(action="/login" method="POST")
+    input(type="email" name="email" placeholder="Username" required)
+    input(type="password" name="password" placeholder="Password" required) 
+    .forgot-pass
+      a(href="/reset") Forgot?
+    input.button(type="submit" value="Log In")
