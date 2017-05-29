@@ -7,7 +7,6 @@ const crypto = require('crypto');
 
 // const parser = require('ua-parser-js');
 // const requestIp = require('request-ip');
-// const crypto = require('crypto');
 // const axios = require('axios');
 
 const Image = mongoose.model('Image');

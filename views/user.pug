@@ -8,15 +8,16 @@ block content
           img(src="https://unsplash.it/152/152", alt="test")
         .header__data.col
           .header__data--name.row
-            h2 nombre de la cuenta
-            a(href="/user/edit")
+            h2= user.username
+            a(href=`/user/edit`)
               button(type="button") edit
           .header__data--statistics.row 
             span 30 publicaciones
             span 49 seguidores
             span 27 seguidos
-          .header__data--name
-            span nombre del usuario  
+          .header__data--profile
+            p nombre del usuario
+            p bio
       .gallery.row
         each image in images  
           a.gallery__img.row(href=`/user/p/${image.url}`)
