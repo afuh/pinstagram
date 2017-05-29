@@ -1,7 +1,7 @@
 mixin formRegister()
   form.form__register.col(action="/register" method="POST")
     input(type="email" name="email" placeholder="Email Address" required)
-    input(type="text" name="name" placeholder="username" required)
+    input(type="text" name="username" placeholder="Username" required)
     input(type="password" name="password" placeholder="Password" required)
     input(type="password" name="password-confirm" placeholder="Confirm Password" required)
     input.button(type="submit" value="Sign up")

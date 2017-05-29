@@ -4,30 +4,18 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const jimp = require('jimp');
 const crypto = require('crypto');
+
 // const parser = require('ua-parser-js');
 // const requestIp = require('request-ip');
-// const validator = require('validator');
 // const crypto = require('crypto');
 // const axios = require('axios');
 
-
-// const User = mongoose.model('User');
 const Image = mongoose.model('Image');
-
-exports.showLogin = (req, res) => {
-  res.render('login', { title: "Login" });
-}
 
 exports.showEditAccount = (req, res) => {
   res.render('account', { title: "Account" });
 }
 
-// exports.updateAccount = async (req, res) => {
-//   // const user = await (new User(req.body)).save();
-//   // res.redirect('back')
-//
-//   res.json(req.body)
-// }
 
 exports.recentImages = async (req, res) => {
   const images = await Image.find().sort({ created: 'desc' }).limit(12);

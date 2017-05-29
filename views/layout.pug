@@ -12,8 +12,11 @@ html
         .nav__logo
           a(href="/") Logo
         .nav__user
-          a(href="#") Likes
-          a(href="/user/upload") Add Image
-          a(href="/login") Log in
-          a(href="/user") Account
+          if user
+            a(href="#") Likes
+            a(href="/user/upload") Add Image
+            a(href="/logout") Log out
+            a(href="/user") Account
+          else 
+            a(href="/login") Log in  
       block content

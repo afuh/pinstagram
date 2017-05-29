@@ -21,4 +21,7 @@ block content
         each image in images  
           a.gallery__img.row(href=`/user/p/${image.url}`)
             img(src=`/uploads/${image.photo}` alt=`${image.caption}`)
-      
+            .hover.row
+              span ♥️
+              span 💬  
+    

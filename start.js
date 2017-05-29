@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
+const mongodbErrorHandler = require('mongoose-mongodb-errors')
 require('dotenv').config({ path: 'variables.env' });
 
 mongoose.connect(process.env.DATABASE);
+mongoose.plugin(mongodbErrorHandler);
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {
   console.error(`🚫 → ${err.message}`);

@@ -20,6 +20,7 @@
     justify-content: space-between
     &__img
       +grid(4, 12)
+      position: relative
       max-width: 290px
       max-height: 290px
       margin: 12px 0
@@ -28,3 +29,12 @@
       overflow: hidden
       img
         +size(auto, 100%)
+      .hover
+        +size(100%, 100%)
+        opacity: 0
+        justify-content: center
+        align-items: center
+        position: absolute
+        background: rgba(black, 0.3)
+        &:hover
+          opacity: 1
