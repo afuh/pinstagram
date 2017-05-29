@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-exports.siteName = `New Project`;
+exports.siteName = `Instagramo`;
 
 exports.dump = obj => JSON.stringify(obj, null, 2);
 

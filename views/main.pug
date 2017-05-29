@@ -2,4 +2,5 @@ extends layout
 include mixins/_imgCard
 
 block content
-  +imgCard()
+  each image in images
+    +imgCard(image)

@@ -18,6 +18,7 @@ block content
           .header__data--name
             span nombre del usuario  
       .gallery.row
-        each i in h.img
-          img.gallery__img(src=`${i}`, alt="")
+        each image in images  
+          a.gallery__img.row(href=`/user/p/${image.url}`)
+            img(src=`/uploads/${image.photo}` alt=`${image.caption}`)
       

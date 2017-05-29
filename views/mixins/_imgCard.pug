@@ -6,7 +6,7 @@ mixin imgCard(image = {})
           img(src=`/`, alt="a")
         span nombre de usuario
       .img-card__image
-        img(src=`/uploads/${image.photo}` alt="nombre de usuario")  
+        img(src=`/uploads/${image.photo}` alt=`${image.caption}`)  
       .img-card__content
         .content__icons
           span ♥️

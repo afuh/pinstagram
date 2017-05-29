@@ -19,5 +19,12 @@
     flex-wrap: wrap
     justify-content: space-between
     &__img
-      +grid(3, 12)
+      +grid(4, 12)
+      max-width: 290px
+      max-height: 290px
       margin: 12px 0
+      align-items: center
+      justify-content: center
+      overflow: hidden
+      img
+        +size(auto, 100%)

@@ -18,16 +18,8 @@ exports.showLogin = (req, res) => {
   res.render('login', { title: "Login" });
 }
 
-exports.showMain = (req, res) => {
-  res.render('main', { title: "Home" });
-}
-
 exports.showEditAccount = (req, res) => {
   res.render('account', { title: "Account" });
-}
-
-exports.showUser = (req, res) => {
-  res.render('user', { title: "User" });
 }
 
 // exports.updateAccount = async (req, res) => {
@@ -37,6 +29,15 @@ exports.showUser = (req, res) => {
 //   res.json(req.body)
 // }
 
+exports.recentImages = async (req, res) => {
+  const images = await Image.find().sort({ created: 'desc' }).limit(12);
+  res.render('main', { title: "Home", images });
+}
+
+exports.showUser = async (req, res) => {
+  const images = await Image.find().sort({ created: 'desc' }).limit(12);
+  res.render('user', { title: "User", images });
+}
 
 exports.imageForm = (req, res) => {
   res.render('uploadImage', { title: "Upload" });
@@ -62,7 +63,7 @@ exports.resize = async (req, res, next) => {
 
   // resize
   const photo = await jimp.read(req.file.buffer);
-  await photo.resize(800, jimp.AUTO);
+  await photo.resize(1080, jimp.AUTO);
   await photo.write(`./public/uploads/${req.body.photo}`);
 
   next();
@@ -70,11 +71,10 @@ exports.resize = async (req, res, next) => {
 
 exports.saveImage = async (req, res) => {
   const image = await (new Image(req.body)).save();
-  res.redirect(`/user/${image.url}`);
+  res.redirect(`/user/p/${image.url}`);
 }
 
 exports.showImage = async (req, res) => {
   const image = await Image.findOne({ url: req.params.image });
-  image.created = "rolo"
   res.render('image', { title: 'Image', image });
 }
