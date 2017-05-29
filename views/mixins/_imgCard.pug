@@ -1,12 +1,12 @@
-mixin imgCard(img = {})
+mixin imgCard(image = {})
   section
     .img-card
       .img-card__header.row
         a.img(href="/user") 
-          img(src="https://unsplash.it/30/30", alt="a")
+          img(src=`/`, alt="a")
         span nombre de usuario
       .img-card__image
-        img(src="https://unsplash.it/600/600")  
+        img(src=`/uploads/${image.photo}` alt="nombre de usuario")  
       .img-card__content
         .content__icons
           span ♥️
@@ -14,6 +14,7 @@ mixin imgCard(img = {})
         .content__likes
           span 15 Me gusta
         .content__comments
+          p.caption= image.caption
           ul
             li
               a(href="#") usuario1 
@@ -22,7 +23,7 @@ mixin imgCard(img = {})
               a(href="#") usuario2 
               span Lorem ipsum dolor sit amet, consectetur adipisicing elit  
         .img-card__date
-          p hace 14 horas
+          p= h.moment(image.created).startOf().fromNow()
       .img-card__comment
         form.comment(id="comment", method="POST", action="#")
           input(name="text", placeholder="Añade un comentario...")
