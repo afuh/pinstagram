@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const slug = require('slugs');
+const md5 = require('md5');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 mongoose.Promise = global.Promise
@@ -29,7 +30,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  photo: String,
   slug: String,
   created: {
     type: Date,
@@ -47,6 +47,12 @@ userSchema.pre('save', function(next) {
   this.slug = slug(this.username);
   next();
 });
+
+userSchema.virtual('gravatar').get(function(){
+  const hash = md5(this.email);
+  return `https://gravatar.com/avatar/${hash}?d=identicon`;
+});
+
 
 // https://github.com/saintedlama/passport-local-mongoose#options
 userSchema.plugin(passportLocalMongoose, { usernameField: 'username' })

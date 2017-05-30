@@ -1,4 +1,4 @@
-mixin formAccount()
+mixin formProfile()
   form.form__account.col(action="/user/edit" method="POST")
     input(type="text" name="name" placeholder="Name" value=`${user.name || ""}`)
     input(type="text" name="username" placeholder="Username" value=`${user.username}` required)

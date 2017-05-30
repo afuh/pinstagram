@@ -3,7 +3,7 @@ mixin imgCard(image = {})
     .img-card
       .img-card__header.row
         a.img(href="/user") 
-          img(src=`/`, alt="a")
+          img(src=`${user.gravatar}&s=30 || "https://unsplash.it/30/30"}`, alt=`${user.name}'s' avatar`)
         span nombre de usuario
       .img-card__image
         img(src=`/uploads/${image.photo}` alt=`${image.caption}`)  
