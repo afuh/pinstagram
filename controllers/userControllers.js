@@ -4,12 +4,12 @@ const User = mongoose.model('User');
 const Image = mongoose.model('Image');
 
 exports.showUser = async (req, res, next) => {
-  const userPromise = User.findOne({ slug: req.params.user })
-  const imagesPromise = Image.find().sort({ created: 'desc' }).limit(12);
-  const [profile, images] = await Promise.all([userPromise, imagesPromise]);
+  const profile = await User.findOne({ slug: req.params.user });
   if (!profile) return next();
+  const images = await Image.find({ author: profile._id }).sort({ created: 'desc' }).limit(12);
   res.render('user', { title: "User", images, profile });
 }
+
 
 exports.showUserData = (req, res) => {
   res.render('profile', { title: "Edit Profile" });
@@ -23,6 +23,7 @@ exports.getUser = async (req, res, next) => {
 
 // https://docs.mongodb.com/manual/reference/method/db.collection.findOneAndUpdate/
 exports.updateAccount = async (req, res) => {
+
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: {

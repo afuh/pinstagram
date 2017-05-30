@@ -17,6 +17,11 @@ const imageSchema = new mongoose.Schema({
   created: {
     type: Date,
     default: Date.now
+  },
+  author: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true
   }
 });
 
@@ -24,5 +29,13 @@ imageSchema.pre('save', function(next){
   this.caption = striptags(this.caption);
   next();
 });
+
+function autopopulate(next) {
+  this.populate('author');
+  next();
+}
+
+imageSchema.pre('find', autopopulate);
+imageSchema.pre('findOne', autopopulate);
 
 module.exports = mongoose.model('Image', imageSchema);

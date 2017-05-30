@@ -12,13 +12,12 @@ const crypto = require('crypto');
 const Image = mongoose.model('Image');
 const User = mongoose.model('User');
 
-
+// Home page
 exports.recentImages = async (req, res) => {
   if (!req.user) {
     res.redirect('/login');
     return;
   }
-  // TODO: Links!!
   const images = await Image.find().sort({ created: 'desc' }).limit(12);
   res.render('main', { title: "Home", images });
 }
@@ -54,13 +53,13 @@ exports.resize = async (req, res, next) => {
 }
 
 exports.saveImage = async (req, res) => {
+  req.body.author = req.user._id;
   const image = await (new Image(req.body)).save();
+  // req.flash('success', 'bla bla');
   res.redirect(`/user/p/${image.url}`);
 }
 
 exports.showImage = async (req, res) => {
-  const userPromise = User.findOne({ slug: req.params.user })
-  const imagePromise = Image.findOne({ url: req.params.image });
-  const [profile, image] = await Promise.all([userPromise, imagePromise])
-  res.render('image', { title: 'Image', image, profile });
+  const image = await Image.findOne({ url: req.params.image });
+  res.render('image', { title: 'Image', image });
 }

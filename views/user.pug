@@ -3,7 +3,6 @@ extends layout
 block content
   - const data = { posts: 0, followers: 0, following: 0 }
   section
-    pre= h.dump(user)
     .user
       .header.row
         .header__img.row
@@ -11,8 +10,8 @@ block content
         .header__data.col
           .header__data--name.row
             h2= profile.username
-            if user
-              a(href=`/${user.slug}/edit`) Edit Profile
+            if user && user._id.equals(profile._id)
+              a(href=`/edit`) Edit Profile
           .header__data--statistics.row 
             ul.row
               li <strong>#{data.posts}</strong> posts
