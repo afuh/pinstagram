@@ -10,16 +10,17 @@ const jimp = require('jimp');
 const crypto = require('crypto');
 
 const Image = mongoose.model('Image');
+const User = mongoose.model('User');
 
 
 exports.recentImages = async (req, res) => {
+  if (!req.user) {
+    res.redirect('/login');
+    return;
+  }
+  // TODO: Links!!
   const images = await Image.find().sort({ created: 'desc' }).limit(12);
   res.render('main', { title: "Home", images });
-}
-
-exports.showUser = async (req, res) => {
-  const images = await Image.find().sort({ created: 'desc' }).limit(12);
-  res.render('user', { title: "User", images });
 }
 
 exports.imageForm = (req, res) => {
@@ -58,6 +59,8 @@ exports.saveImage = async (req, res) => {
 }
 
 exports.showImage = async (req, res) => {
-  const image = await Image.findOne({ url: req.params.image });
-  res.render('image', { title: 'Image', image });
+  const userPromise = User.findOne({ slug: req.params.user })
+  const imagePromise = Image.findOne({ url: req.params.image });
+  const [profile, image] = await Promise.all([userPromise, imagePromise])
+  res.render('image', { title: 'Image', image, profile });
 }

@@ -2,6 +2,7 @@ doctype html
 html
   head
     title= `${title} | ${h.siteName}`
+    link(rel="shortcut icon" type="image/ico" href="/images/instagram.ico")
     link(rel='stylesheet', href='/dist/style.css') 
     script(src="http://localhost:8080/public/dist/bundle.js")  
     meta(name="viewport" content="width=device-width, initial-scale=1")
@@ -13,10 +14,10 @@ html
           a(href="/") Logo
         .nav__user
           if user
-            a(href="#") Likes
-            a(href="/user/upload") Add Image
-            a(href="/logout") Log out
-            a(href="/user") Account
+            each i in h.menu
+              a(href=`${i.url}`)= i.title
+            a(href=`/${user.slug}/upload`) Add image  
+            a(href=`/${user.slug}`) Account      
           else 
             a(href="/login") Log in  
       block content

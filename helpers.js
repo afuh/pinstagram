@@ -1,4 +1,4 @@
-const fs = require('fs');
+// const fs = require('fs');
 
 exports.siteName = `Instagramo`;
 
@@ -7,8 +7,8 @@ exports.dump = obj => JSON.stringify(obj, null, 2);
 exports.moment = require('moment');
 
 exports.menu = [
-  { url: '#', title: 'Nav 1'},
-  { url: '#', title: 'Nav 2'}
+  { url: '#', title: 'Likes'},
+  { url: '/logout', title: 'Log out'}
 ];
 
 // exports.icon = (name) => fs.readFileSync(`./public/images/icons/${name}.svg`);

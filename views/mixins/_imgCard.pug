@@ -2,9 +2,9 @@ mixin imgCard(image = {})
   section
     .img-card
       .img-card__header.row
-        a.img(href="/user") 
-          img(src=`${user.gravatar}&s=30 || "https://unsplash.it/30/30"}`, alt=`${user.name}'s' avatar`)
-        span nombre de usuario
+        a.img(href=`/${profile.slug}`) 
+          img(src=`${profile.gravatar}&s=30 || "https://unsplash.it/30/30"}`, alt=`${profile.name}'s' avatar`)
+        span= profile.username
       .img-card__image
         img(src=`/uploads/${image.photo}` alt=`${image.caption}`)  
       .img-card__content
@@ -25,5 +25,11 @@ mixin imgCard(image = {})
         .img-card__date
           p= h.moment(image.created).startOf().fromNow()
       .img-card__comment
-        form.comment(id="comment", method="POST", action="#")
-          input(name="text", placeholder="Añade un comentario...")
+        if (user)
+          form.comment(id="comment", method="POST", action="#")
+            input(name="text", placeholder="Añade un comentario...")
+        else
+          .log-in
+            a(href="/login") Log in 
+            span to like or comment.
+      

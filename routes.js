@@ -17,20 +17,21 @@ router.post('/register',
 
 router.get('/login', auth.loginForm);
 router.post('/login', auth.login);
-
 router.get('/logout', auth.logout);
 
-router.get('/user', catchErrors(img.showUser));
-router.get('/user/upload', img.imageForm);
-router.post('/user/upload',
+router.get('/:user', catchErrors(user.showUser));
+
+router.get('/:user/edit', user.showUserData);
+router.post('/:user/edit',  catchErrors(user.updateAccount));
+
+router.get('/:user/upload', img.imageForm);
+router.post('/:user/upload',
   img.upload,
   catchErrors(img.resize),
   catchErrors(img.saveImage)
 );
-router.get('/user/p/:image', catchErrors(img.showImage));
+router.get('/:user/p/:image', catchErrors(img.showImage));
 
-router.get('/user/edit', user.showUserData);
-router.post('/user/edit',  catchErrors(user.updateAccount));
 
 
 module.exports = router;

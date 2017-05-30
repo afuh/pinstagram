@@ -3,26 +3,27 @@ extends layout
 block content
   - const data = { posts: 0, followers: 0, following: 0 }
   section
+    pre= h.dump(user)
     .user
       .header.row
         .header__img.row
-          img(src=`${user.gravatar}&s=200 || "https://unsplash.it/150/150"}`, alt=`${user.name}'s' avatar`)
+          img(src=`${profile.gravatar}&s=200 || "https://unsplash.it/150/150"}`, alt=`${profile.name}'s' avatar`)
         .header__data.col
           .header__data--name.row
-            h2= user.username
+            h2= profile.username
             if user
-              a(href=`/user/edit`) Edit Profile
+              a(href=`/${user.slug}/edit`) Edit Profile
           .header__data--statistics.row 
             ul.row
               li <strong>#{data.posts}</strong> posts
               li <strong>#{data.followers}</strong> followers
               li <strong>#{data.following}</strong> following
           .header__data--profile
-            h2= user.name || ""
-            span= user.bio || ""
+            h2= profile.name || ""
+            span= profile.bio || ""
       .gallery.row
         each image in images  
-          a.gallery__img.row(href=`/user/p/${image.url}`)
+          a.gallery__img.row(href=`/${profile.slug}/p/${image.url}`)
             img(src=`/uploads/${image.photo}` alt=`${image.caption}`)
             .hover.row
               span ♥️
