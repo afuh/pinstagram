@@ -1,5 +1,5 @@
 mixin formProfile()
-  form.form__account.col(action="/user/edit" method="POST")
+  form.form__account.col(action="/edit" method="POST")
     input(type="text" name="name" placeholder="Name" value=`${user.name || ""}`)
     input(type="text" name="username" placeholder="Username" value=`${user.username}` required)
     input(type="email" name="email" placeholder="Email Address" value=`${user.email}` required)

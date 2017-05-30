@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  - const data = { posts: 0, followers: 0, following: 0 }
+  - const data = { posts: profile.posts, followers: 0, following: 0 }
   section
     .user
       .header.row

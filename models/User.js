@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  posts: {
+    type: Number,
+    default: 0
+  },
   slug: String,
   created: {
     type: Date,

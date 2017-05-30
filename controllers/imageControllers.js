@@ -56,6 +56,13 @@ exports.saveImage = async (req, res) => {
   req.body.author = req.user._id;
   const image = await (new Image(req.body)).save();
   // req.flash('success', 'bla bla');
+
+  const imageCounter = req.user.posts+= 1;
+
+  const user = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $set: { posts: imageCounter } }
+  );
   res.redirect(`/user/p/${image.url}`);
 }
 
