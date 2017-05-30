@@ -1,19 +1,15 @@
 /* eslint-disable no-console */
 
+// const parser = require('ua-parser-js');
+// const requestIp = require('request-ip');
+// const axios = require('axios');
+
 const mongoose = require('mongoose');
 const multer = require('multer');
 const jimp = require('jimp');
 const crypto = require('crypto');
 
-// const parser = require('ua-parser-js');
-// const requestIp = require('request-ip');
-// const axios = require('axios');
-
 const Image = mongoose.model('Image');
-
-exports.showEditAccount = (req, res) => {
-  res.render('account', { title: "Account" });
-}
 
 
 exports.recentImages = async (req, res) => {

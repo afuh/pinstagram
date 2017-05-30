@@ -1,28 +1,29 @@
 extends layout
 
 block content
+  - const data = { posts: 0, followers: 0, following: 0 }
   section
     .user
       .header.row
         .header__img.row
-          img(src="https://unsplash.it/152/152", alt="test")
+          img(src=`${user.photo || "https://unsplash.it/150/150"}`, alt=`${user.name}'s' avatar`)
         .header__data.col
           .header__data--name.row
             h2= user.username
-            a(href=`/user/edit`)
-              button(type="button") edit
+            if user
+              a(href=`/user/edit`) Edit Profile
           .header__data--statistics.row 
-            span 30 publicaciones
-            span 49 seguidores
-            span 27 seguidos
+            ul.row
+              li <strong>#{data.posts}</strong> posts
+              li <strong>#{data.followers}</strong> followers
+              li <strong>#{data.following}</strong> following
           .header__data--profile
-            p nombre del usuario
-            p bio
+            h2= user.name || ""
+            span= user.bio || ""
       .gallery.row
         each image in images  
           a.gallery__img.row(href=`/user/p/${image.url}`)
             img(src=`/uploads/${image.photo}` alt=`${image.caption}`)
             .hover.row
               span ♥️
-              span 💬  
-    
+              span 💬

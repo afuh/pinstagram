@@ -13,8 +13,48 @@
         +size(150px, 150px)
         border-radius: 50%
     &__data
+      height: 150px
+      justify-content: space-between
       +grid(4, 6)
       padding: 10px
+      &--name
+        align-items: center
+        h2
+          margin: 0
+          font-weight: 200
+          font-size: 32px
+          line-height: 40px
+          white-space: nowrap
+          margin-right: 20px
+        a
+          font:
+            size: 14px
+            weight: 600
+          line-height: 26px
+          cursor: pointer
+          background: transparent
+          border: 1px solid color(lightgray)
+          color: color(black)
+          text-decoration: none
+          padding: 0 24px
+          border-radius: 3px
+          &:active
+            opacity: 0.5
+      &--statistics
+        ul
+          margin: 10px 0
+          li
+            font-size: 16px
+            margin-right: 40px
+      &--profile
+        h2
+          display: inline
+          font-size: 16px
+          margin: 0
+          font-weight: 600
+        span
+          margin-left: 8px
+
   .gallery
     flex-wrap: wrap
     justify-content: space-between

@@ -48,7 +48,7 @@ userSchema.pre('save', function(next) {
   next();
 });
 
+// https://github.com/saintedlama/passport-local-mongoose#options
 userSchema.plugin(passportLocalMongoose, { usernameField: 'username' })
-
 
 module.exports = mongoose.model('User', userSchema);

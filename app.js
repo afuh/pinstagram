@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(expressValidator());
 
+// https://github.com/expressjs/session#api
 app.use(session({
   secret: process.env.SECRET,
   key: process.env.KEY,
@@ -33,6 +34,7 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
+// http://www.passportjs.org/docs#middleware
 app.use(passport.initialize());
 app.use(passport.session());
 

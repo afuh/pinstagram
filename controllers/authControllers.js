@@ -25,7 +25,7 @@ exports.validateRegister = (req, res, next) => {
 
   const errors = req.validationErrors();
   if (errors) {
-    req.flash('error', errors.map(err => err.msg) );
+    // req.flash('error', errors.map(err => err.msg) );
     res.render('register', {title: 'Register', body: req.body });
     return;
   }
@@ -34,7 +34,7 @@ exports.validateRegister = (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   const user = new User({ email: req.body.email, username: req.body.username });
-  const register = promisify(User.register, User); // Passport!!
+  const register = promisify(User.register, User);
   await register(user, req.body.password);
   next();
 };
@@ -52,6 +52,6 @@ exports.login = passport.authenticate('local', {
 
 exports.logout = (req, res) => {
   req.logout()
-  req.flash('success', 'You are now logged out!')
+  // req.flash('success', 'You are now logged out!')
   res.redirect('/login')
 }

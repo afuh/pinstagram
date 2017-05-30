@@ -3,5 +3,5 @@ mixin formAccount()
     input(type="text" name="name" placeholder="Name" value=`${user.name || ""}`)
     input(type="text" name="username" placeholder="Username" value=`${user.username}` required)
     input(type="email" name="email" placeholder="Email Address" value=`${user.email}` required)
-    textarea(name="bio" placeholder="Bio" value=`${user.bio || ""}`)
+    textarea(name="bio" placeholder="Bio")= `${user.bio || ""}`
     input.button(type="submit" value="Submit")
