@@ -13,6 +13,8 @@ exports.menu = [
 
 // exports.icon = (name) => fs.readFileSync(`./public/images/icons/${name}.svg`);
 
+exports.gravatar = "Your Gravatar is an image that follows you from site to site appearing beside your name when you do things like comment or post on a blog. Avatars help identify your posts on blogs and web forums, so why not on any site?"
+
 exports.img = [
   "http://source.unsplash.com/random/290x290?sig=0",
   "http://source.unsplash.com/random/290x290?sig=1",

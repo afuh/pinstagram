@@ -6,7 +6,7 @@ block content
     .user
       .header.row
         .header__img.row
-          img(src=`${profile.gravatar}&s=200 || "https://unsplash.it/150/150"}`, alt=`${profile.name}'s' avatar`)
+          img(src=`${profile.gravatar}&s=200 || "https://unsplash.it/150/150"}`, alt=`${profile.name}'s' avatar` title=`${h.gravatar}`)
         .header__data.col
           .header__data--name.row
             h2= profile.username
@@ -20,10 +20,13 @@ block content
           .header__data--profile
             h2= profile.name || ""
             span= profile.bio || ""
+            if profile.webiste
+            a(href=`${profile.website}`, target="_blank")= profile.website
       .gallery.row
         each image in images  
           a.gallery__img.row(href=`/${profile.slug}/p/${image.url}`)
-            img(src=`/uploads/${image.photo}` alt=`${image.caption}`)
+            img(src=`/uploads/images/${image.photo}` alt=`${image.caption}`)
             .hover.row
-              span ♥️
-              span 💬
+              if user
+                span ♥️
+                span 💬

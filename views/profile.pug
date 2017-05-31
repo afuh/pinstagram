@@ -4,7 +4,9 @@ include mixins/_formPassword
 
 block content
   .form
-    h1= user.username
-    p Edit Profile
+    .form__header.row
+      a(href="https://en.gravatar.com/site/login", target="_blank" title=`${h.gravatar}`)
+        img.gravatar(src=`${user.gravatar}&s=60`, alt=`${user.name}'s' avatar`)
+      h1= user.username
     +formProfile()
     +formPassword()

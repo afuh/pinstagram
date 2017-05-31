@@ -30,11 +30,12 @@ exports.updateAccount = async (req, res) => {
         name: req.body.name,
         username: req.body.username,
         email: req.body.email,
+        website: req.body.website,
         bio: req.body.bio
       }
     },
     { new: true, runValidators: true, context: 'query' }
   );
   // req.flash('success', "Updated the profile!");
-  res.redirect('back')
+  res.redirect(`${req.user.slug}`)
 }

@@ -22,7 +22,7 @@ router.get('/logout', auth.logout);
 router.get('/:user', catchErrors(user.showUser));
 
 router.get('/edit', user.showUserData);
-router.post('/edit',  catchErrors(user.updateAccount));
+router.post('/edit', catchErrors(user.updateAccount));
 
 router.get('/:user/upload', img.imageForm);
 router.post('/:user/upload',

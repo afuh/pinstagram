@@ -6,11 +6,12 @@ mixin imgCard(image = {})
           img(src=`${image.author.gravatar}&s=30 || "https://unsplash.it/30/30"}`, alt=`${image.author.name}'s' avatar`)
         span= image.author.username
       .img-card__image
-        img(src=`/uploads/${image.photo}` alt=`${image.caption}`)  
+        img(src=`/uploads/images/${image.photo}` alt=`${image.caption}`)  
       .img-card__content
         .content__icons
-          span ♥️
-          span 💬
+          if user
+            span ♥️
+            span 💬
         .content__likes
           span 15 Me gusta
         .content__comments
@@ -28,8 +29,3 @@ mixin imgCard(image = {})
         if (user)
           form.comment(id="comment", method="POST", action="#")
             input(name="text", placeholder="Añade un comentario...")
-        else
-          .log-in
-            a(href="/login") Log in
-            span  to like or comment.
-      

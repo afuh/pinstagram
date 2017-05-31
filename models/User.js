@@ -30,6 +30,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  website: {
+    type: String,
+    trim: true,
+    validate: [validator.isURL, 'Invalid Url']
+  },
   posts: {
     type: Number,
     default: 0
