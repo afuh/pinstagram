@@ -16,7 +16,7 @@
     "assets": "webpack -w --display-max-modules 0",
     "devServer": "webpack-dev-server --inline",
     "prod": "npm run clean && NODE_ENV=production webpack -p --output-public-path /public/dist",
-    "fotos": "rimraf ./public/uploads/images/*"
+    "fotos": "rimraf ./public/uploads/*"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",

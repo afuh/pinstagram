@@ -25,7 +25,7 @@ block content
       .gallery.row
         each image in images  
           a.gallery__img.row(href=`/${profile.slug}/p/${image.url}`)
-            img(src=`/uploads/images/${image.photo}` alt=`${image.caption}`)
+            img(src=`/uploads/${image.photo}` alt=`${image.caption}`)
             .hover.row
               if user
                 span ♥️

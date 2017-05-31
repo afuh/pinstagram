@@ -3,6 +3,7 @@ const { catchErrors } = require('./handlers/errors');
 const img = require('./controllers/imageControllers');
 const auth = require('./controllers/authControllers');
 const user = require('./controllers/userControllers');
+const comment = require('./controllers/commentControllers');
 
 const router = express.Router();
 
@@ -31,6 +32,8 @@ router.post('/:user/upload',
   catchErrors(img.saveImage)
 );
 router.get('/:user/p/:image', catchErrors(img.showImage));
+
+router.post('/comment/:id', catchErrors(comment.addComment));
 
 
 module.exports = router;

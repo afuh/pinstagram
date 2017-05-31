@@ -23,6 +23,8 @@ const imageSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   }
+}, {
+  toJSON: { virtuals: true } // show me the virtuals!
 });
 
 imageSchema.pre('save', function(next){
@@ -30,8 +32,15 @@ imageSchema.pre('save', function(next){
   next();
 });
 
+// http://mongoosejs.com/docs/populate.html
+imageSchema.virtual('comments', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'image'
+});
+
 function autopopulate(next) {
-  this.populate('author');
+  this.populate('author comments');
   next();
 }
 
