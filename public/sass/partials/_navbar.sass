@@ -1,19 +1,34 @@
 .nav
-  +position(space-between, center)
+  +position(space-around, center)
   background: #fff
   height: 77px
-  padding: 0 40px
   border-bottom: 1px solid rgba(0,0,0,.1)
+  &__logo
+    a
+      +logo()
   &__user
+    align-items: center
+    .log
+      color: #262626
+      font-weight: 300
+      white-space: nowrap
     a
       margin: 0 10px
+      text-decoration: none
     .icon__heart
-      position: relative
-      +size(24px, 24px)
-      background: url(../images/insta.png) no-repeat 0 -322px
+      background: url(../images/heart.png)
       +position(center, center)
       span
-        text-decoration: none
         font-size: 14px
         font-weight: bold
         color: color(white)
+    .icon__account
+      background: url(../images/user.png)
+    .icon__upload
+      background: url(../images/Upload-icon.png)
+    .icon__heart,
+    .icon__upload,
+    .icon__account
+      +size(24px, 24px)
+      background-size: cover
+      background-repeat: no-repeat

@@ -4,7 +4,9 @@ include mixins/_formLogin
 block content
   section
     .form
-      h1 LOGO
+      .header
+        h1= h.siteName
+      p Log in to see photos and videos from your friends.  
       //- .facebook_register.col
       //-   form(method="GET", action="/login/facebook")
       //-     input.button(type="submit" value="Log in with Facebook")

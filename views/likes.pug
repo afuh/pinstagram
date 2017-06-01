@@ -1,0 +1,9 @@
+extends layout
+include mixins/_gallery
+
+block content
+  section
+    .content
+      .gallery.row
+        each image in images  
+          +gallery(image)

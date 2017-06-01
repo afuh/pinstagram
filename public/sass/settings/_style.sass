@@ -1,5 +1,10 @@
 // ================ Reset ================ //
 
+// @import url('https://fonts.googleapis.com/css?family=Pacifico')
+// @import url('https://fonts.googleapis.com/css?family=Satisfy')
+@import url('https://fonts.googleapis.com/css?family=Grand+Hotel')
+
+
 $family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif
 $shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)
 
@@ -63,6 +68,12 @@ button, input[type="submit"]
   &:active,
   &:focus
     opacity: 0.7
+
+=logo($size: 2.1em)
+  font-family: 'Grand Hotel', cursive !important
+  color: color(black)
+  text-decoration: none
+  font-size: $size
 
 .form
   font-size: 14px

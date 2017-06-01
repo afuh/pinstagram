@@ -42,6 +42,5 @@ exports.updateAccount = async (req, res) => {
 
 exports.showLikedImages = async (req, res) => {
   const images = await Image.find({ _id: { $in: req.user.likes } })
-
-  res.render('main', {images, title: "Likes"})
+  res.render('likes', {images, title: "Likes"})
 }

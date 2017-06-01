@@ -1,0 +1,10 @@
+mixin gallery(image = {})
+  a.gallery__img.row(href=`/${image.author.slug}/p/${image.url}`)
+    img(src=`/uploads/${image.photo}` alt=`${image.caption}`)
+    .hover__icons.row
+      .icon.row
+        if user
+          .icon__heart
+          span.icon__count 4
+          .icon__comment
+          span.icon__count= image.comments.length

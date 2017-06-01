@@ -1,9 +1,10 @@
 extends layout
+include mixins/_gallery
 
 block content
   - const data = { posts: profile.posts, followers: 0, following: 0 }
   section
-    .user
+    .content
       .header.row
         .header__img.row
           img(src=`${profile.gravatar}&s=200 || "https://unsplash.it/150/150"}`, alt=`${profile.name}'s' avatar` title=`${h.gravatar}`)
@@ -24,12 +25,4 @@ block content
             a(href=`${profile.website}`, target="_blank")= profile.website
       .gallery.row
         each image in images  
-          a.gallery__img.row(href=`/${profile.slug}/p/${image.url}`)
-            img(src=`/uploads/${image.photo}` alt=`${image.caption}`)
-            .hover__icons.row
-              .icon.row
-                if user
-                  .icon__heart
-                  span.icon__count 4
-                  .icon__comment
-                  span.icon__count= image.comments.length
+          +gallery(image)

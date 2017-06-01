@@ -10,12 +10,10 @@ mixin imgCard(image = {})
       .img-card__content
         .content__icons
           if user
-            form.icon(method="POST", action=`/like/${image._id}`)
+            form.icon(method="POST", action=`/api/like/${image._id}`)
               - const likesList = user.likes.map(obj => obj.toString());
               - const likesClass = likesList.includes(image._id.toString()) ? 'icon__heart on' : 'icon__heart'
               button(type="submit" name="likes" class=likesClass)
-            //- a.icon(href=`/like/${image._id}`)
-            //-   .icon__heart
         .content__likes
           if image.likes
             span #{image.likes} likes

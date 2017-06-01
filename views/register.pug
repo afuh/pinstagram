@@ -4,7 +4,8 @@ include mixins/_formRegister
 block content
   section
     .form
-      h1 LOGO
+      .header
+        h1= h.siteName
       p Sign up to see photos and videos from your friends.
       +formRegister()
       a(href="/login") Have an account?
