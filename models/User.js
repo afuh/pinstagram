@@ -35,6 +35,9 @@ const userSchema = new mongoose.Schema({
     trim: true,
     validate: [validator.isURL, 'Invalid Url']
   },
+  likes: [
+    { type: mongoose.Schema.ObjectId, ref: 'Image'}
+  ],
   posts: {
     type: Number,
     default: 0

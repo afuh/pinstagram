@@ -10,10 +10,15 @@ mixin imgCard(image = {})
       .img-card__content
         .content__icons
           if user
-            span ♥️
-            span 💬
+            form.icon(method="POST", action=`/like/${image._id}`)
+              - const likesList = user.likes.map(obj => obj.toString());
+              - const likesClass = likesList.includes(image._id.toString()) ? 'icon__heart on' : 'icon__heart'
+              button(type="submit" name="likes" class=likesClass)
+            //- a.icon(href=`/like/${image._id}`)
+            //-   .icon__heart
         .content__likes
-          span 15 Me gusta
+          if image.likes
+            span #{image.likes} likes
           p.caption= image.caption
         if image.comments.length
         .content__comments   

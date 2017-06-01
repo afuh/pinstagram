@@ -3,8 +3,7 @@
   margin: 0 auto
   padding: 20px
   .header
-    justify-content: center
-    align-items: center
+    +position(center, center)
     padding: 30px 0
     &__img
       +grid(2, 6)
@@ -65,21 +64,38 @@
     justify-content: space-between
     &__img
       +grid(4, 12)
+      +position(center, center)
       position: relative
       max-width: 290px
       max-height: 290px
       margin: 12px 0
-      align-items: center
-      justify-content: center
       overflow: hidden
       img
         +size(auto, 100%)
-      .hover
+      .hover__icons
         +size(100%, 100%)
+        +position(center, center)
         opacity: 0
-        justify-content: center
-        align-items: center
         position: absolute
         background: rgba(black, 0.3)
+        .icon
+          +position(center, center)
+          width: 100%
+          &__heart,
+          &__comment
+            +size(19px, 19px)
+            background: url(../images/insta.png) no-repeat
+            margin: 0 10px
+          &__count
+            font-weight: 600
+            font-size: 14px
+            margin: 0 6px
+            color: #fff
+          &__heart
+            background-position: -355px -137px
+          &__comment
+            background-position: -355px -116px
+
+
         &:hover
           opacity: 1

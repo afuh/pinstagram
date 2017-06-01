@@ -1,10 +1,19 @@
 .nav
+  +position(space-between, center)
   background: #fff
   height: 77px
-  align-items: center
   padding: 0 40px
-  justify-content: space-between
   border-bottom: 1px solid rgba(0,0,0,.1)
   &__user
     a
       margin: 0 10px
+    .icon__heart
+      position: relative
+      +size(24px, 24px)
+      background: url(../images/insta.png) no-repeat 0 -322px
+      +position(center, center)
+      span
+        text-decoration: none
+        font-size: 14px
+        font-weight: bold
+        color: color(white)

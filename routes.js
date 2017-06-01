@@ -35,5 +35,8 @@ router.get('/:user/p/:image', catchErrors(img.showImage));
 
 router.post('/comment/:id', catchErrors(comment.addComment));
 
+router.post('/like/:id', catchErrors(img.addLike));
+
+router.get('/:user/likes', catchErrors(user.showLikedImages))
 
 module.exports = router;

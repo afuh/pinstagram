@@ -22,7 +22,11 @@ const imageSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: true
-  }
+  },
+  // likes: {
+  //   type: Number,
+  //   default: 0
+  // }
 }, {
   toJSON: { virtuals: true } // show me the virtuals!
 });

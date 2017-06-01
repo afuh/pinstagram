@@ -57,11 +57,9 @@ exports.saveImage = async (req, res) => {
   const image = await (new Image(req.body)).save();
   // req.flash('success', 'bla bla');
 
-  const imageCounter = req.user.posts+= 1;
-
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },
-    { $set: { posts: imageCounter } }
+    { $inc: { posts: 1 } }
   );
   res.redirect(`/user/p/${image.url}`);
 }
@@ -70,3 +68,24 @@ exports.showImage = async (req, res) => {
   const image = await Image.findOne({ url: req.params.image });
   res.render('image', { title: 'Image', image });
 }
+
+exports.addLike = async (req, res) => {
+  const likes = req.user.likes.map(obj => obj.toString());
+  const operator = likes.includes(req.params.id) ? '$pull' : '$addToSet';
+
+  const user = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { [operator]: { likes: req.params.id } },
+    { new: true }
+  );
+  res.json(user)
+}
+// exports.addLike = async (req, res) => {
+//
+//   const image = await Image.findOneAndUpdate(
+//     { _id: req.params.id },
+//     { $inc: { likes: 1 } }
+//   );
+//
+//   res.json(image.likes)
+// }

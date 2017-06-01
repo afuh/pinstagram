@@ -39,3 +39,9 @@ exports.updateAccount = async (req, res) => {
   // req.flash('success', "Updated the profile!");
   res.redirect(`${req.user.slug}`)
 }
+
+exports.showLikedImages = async (req, res) => {
+  const images = await Image.find({ _id: { $in: req.user.likes } })
+
+  res.render('main', {images, title: "Likes"})
+}

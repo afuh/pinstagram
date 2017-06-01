@@ -8,16 +8,20 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     header
-    main 
+    main
       nav.nav.row
         .nav__logo
           a(href="/") Logo
-        .nav__user
+        .nav__user.row
           if user
-            each i in h.menu
-              a(href=`${i.url}`)= i.title
+            a(href="/logout") Log out
+            a(href=`/${user.slug}/likes`)
+              .icon__heart.col
+                span.likes-count #{user.likes && user.likes.length}  
             a(href=`/${user.slug}/upload`) Add image  
             a(href=`/${user.slug}`) Account      
           else 
             a(href="/login") Log in  
       block content
+      block scripts
+      script(src="/dist/bundle.js")  
