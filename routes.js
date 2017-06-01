@@ -22,10 +22,10 @@ router.get('/logout', auth.logout);
 
 router.get('/:user', catchErrors(user.showUser));
 
-router.get('/edit', user.showUserData);
+router.get('/edit', auth.isLoggedIn, user.showUserData);
 router.post('/edit', catchErrors(user.updateAccount));
 
-router.get('/:user/upload', img.imageForm);
+router.get('/:user/upload', auth.isLoggedIn, img.imageForm);
 router.post('/:user/upload',
   img.upload,
   catchErrors(img.resize),
@@ -35,8 +35,12 @@ router.get('/:user/p/:image', catchErrors(img.showImage));
 
 router.post('/comment/:id', catchErrors(comment.addComment));
 
-router.post('/like/:id', catchErrors(img.addLike));
 
-router.get('/:user/likes', catchErrors(user.showLikedImages))
+router.get('/:user/likes', auth.isLoggedIn, catchErrors(user.showLikedImages))
+
+
+/* API */
+
+router.post('/api/like/:id', catchErrors(img.addLike));
 
 module.exports = router;
