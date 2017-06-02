@@ -4,6 +4,6 @@ mixin gallery(image = {})
     .hover__icons.row
       .icon.row
         .icon__heart
-        span.icon__count 4
+        span.icon__count= image.likes.length
         .icon__comment
         span.icon__count= image.comments.length

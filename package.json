@@ -10,7 +10,7 @@
   },
   "scripts": {
     "cambiar": "node ./start.js",
-    "start": "concurrently \"npm run nodemon\" \"npm run devServer\" -n \"node,webpack\" --prefix name -c \"blue.bold,magenta.bold\"",
+    "start": "concurrently \"npm run nodemon\" \"npm run assets\" -n \"node,webpack\" --prefix name -c \"blue.bold,magenta.bold\"",
     "clean": "rimraf ./public/dist/*",
     "nodemon": "nodemon ./start.js",
     "assets": "webpack -w --display-max-modules 0",

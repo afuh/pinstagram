@@ -2,7 +2,7 @@ extends layout
 include mixins/_gallery
 
 block content
-  - const data = { posts: profile.posts, followers: 0, following: 0 }
+  - const data = { posts: profile.posts, followers: profile.followers.length, following: profile.following.length }
   section
     .content
       .header.row
@@ -13,11 +13,14 @@ block content
             h2= profile.username
             if user && user._id.equals(profile._id)
               a(href=`/edit`) Edit Profile
+            else if user 
+              form.follow(method="POST", action=`/${profile.username}/follow`)
+                input.button(type="submit")
           .header__data--statistics.row 
             ul.row
-              li <strong>#{data.posts}</strong> posts
-              li <strong>#{data.followers}</strong> followers
-              li <strong>#{data.following}</strong> following
+              li #{data.posts} posts
+              li.followers #{data.followers} followers
+              li.following #{data.following} following
           .header__data--profile
             h2= profile.name || ""
             span= profile.bio || ""

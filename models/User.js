@@ -34,6 +34,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  followers: [
+    { type: String, ref: 'User' }
+  ],
+  following: [
+    { type: String, ref: 'User' }
+  ],
   likes: [
     { type: mongoose.Schema.ObjectId, ref: 'Image'}
   ],
@@ -63,7 +69,6 @@ userSchema.virtual('gravatar').get(function(){
   const hash = md5(this.email);
   return `https://gravatar.com/avatar/${hash}?d=identicon`;
 });
-
 
 // https://github.com/saintedlama/passport-local-mongoose#options
 userSchema.plugin(passportLocalMongoose, { usernameField: 'username' })

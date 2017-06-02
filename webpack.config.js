@@ -27,7 +27,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "public", "dist"),
     filename: 'bundle.js',
-    publicPath: "http://localhost:8080/public/dist"
+    // publicPath: "http://localhost:8080/public/dist"
   },
   module: {
     rules: [
@@ -38,7 +38,8 @@ module.exports = {
       },
       {
         test: /\.(s+(a|c)ss|css)$/,
-        use: isProd ? cssProd : cssDev
+        // use: isProd ? cssProd : cssDev
+        use: cssProd
       },
       {
         test: /\.pug$/,
@@ -61,7 +62,7 @@ module.exports = {
     new ExtractTextPlugin({
        filename: 'style.css',
        allChunks: true,
-       disable: !isProd
+      //  disable: !isProd
      }),
   ]
 };

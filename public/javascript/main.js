@@ -54,3 +54,27 @@ function ajaxComment(e) {
 }
 
 comments.forEach(comment => comment.addEventListener("submit", ajaxComment));
+
+
+
+/*
+  ==== Follow ====
+*/
+/* eslint-enable no-undef */
+const follow = document.querySelector("form.follow");
+const follower = document.querySelector(".followers");
+const following = document.querySelector(".following");
+/* eslint-enable no-undef */
+
+
+function handleFollow(e) {
+  e.preventDefault()
+  axios.post(this.action)
+    .then(res => {
+      follower.textContent = `${res.data.length} followers`;
+    })
+    .catch(error => console.log(error));
+
+}
+
+follow.addEventListener("submit", handleFollow)

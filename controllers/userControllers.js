@@ -47,3 +47,20 @@ exports.showLikedImages = async (req, res) => {
   const images = await Image.find({ _id: { $in: req.user.likes } }).populate('comments')
   res.render('likes', {images, title: "Likes"})
 }
+
+exports.showFollowers = async (req, res) => {
+  const followP = User.findOneAndUpdate(
+    { slug: req.params.user },
+    { $addToSet: { followers: req.user.username} },
+    { new: true }
+  )
+  const followingP = User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $addToSet: { following: req.params.user} },
+    { new: true }
+  )
+
+  const [follow, following] = await Promise.all([ followP, followingP ])
+
+  res.json(follow.followers)
+}
