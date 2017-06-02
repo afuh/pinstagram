@@ -33,14 +33,12 @@ router.post('/:user/upload',
 );
 router.get('/:user/p/:image', catchErrors(img.showImage));
 
-router.post('/comment/:id', catchErrors(comment.addComment));
-
-
 router.get('/:user/likes', auth.isLoggedIn, catchErrors(user.showLikedImages))
 
 
 /* API */
 
 router.post('/api/like/:id', catchErrors(img.addLike));
+router.post('/api/comment/:id', catchErrors(comment.addComment));
 
 module.exports = router;
