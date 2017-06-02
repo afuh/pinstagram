@@ -18,17 +18,16 @@ const imageSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  likes: [
+    { type: mongoose.Schema.ObjectId, ref: 'User' }
+  ],
   author: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: true
   },
-  // likes: {
-  //   type: Number,
-  //   default: 0
-  // }
 }, {
-  toJSON: { virtuals: true } // show me the virtuals!
+  toJSON: { virtuals: true }
 });
 
 imageSchema.pre('save', function(next){
@@ -42,13 +41,5 @@ imageSchema.virtual('comments', {
   localField: '_id',
   foreignField: 'image'
 });
-
-function autopopulate(next) {
-  this.populate('author comments');
-  next();
-}
-
-imageSchema.pre('find', autopopulate);
-imageSchema.pre('findOne', autopopulate);
 
 module.exports = mongoose.model('Image', imageSchema);

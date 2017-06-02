@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const User = mongoose.model('User');
 const Image = mongoose.model('Image');
@@ -6,8 +7,8 @@ const Image = mongoose.model('Image');
 exports.showUser = async (req, res, next) => {
   const profile = await User.findOne({ slug: req.params.user });
   if (!profile) return next();
-  const images = await Image.find({ author: profile._id }).sort({ created: 'desc' }).limit(12);
-  res.render('user', { title: "User", images, profile });
+  const images = await Image.find({ author: profile._id }).sort({ created: 'desc' }).limit(12).populate('comments');
+  res.render('user', { title: profile.username, images, profile });
 }
 
 
@@ -22,7 +23,9 @@ exports.getUser = async (req, res, next) => {
 }
 
 // https://docs.mongodb.com/manual/reference/method/db.collection.findOneAndUpdate/
+
 exports.updateAccount = async (req, res) => {
+  const isUrl = validator.isURL(req.body.website, {  protocols: ['http','https'], require_protocol: true });
 
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },
@@ -30,7 +33,7 @@ exports.updateAccount = async (req, res) => {
         name: req.body.name,
         username: req.body.username,
         email: req.body.email,
-        website: req.body.website,
+        website: isUrl ? req.body.website : "",
         bio: req.body.bio
       }
     },
@@ -41,6 +44,6 @@ exports.updateAccount = async (req, res) => {
 }
 
 exports.showLikedImages = async (req, res) => {
-  const images = await Image.find({ _id: { $in: req.user.likes } })
+  const images = await Image.find({ _id: { $in: req.user.likes } }).populate('comments')
   res.render('likes', {images, title: "Likes"})
 }

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import 'normalize.css';
 import "../sass/main.sass";
 import axios from 'axios';
@@ -10,10 +9,16 @@ const counter = document.querySelector(".likes-count");
 
 function ajaxHeart(e) {
   e.preventDefault();
+
+  const sibling = this.parentNode.nextSibling;
+  const likes = sibling.querySelector(".likes");
+
   axios.post(this.action)
-    .then(data => {
+    .then(res => {
+      const [userLikes, imgLikes] = res.data;
       this.likes.classList.toggle("on");
-      counter.textContent = data.data.likes.length;
+      counter.textContent = userLikes.length;
+      likes.textContent = `${imgLikes.length} likes`;
     })
     .catch(error => console.log(error));
 }
@@ -39,8 +44,7 @@ function ajaxComment(e) {
     .then(res => {
       const render = `
         <li>
-          <a href="${res.data.slug}"> ${res.data.username} </a>
-          <span> ${res.data.comment.text}
+          <a href="/${res.data.slug}">${res.data.username}</a><span>${res.data.comment.text}</span>
         </li>
       `
       commentList.insertAdjacentHTML("beforeend", render);

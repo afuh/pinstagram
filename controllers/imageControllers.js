@@ -18,7 +18,7 @@ exports.recentImages = async (req, res) => {
     res.redirect('/login');
     return;
   }
-  const images = await Image.find().sort({ created: 'desc' }).limit(12);
+  const images = await Image.find().sort({ created: 'desc' }).limit(12).populate('author comments');
   res.render('main', { title: "Home", images });
 }
 
@@ -65,27 +65,43 @@ exports.saveImage = async (req, res) => {
 }
 
 exports.showImage = async (req, res) => {
-  const image = await Image.findOne({ url: req.params.image });
-  res.render('image', { title: 'Image', image });
+  const image = await Image.findOne({ url: req.params.image }).populate('author comments');
+  res.render('image', { title: image.caption, image });
 }
 
-exports.addLike = async (req, res) => {
-  const likes = req.user.likes.map(obj => obj.toString());
-  const operator = likes.includes(req.params.id) ? '$pull' : '$addToSet';
-
-  const user = await User.findOneAndUpdate(
-    { _id: req.user._id },
-    { [operator]: { likes: req.params.id } },
-    { new: true }
-  );
-  res.json(user)
-}
 // exports.addLike = async (req, res) => {
+//   const likes = req.user.likes.map(obj => obj.toString());
+//   const operator = likes.includes(req.params.id) ? '$pull' : '$addToSet';
 //
-//   const image = await Image.findOneAndUpdate(
-//     { _id: req.params.id },
-//     { $inc: { likes: 1 } }
+//   const user = await User.findOneAndUpdate(
+//     { _id: req.user._id },
+//     { [operator]: { likes: req.params.id } },
+//     { new: true }
 //   );
-//
-//   res.json(image.likes)
+//   res.json(user.likes)
 // }
+
+const toggleLikes = (arr, id) => {
+  const likes = arr.map(obj => obj.toString());
+  return likes.includes(id) ? '$pull' : '$addToSet';
+}
+
+// TODO: Mejorar esto, tarda años!!
+exports.addLike = async (req, res) => {
+  const userProm = User.findOneAndUpdate(
+      { _id: req.user._id },
+      { [toggleLikes(req.user.likes, req.params.id)]: { likes: req.params.id } },
+      { new: true }
+    );
+  const img = await Image.findOne(
+    { _id: req.params.id }
+  );
+  const updateProm = Image.findOneAndUpdate(
+    { _id: req.params.id },
+    { [toggleLikes(img.likes, req.user.id)]: { likes: req.user.id } },
+    { new: true }
+  ).populate("likes");
+
+  const [user, image] = await Promise.all([ userProm, updateProm ]);
+  res.json([user.likes, image.likes])
+}

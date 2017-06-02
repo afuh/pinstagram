@@ -3,8 +3,7 @@ mixin gallery(image = {})
     img(src=`/uploads/${image.photo}` alt=`${image.caption}`)
     .hover__icons.row
       .icon.row
-        if user
-          .icon__heart
-          span.icon__count 4
-          .icon__comment
-          span.icon__count= image.comments.length
+        .icon__heart
+        span.icon__count 4
+        .icon__comment
+        span.icon__count= image.comments.length
