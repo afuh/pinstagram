@@ -39,6 +39,6 @@ router.get('/:user/likes', auth.isLoggedIn, catchErrors(user.showLikedImages))
 
 router.post('/api/like/:id', catchErrors(img.addLike));
 router.post('/api/comment/:id', catchErrors(comment.addComment));
-router.post('/:user/follow', catchErrors(user.showFollowers))
+router.post('/api/:user/follow', catchErrors(user.showFollowers))
 
 module.exports = router;

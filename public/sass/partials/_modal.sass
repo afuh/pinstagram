@@ -1,0 +1,65 @@
+
+/* ==== Open/Close ====  */
+.modal
+  +size(50%, auto)
+  max-width: 600px
+  position: fixed
+  top: 10%
+  left: 50%
+  z-index: 9999
+  visibility: hidden
+  transform: translate(-50%)
+  &__show
+    visibility: visible
+  &__content
+    background: #fff
+    transition: all 0.1s
+    transform: scale(1)
+    opacity: 1
+
+.modal__overlay
+  +size(100%, 100vh)
+  position: fixed
+  visibility: hidden
+  top: 0
+  left: 0
+  z-index: 1000
+  opacity: 0
+  background: rgba(black, 0.6)
+  transition: all 0.1s
+
+.modal__show ~ .modal__overlay
+  opacity: 1
+  visibility: visible
+  background: rgba(black, 0.6)
+
+
+/* ==== Style ====  */
+.header
+  border-bottom: solid 1px color(lightgray)
+  +font(16px, 600)
+  padding: 16px
+
+.contact-list
+  li
+    +position(space-around, center)
+    padding: 8px 16px
+    border-bottom: solid 1px color(lightgray)
+    img
+      +grid(1, 6)
+      +size(30px, 30px)
+      border-radius: 50%
+    .user-name
+      padding-left: 10px
+      +grid(5, 6)
+      a
+        color: color(black)
+        +font(15px, 600)
+        line-height: 20px
+        &:hover
+          text-decoration: none
+      span
+        color: color(gray)
+        +font(14px, 400)
+        line-height: 20px
+        white-space: nowrap

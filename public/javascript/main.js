@@ -56,6 +56,27 @@ function ajaxComment(e) {
 comments.forEach(comment => comment.addEventListener("submit", ajaxComment));
 
 
+/*
+  ==== Modal ====
+*/
+/* eslint-enable no-undef */
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".modal__overlay");
+const buttons = document.querySelectorAll(".modal__open");
+/* eslint-enable no-undef */
+
+function closeModal(e) {
+  modal.classList.remove("modal__show");
+  e.stopPropagation()
+}
+
+function showModal() {
+  modal.classList.add("modal__show");
+}
+
+overlay.addEventListener("click", closeModal)
+buttons.forEach(button => button.addEventListener("click", showModal))
+
 
 /*
   ==== Follow ====
@@ -64,17 +85,32 @@ comments.forEach(comment => comment.addEventListener("submit", ajaxComment));
 const follow = document.querySelector("form.follow");
 const follower = document.querySelector(".followers");
 const following = document.querySelector(".following");
-/* eslint-enable no-undef */
 
+const followerList = modal.querySelector(".contact-list");
+
+/* eslint-enable no-undef */
 
 function handleFollow(e) {
   e.preventDefault()
   axios.post(this.action)
     .then(res => {
       follower.textContent = `${res.data.length} followers`;
+      res.data.map(profile => {
+        const render = `
+          <li class="row">
+            <a href="/${profile.slug}" class="img">
+              <img src="${profile.gravatar}" alt="${profile.username}'s avatar">
+            </a>
+            <div class="user-name col">
+              <a href="/${profile.slug}">${profile.username}</a>
+              <span> ${profile.name ? profile.name : ""}
+            </div>
+          </li>
+        `
+        followerList.insertAdjacentHTML("beforeend", render);
+      })
     })
     .catch(error => console.log(error));
-
 }
 
 follow.addEventListener("submit", handleFollow)

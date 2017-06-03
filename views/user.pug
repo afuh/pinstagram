@@ -1,26 +1,25 @@
 extends layout
 include mixins/_gallery
+include mixins/_modal
 
 block content
-  - const data = { posts: profile.posts, followers: profile.followers.length, following: profile.following.length }
   section
     .content
       .header.row
         .header__img.row
-          img(src=`${profile.gravatar}&s=200 || "https://unsplash.it/150/150"}`, alt=`${profile.name}'s' avatar` title=`${h.gravatar}`)
+          img(src=`${profile.gravatar}&s=200}`, alt=`${profile.name}'s' avatar` title=`${h.gravatar}`)
         .header__data.col
           .header__data--name.row
             h2= profile.username
             if user && user._id.equals(profile._id)
               a(href=`/edit`) Edit Profile
             else if user 
-              form.follow(method="POST", action=`/${profile.username}/follow`)
-                input.button(type="submit")
+              form.follow(method="POST", action=`/api/${profile.username}/follow`)
+                button(type="submit") follow
           .header__data--statistics.row 
-            ul.row
-              li #{data.posts} posts
-              li.followers #{data.followers} followers
-              li.following #{data.following} following
+            span #{profile.posts} posts
+            a(href="#").followers.modal__open #{profile.followers.length} followers
+            a(href="#").following.modal__open #{profile.following.length} following
           .header__data--profile
             h2= profile.name || ""
             span= profile.bio || ""
@@ -29,3 +28,4 @@ block content
       .gallery.row
         each image in images  
           +gallery(image)
+    +modal(profile.followers)

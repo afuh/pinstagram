@@ -35,10 +35,10 @@ const userSchema = new mongoose.Schema({
     trim: true
   },
   followers: [
-    { type: String, ref: 'User' }
+    { type: mongoose.Schema.ObjectId, ref: 'User' }
   ],
   following: [
-    { type: String, ref: 'User' }
+    { type: mongoose.Schema.ObjectId, ref: 'User' }
   ],
   likes: [
     { type: mongoose.Schema.ObjectId, ref: 'Image'}
@@ -54,6 +54,9 @@ const userSchema = new mongoose.Schema({
   },
   // resetPasswordToken: String,
   // resetPasswordExpires: Date
+}, {
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true }
 });
 
 userSchema.pre('save', function(next) {

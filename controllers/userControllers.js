@@ -5,7 +5,7 @@ const User = mongoose.model('User');
 const Image = mongoose.model('Image');
 
 exports.showUser = async (req, res, next) => {
-  const profile = await User.findOne({ slug: req.params.user });
+  const profile = await User.findOne({ slug: req.params.user }).populate('followers following');
   if (!profile) return next();
   const images = await Image.find({ author: profile._id }).sort({ created: 'desc' }).limit(12).populate('comments');
   res.render('user', { title: profile.username, images, profile });
@@ -48,19 +48,39 @@ exports.showLikedImages = async (req, res) => {
   res.render('likes', {images, title: "Likes"})
 }
 
+// exports.showFollowers = async (req, res) => {
+//   const follow = await User.findOneAndUpdate(
+//     { slug: req.params.user },
+//     { $addToSet: { followers: req.user._id} },
+//     { new: true }
+//   ).populate('followers')
+//
+//   const following = await User.findOneAndUpdate(
+//     { _id: req.user._id },
+//     { $addToSet: { following: follow._id} },
+//     { new: true }
+//   )
+//
+//   res.json(follow.followers)
+// }
+
 exports.showFollowers = async (req, res) => {
-  const followP = User.findOneAndUpdate(
-    { slug: req.params.user },
-    { $addToSet: { followers: req.user.username} },
-    { new: true }
-  )
-  const followingP = User.findOneAndUpdate(
-    { _id: req.user._id },
-    { $addToSet: { following: req.params.user} },
-    { new: true }
-  )
 
-  const [follow, following] = await Promise.all([ followP, followingP ])
+  const user = await User.findOne({ slug: req.params.user })
 
-  res.json(follow.followers)
+  const followers = user.followers.map(obj => obj.toString());
+  const operator = followers.includes(req.user.id) ? '$pull' : '$addToSet';
+
+  const follow = await user.update(
+    { [operator]: { followers: req.user._id} },
+    { new: true }
+  ).populate('followers')
+
+  // const following = await User.findOneAndUpdate(
+  //   { _id: req.user._id },
+  //   { $addToSet: { following: follow._id} },
+  //   { new: true }
+  // )
+
+  res.json(user.followers)
 }

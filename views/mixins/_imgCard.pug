@@ -3,7 +3,7 @@ mixin imgCard(image = {})
     .img-card
       .img-card__header.row
         a.img(href=`/${image.author.slug}`) 
-          img(src=`${image.author.gravatar}&s=30 || "https://unsplash.it/30/30"}`, alt=`${image.author.name}'s' avatar`)
+          img(src=`${image.author.gravatar}&s=30}`, alt=`${image.author.name}'s' avatar`)
         span= image.author.username
       .img-card__image
         img(src=`/uploads/${image.photo}` alt=`${image.caption}`)  
@@ -30,4 +30,4 @@ mixin imgCard(image = {})
       .img-card__comment
         if (user)
           form.comment(action=`/api/comment/${image._id}`, method="POST")
-            input(name="text", placeholder="Add a comment...")
+            input(name="text", placeholder="Add a comment...", autocomplete="off")
