@@ -59,10 +59,11 @@ comments.forEach(comment => comment.addEventListener("submit", ajaxComment));
 /*
   ==== Modal ====
 */
-/* eslint-enable no-undef */
+/* eslint-disable no-undef */
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".modal__overlay");
-const buttons = document.querySelectorAll(".modal__open");
+const ul = modal.querySelector(".contact-list");
+const header = modal.querySelector(".header");
 /* eslint-enable no-undef */
 
 function closeModal(e) {
@@ -75,42 +76,75 @@ function showModal() {
 }
 
 overlay.addEventListener("click", closeModal)
-buttons.forEach(button => button.addEventListener("click", showModal))
+// buttons.forEach(button => button.addEventListener("click", showModal))
 
 
 /*
   ==== Follow ====
 */
-/* eslint-enable no-undef */
+/* eslint-disable no-undef */
 const follow = document.querySelector("form.follow");
-const follower = document.querySelector(".followers");
-const following = document.querySelector(".following");
-
-const followerList = modal.querySelector(".contact-list");
-
+const follower = document.querySelector("a.followers");
+const following = document.querySelector("a.following");
 /* eslint-enable no-undef */
 
-function handleFollow(e) {
+const render = (res) => {
+  return res.map(data => {
+    return `
+      <li class="row" data-user=${data.username}>
+        <a href="/${data.slug}" class="img">
+          <img src="${data.gravatar}" alt="${data.username}'s avatar">
+        </a>
+        <div class="user-name col">
+          <a href="/${data.slug}">${data.username}</a>
+          <span> ${data.name ? data.name : ''} </span>
+        </div>
+      </li>
+    `;
+  })
+}
+
+function showFollowers(e) {
   e.preventDefault()
-  axios.post(this.action)
+  axios.get(this.href)
     .then(res => {
-      follower.textContent = `${res.data.length} followers`;
-      res.data.map(profile => {
-        const render = `
-          <li class="row">
-            <a href="/${profile.slug}" class="img">
-              <img src="${profile.gravatar}" alt="${profile.username}'s avatar">
-            </a>
-            <div class="user-name col">
-              <a href="/${profile.slug}">${profile.username}</a>
-              <span> ${profile.name ? profile.name : ""}
-            </div>
-          </li>
-        `
-        followerList.insertAdjacentHTML("beforeend", render);
-      })
+      header.innerHTML = "Followers";
+      ul.innerHTML = render(res.data).join(" ")
+      showModal()
     })
     .catch(error => console.log(error));
 }
 
-follow.addEventListener("submit", handleFollow)
+follower.addEventListener("click", showFollowers)
+
+function showFollowing(e) {
+  e.preventDefault()
+  axios.get(this.href)
+    .then(res => {
+      header.innerHTML = "Following";
+      ul.innerHTML = render(res.data).join(" ")
+      showModal()
+    })
+    .catch(error => console.log(error));
+}
+
+following.addEventListener("click", showFollowing)
+
+
+
+function addFollower(e) {
+  e.preventDefault()
+  axios.post(this.action)
+    .then(res => {
+      const followers = `${res.data.length} followers`
+      const button = this.firstChild;
+      follower.innerHTML = followers;
+      button.classList.toggle("Following");
+      button.classList.value.includes('Following') ?
+        button.innerHTML = "Following" :
+        button.innerHTML = "Follow"
+    })
+    .catch(error => console.log(error));
+}
+
+follow.addEventListener("submit", addFollower)

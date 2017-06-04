@@ -7,19 +7,21 @@ block content
     .content
       .header.row
         .header__img.row
-          img(src=`${profile.gravatar}&s=200}`, alt=`${profile.name}'s' avatar` title=`${h.gravatar}`)
+          img(src=`${profile.gravatar}&s=200`, alt=`${profile.name}'s' avatar` title=`${h.gravatar}`)
         .header__data.col
           .header__data--name.row
             h2= profile.username
             if user && user._id.equals(profile._id)
               a(href=`/edit`) Edit Profile
-            else if user 
+            else if user
               form.follow(method="POST", action=`/api/${profile.username}/follow`)
-                button(type="submit") follow
+                - const folllowerList = profile.followers.map(obj => obj._id.toString());
+                - const followClass = folllowerList.includes(user._id.toString()) ? 'Following' : "Follow";
+                button(type="submit" class=followClass)= followClass
           .header__data--statistics.row 
             span #{profile.posts} posts
-            a(href="#").followers.modal__open #{profile.followers.length} followers
-            a(href="#").following.modal__open #{profile.following.length} following
+            a(href=`/api/${profile.username}/followers`).followers.modal__open #{profile.followers.length} followers
+            a(href=`/api/${profile.username}/following`).following.modal__open #{profile.following.length} following
           .header__data--profile
             h2= profile.name || ""
             span= profile.bio || ""
@@ -28,4 +30,4 @@ block content
       .gallery.row
         each image in images  
           +gallery(image)
-    +modal(profile.followers)
+    +modal()

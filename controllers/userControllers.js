@@ -48,39 +48,41 @@ exports.showLikedImages = async (req, res) => {
   res.render('likes', {images, title: "Likes"})
 }
 
-// exports.showFollowers = async (req, res) => {
-//   const follow = await User.findOneAndUpdate(
-//     { slug: req.params.user },
-//     { $addToSet: { followers: req.user._id} },
-//     { new: true }
-//   ).populate('followers')
-//
-//   const following = await User.findOneAndUpdate(
-//     { _id: req.user._id },
-//     { $addToSet: { following: follow._id} },
-//     { new: true }
-//   )
-//
-//   res.json(follow.followers)
-// }
-
-exports.showFollowers = async (req, res) => {
-
+exports.findUser = async (req, res, next) => {
   const user = await User.findOne({ slug: req.params.user })
+  req.body.profile = user;
+  next();
+}
 
-  const followers = user.followers.map(obj => obj.toString());
+exports.follow = async (req, res) => {
+  const profile = req.body.profile;
+  const followers = profile.followers.map(obj => obj.toString());
   const operator = followers.includes(req.user.id) ? '$pull' : '$addToSet';
 
-  const follow = await user.update(
+  // Follow or unfollow this user
+  const userP = User.findOneAndUpdate(
+    { _id: profile._id },
     { [operator]: { followers: req.user._id} },
     { new: true }
-  ).populate('followers')
+  )
 
-  // const following = await User.findOneAndUpdate(
-  //   { _id: req.user._id },
-  //   { $addToSet: { following: follow._id} },
-  //   { new: true }
-  // )
+  // Add or remove of the following list that user
+  const followingP = User.findOneAndUpdate(
+    { _id: req.user._id },
+    { [operator]: { following: profile._id} }
+  )
 
+  const [user, following] = await Promise.all([userP, followingP])
   res.json(user.followers)
+}
+
+
+exports.showFollowers = async (req, res) => {
+  const user = await User.findOne({ slug: req.params.user }).populate('followers')
+  res.json(user.followers)
+}
+
+exports.showFollowing = async (req, res) => {
+  const user = await User.findOne({ slug: req.params.user }).populate('following')
+  res.json(user.following)
 }
