@@ -46,6 +46,8 @@ router.get('/api/:user/following', catchErrors(user.showFollowing))
 router.post('/api/:user/follow',
 catchErrors(user.findUser),
 catchErrors(user.follow)
+  catchErrors(user.findProfile),
+  catchErrors(user.follow)
 )
 
 module.exports = router;

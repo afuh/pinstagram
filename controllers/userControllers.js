@@ -48,7 +48,7 @@ exports.showLikedImages = async (req, res) => {
   res.render('likes', {images, title: "Likes"})
 }
 
-exports.findUser = async (req, res, next) => {
+exports.findProfile = async (req, res, next) => {
   const user = await User.findOne({ slug: req.params.user })
   req.body.profile = user;
   next();

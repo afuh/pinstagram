@@ -18,7 +18,13 @@ exports.recentImages = async (req, res) => {
     res.redirect('/login');
     return;
   }
-  const images = await Image.find().sort({ created: 'desc' }).limit(12).populate('author comments');
+  // Search only my images and the images of the ppl. I follow.
+  const following = req.user.following;
+  following.push(req.user._id)
+
+  const images = await Image.find(
+    { author: following }
+  ).sort({ created: 'desc' }).limit(12).populate('author comments');
   res.render('main', { title: "Home", images });
 }
 
