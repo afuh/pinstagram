@@ -5,9 +5,13 @@
       +logo()
   .form__login
     .forgot-pass
+      position: relative
       text-align: right
       a
         color: color(darkgray)
+        position: absolute
+        top: - 30px
+        right: 10px
   .line-or
     justify-content: space-around
     text-transform: uppercase
@@ -21,3 +25,6 @@
     .or
       color: color(lightgray)
       padding: 0 5px
+  .account_link,
+  &:active
+    color: color(black)

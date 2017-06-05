@@ -69,7 +69,6 @@ exports.follow = async (req, res) => {
   res.json(user.followers)
 }
 
-
 exports.showFollowers = async (req, res) => {
   const user = await User.findOne({ slug: req.params.user }).populate('followers')
   res.json(user.followers)
