@@ -67,7 +67,7 @@ exports.saveImage = async (req, res) => {
     { _id: req.user._id },
     { $inc: { posts: 1 } }
   );
-  res.redirect(`/user/p/${image.url}`);
+  res.redirect(`/p/${image.url}`);
 }
 
 exports.showImage = async (req, res) => {
@@ -75,39 +75,37 @@ exports.showImage = async (req, res) => {
   res.render('image', { title: image.caption, image });
 }
 
-// exports.addLike = async (req, res) => {
-//   const likes = req.user.likes.map(obj => obj.toString());
-//   const operator = likes.includes(req.params.id) ? '$pull' : '$addToSet';
-//
-//   const user = await User.findOneAndUpdate(
-//     { _id: req.user._id },
-//     { [operator]: { likes: req.params.id } },
-//     { new: true }
-//   );
-//   res.json(user.likes)
-// }
-
-const toggleLikes = (arr, id) => {
-  const likes = arr.map(obj => obj.toString());
-  return likes.includes(id) ? '$pull' : '$addToSet';
+exports.findImg = async (req, res, next) => {
+  const img = await Image.findOne( { _id: req.params.id } );
+  req.body.img = img;
+  next();
 }
 
-// TODO: Mejorar esto, tarda años!!
-exports.addLike = async (req, res) => {
-  const userProm = User.findOneAndUpdate(
-      { _id: req.user._id },
-      { [toggleLikes(req.user.likes, req.params.id)]: { likes: req.params.id } },
-      { new: true }
-    );
-  const img = await Image.findOne(
-    { _id: req.params.id }
-  );
-  const updateProm = Image.findOneAndUpdate(
-    { _id: req.params.id },
-    { [toggleLikes(img.likes, req.user.id)]: { likes: req.user.id } },
-    { new: true }
-  ).populate("likes");
+exports.addLike = async (req, res, next) => {
+  const img = req.body.img;
+  const likes = img.likes.map(obj => obj.toString());
+  const operator = likes.includes(req.user.id) ? '$pull' : '$addToSet';
 
-  const [user, image] = await Promise.all([ userProm, updateProm ]);
-  res.json([user.likes, image.likes])
+  const image = await Image.findOneAndUpdate(
+    { _id: req.params.id },
+    { [operator]: { likes: req.user.id } },
+    { new: true }
+  )
+  res.json(image.likes)
+  next()
+}
+
+exports.addToUserLikes = async (req, res, next) => {
+  const likes = req.user.likes.map(obj => obj.toString());
+  const operator = likes.includes(req.params.id) ? '$pull' : '$addToSet';
+  const user = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { [operator]: { likes: req.params.id } },
+    { new: true }
+  )
+}
+
+exports.showLikes = async (req, res) => {
+  const img = await Image.findOne( { _id: req.params.id } ).populate('likes');
+  res.json(img.likes)
 }

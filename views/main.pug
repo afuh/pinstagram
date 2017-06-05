@@ -1,6 +1,8 @@
 extends layout
 include mixins/_imgCard
+include mixins/_modal
 
 block content
+  +modal()
   each image in images
     +imgCard(image)

@@ -8,21 +8,7 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     header
-      nav.nav.row
-        .nav__logo
-          a(href="/")= h.siteName
-        .nav__user.row
-          if user
-            a.log(href="/logout") Log Out
-            a(href=`/${user.slug}/likes`)
-              .icon__heart.row
-                span.likes-count #{user.likes && user.likes.length}  
-            a(href=`/${user.slug}/upload`) 
-              .icon__upload
-            a(href=`/${user.slug}`)
-              .icon__account     
-          else 
-            a.log(href="/login") Log In  
+      include nav  
     article
       block content
       block scripts

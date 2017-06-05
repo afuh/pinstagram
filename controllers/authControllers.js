@@ -4,9 +4,28 @@ const passport = require('passport');
 
 const User = mongoose.model('User');
 
-exports.registerForm = (req, res) => {
-  res.render('register', { title: "register" });
+exports.login = passport.authenticate('local', {
+  failureRedirect: '/login',
+  failureFlash: 'Failed login!',
+  successRedirect: '/',
+  successFlash: 'You are now logged in'
+});
+
+exports.logout = (req, res) => {
+  req.logout()
+  // req.flash('success', 'You are now logged out!')
+  res.redirect('/login')
 }
+
+exports.isLoggedIn = (req, res, next) => {
+  if(req.isAuthenticated()) {
+    next();
+    return;
+  }
+  // req.flash('info', "logueate");
+  res.redirect('/login');
+}
+
 
 // express validator
 exports.validateRegister = (req, res, next) => {
@@ -21,7 +40,6 @@ exports.validateRegister = (req, res, next) => {
   req.checkBody('password', 'Password Cannot be Blank').notEmpty();
   req.checkBody('password-confirm', 'Confirmed Password Cannot be Blank').notEmpty();
   req.checkBody('password-confirm', 'You passwords do not match').equals(req.body.password);
-  next();
 
   const errors = req.validationErrors();
   if (errors) {
@@ -43,24 +61,6 @@ exports.loginForm = (req, res) => {
   res.render('login', { title: "login" });
 }
 
-exports.login = passport.authenticate('local', {
-  failureRedirect: '/login',
-  failureFlash: 'Failed login!',
-  successRedirect: '/',
-  successFlash: 'You are now logged in'
-});
-
-exports.logout = (req, res) => {
-  req.logout()
-  // req.flash('success', 'You are now logged out!')
-  res.redirect('/login')
-}
-
-exports.isLoggedIn = (req, res, next) => {
-  if(req.isAuthenticated()) {
-    next();
-    return;
-  }
-  // req.flash('info', "logueate");
-  res.redirect('/login');
+exports.registerForm = (req, res) => {
+  res.render('register', { title: "register" });
 }

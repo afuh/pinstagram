@@ -2,6 +2,9 @@ import 'normalize.css';
 import "../sass/main.sass";
 import { get, getAll, add, addEach } from './modules/shortDom';
 
+// if (window.performance && window.performance.navigation.type == 2) {
+//   window.location.reload();
+// }
 /*
   ==== Comments ====
 */

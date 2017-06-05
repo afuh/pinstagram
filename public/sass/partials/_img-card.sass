@@ -14,6 +14,11 @@
       margin-right: 8px
     img
       border-radius: 50%
+    a
+      font-weight: 600
+      color: color(black)
+      &:hover
+        text-decoration: none
   &__content
     margin: 4px 16px
     padding: 10px
@@ -36,17 +41,26 @@
     padding: 10px
 
 .content
-  &__icons
-    margin: 10px 0
+  &__likes
+    align-items: center
+    margin-bottom: 10px
+    a
+      font-weight: 600
+      color: color(black)
+      &:hover
+        text-decoration: none
     .icon
       &__heart
         +size(24px, 24px)
         background: url(../images/insta.png) no-repeat
+        margin-right: 12px
         border: none
         background-position: -26px -322px
         &.on
           background-position: 0 -322px
   &__comments
+    max-height: 200px
+    overflow: scroll
     li
       margin: 8px 0
       a
@@ -55,6 +69,3 @@
         margin-right: 0.5em
         &:hover
           text-decoration: none
-  &__likes
-    font-weight: 600
-    color: colo(black)

@@ -4,6 +4,9 @@ include mixins/_gallery
 block content
   section
     .content
+      - const n = images.length
+      - const likes = n === 0 ? "" : n === 1 ? `${n} like` : `${n} likes`
+      h2= likes
       .gallery.row
         each image in images  
           +gallery(image)

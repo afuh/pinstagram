@@ -4,19 +4,18 @@ mixin imgCard(image = {})
       .img-card__header.row
         a.img(href=`/${image.author.slug}`) 
           img(src=`${image.author.gravatar}&s=30}`, alt=`${image.author.name}'s' avatar`)
-        span= image.author.username
+        a(href=`/${image.author.slug}`)= image.author.username
       .img-card__image
         img(src=`/uploads/${image.photo}` alt=`${image.caption}`)  
       .img-card__content
-        .content__icons
+        .content__likes.row
           if user
             form.icon(method="POST", action=`/api/like/${image._id}`)
-              - const likesList = user.likes.map(obj => obj.toString());
-              - const likesClass = likesList.includes(image._id.toString()) ? 'icon__heart on' : 'icon__heart'
+              - const likesList = image.likes.map(obj => obj.toString());
+              - const likesClass = likesList.includes(user._id.toString()) ? 'icon__heart on' : 'icon__heart'
               button(type="submit" name="likes" class=likesClass)
-        .content__likes
-          if image.likes.length > 0
-            span.likes #{image.likes.length} likes
+            a.likes.modal__open(href=`/api/like/${image._id}/show`) #{image.likes.length} likes    
+        .content__caption
           p.caption= image.caption
         if image.comments.length
         .content__comments   
@@ -30,4 +29,4 @@ mixin imgCard(image = {})
       .img-card__comment
         if (user)
           form.comment(action=`/api/comment/${image._id}`, method="POST")
-            input(name="text", placeholder="Add a comment...", autocomplete="off")
+            input(name="text", placeholder="Add a comment...", autocomplete="off")        

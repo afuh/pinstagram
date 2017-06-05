@@ -1,0 +1,14 @@
+nav.nav.row
+  .nav__logo
+    a(href="/")= h.siteName
+  .nav__user.row
+    if user
+      a.log(href="/logout") Log Out
+      a(href=`/${user.slug}/likes`)
+        .icon__heart
+      a(href=`/${user.slug}/upload`) 
+        .icon__upload
+      a(href=`/${user.slug}`)
+        .icon__account
+    else 
+      a.log(href="/login") Log In 
