@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  .form
+    p Reset your password
+    form.form__reset.col(method="POST")
+      input(type="password" name="password" placeholder="Password" required)
+      input(type="password" name="confirm" placeholder="Confirm Password" required)
+      input.button(type="submit" value="Reset password")

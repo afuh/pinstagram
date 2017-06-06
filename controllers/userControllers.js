@@ -32,7 +32,7 @@ exports.updateAccount = async (req, res) => {
     },
     { new: true, runValidators: true, context: 'query' }
   );
-  // req.flash('success', "Updated the profile!");
+  req.flash('success', "Updated the profile!");
   res.redirect(`${req.user.slug}`)
 }
 

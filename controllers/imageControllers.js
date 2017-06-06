@@ -61,7 +61,7 @@ exports.resize = async (req, res, next) => {
 exports.saveImage = async (req, res) => {
   req.body.author = req.user._id;
   const image = await (new Image(req.body)).save();
-  // req.flash('success', 'bla bla');
+  req.flash('success', 'You have posted a new image!');
 
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },

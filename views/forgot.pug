@@ -1,0 +1,10 @@
+extends layout
+include mixins/_formReset
+
+block content
+  section
+    .form
+      .header
+        h1 Reset Password
+      p We can help you reset your password using your email address linked to your account
+      +formReset()

@@ -52,8 +52,8 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  // resetPasswordToken: String,
-  // resetPasswordExpires: Date
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 }, {
   toObject: { virtuals: true },
   toJSON: { virtuals: true }

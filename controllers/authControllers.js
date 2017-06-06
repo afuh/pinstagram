@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const promisify = require("es6-promisify");
 const passport = require('passport');
+const crypto = require('crypto');
 
 const User = mongoose.model('User');
 
@@ -13,7 +14,7 @@ exports.login = passport.authenticate('local', {
 
 exports.logout = (req, res) => {
   req.logout()
-  // req.flash('success', 'You are now logged out!')
+  req.flash('success', 'You are now logged out!')
   res.redirect('/login')
 }
 
@@ -22,7 +23,7 @@ exports.isLoggedIn = (req, res, next) => {
     next();
     return;
   }
-  // req.flash('info', "logueate");
+  req.flash('info', "logueate");
   res.redirect('/login');
 }
 
@@ -43,7 +44,7 @@ exports.validateRegister = (req, res, next) => {
 
   const errors = req.validationErrors();
   if (errors) {
-    // req.flash('error', errors.map(err => err.msg) );
+    req.flash('error', errors.map(err => err.msg) );
     res.render('register', {title: 'Register', body: req.body });
     return;
   }
@@ -63,4 +64,73 @@ exports.loginForm = (req, res) => {
 
 exports.registerForm = (req, res) => {
   res.render('register', { title: "register" });
+}
+
+/*
+  ======= RESET PASSWORD
+*/
+
+// ask the user for the email
+exports.forgotForm = (req, res) => {
+  res.render('forgot', {title: 'forgot'} )
+}
+
+// if the email is true, set the tokens and generate an URL to send it to the user per email
+exports.forgot = async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    req.flash('error', "That e-mail address doesn't have an associated user account. Are you sure you've registered?")
+    return res.redirect('/login')
+  }
+  user.resetPasswordToken = crypto.randomBytes(20).toString('hex');
+  user.resetPasswordExpires = Date.now() + 3600000 // 1 hour from now
+  await user.save();
+
+  const resetURL = `http://${req.headers.host}/reset/${user.resetPasswordToken}`;
+  req.flash('success', "You have been emailed a password reset link")
+  res.redirect('/login');
+}
+
+// middlewar to confirm the tokens
+exports.confirmToken = async (req, res, next) => {
+  const user = await User.findOne({
+    resetPasswordToken: req.params.token,
+    resetPasswordExpires: { $gt: Date.now() }
+  });
+  if (!user) {
+    req.flash('error', 'Password reset is invalid or has expired')
+    return res.redirect('/login');
+  }
+  req.body.user = user;
+  next()
+}
+
+// if the tokens are true, show the reset form
+exports.reset = (req, res) => {
+  res.render('reset', { title: 'Reset your Password' });
+}
+
+// double check the new password
+exports.confirmPasswords = (req, res, next) => {
+  if (req.body.password === req.body.confirm) return next();
+  req.flash('error', 'Password do not match!');
+  res.redirect('back');
+}
+
+// update the User and delete the tokens
+exports.updatePassword = async (req, res) => {
+  const user = req.body.user;
+
+  // passport
+  const setPassword = promisify(user.setPassword, user)
+  await setPassword(req.body.password)
+
+  // reset the tokens
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+  const updateUser = await user.save()
+  await req.login(updateUser);
+
+  req.flash('success', 'Your password has been reset!');
+  res.redirect(`/${user.slug}`);
 }

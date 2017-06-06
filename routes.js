@@ -20,10 +20,20 @@ router.get('/login', auth.loginForm);
 router.post('/login', auth.login);
 router.get('/logout', auth.logout);
 
+
+router.get('/reset', auth.forgotForm);
+router.post('/reset', catchErrors(auth.forgot));
+router.get('/reset/:token', catchErrors(auth.confirmToken), auth.reset)
+router.post('/reset/:token',
+  auth.confirmPasswords,
+  catchErrors(auth.confirmToken),
+  catchErrors(auth.updatePassword)
+)
+
 router.get('/:user', catchErrors(user.showProfile));
 
 router.get('/edit', auth.isLoggedIn, user.showUserData);
-router.post('/edit', catchErrors(user.updateAccount));
+router.post('/edit', catchErrors(auth.updateAccount));
 
 router.get('/:user/upload', auth.isLoggedIn, img.imageForm);
 router.post('/:user/upload',

@@ -1,0 +1,4 @@
+mixin formReset()
+  form.form__reset.col(action="/reset" method="POST")
+    input(type="email" name="email" placeholder="Email Address" required)
+    input.button(type="submit" value="Reset Password")
