@@ -1,6 +1,5 @@
 extends layout
 include mixins/_formProfile
-include mixins/_formPassword
 
 block content
   .form
@@ -9,4 +8,4 @@ block content
         img.gravatar(src=`${user.gravatar}&s=60`, alt=`${user.name}'s' avatar`)
       h1= user.username
     +formProfile()
-    +formPassword()
+    a(href=`/${user.slug}/password`) Change password

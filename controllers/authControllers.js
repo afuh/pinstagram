@@ -119,7 +119,7 @@ exports.confirmPasswords = (req, res, next) => {
 
 // update the User and delete the tokens
 exports.updatePassword = async (req, res) => {
-  const user = req.body.user;
+  const user = req.body.user || req.user;
 
   // passport
   const setPassword = promisify(user.setPassword, user)

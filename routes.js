@@ -20,7 +20,7 @@ router.get('/login', auth.loginForm);
 router.post('/login', auth.login);
 router.get('/logout', auth.logout);
 
-
+// forgot password
 router.get('/reset', auth.forgotForm);
 router.post('/reset', catchErrors(auth.forgot));
 router.get('/reset/:token', catchErrors(auth.confirmToken), auth.reset)
@@ -29,6 +29,14 @@ router.post('/reset/:token',
   catchErrors(auth.confirmToken),
   catchErrors(auth.updatePassword)
 )
+
+// change password
+router.get('/:user/password', auth.isLoggedIn, auth.reset);
+router.post('/:user/password',
+  auth.confirmPasswords,
+  catchErrors(auth.updatePassword)
+)
+
 
 router.get('/:user', catchErrors(user.showProfile));
 
