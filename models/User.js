@@ -52,6 +52,8 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  oauthID: Number,
+  avatar: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date
 }, {
@@ -69,6 +71,8 @@ userSchema.pre('save', function(next) {
 });
 
 userSchema.virtual('gravatar').get(function(){
+  if (!this.email) return;
+
   const hash = md5(this.email);
   return `https://gravatar.com/avatar/${hash}?d=identicon`;
 });

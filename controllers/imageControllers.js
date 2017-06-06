@@ -1,9 +1,4 @@
 /* eslint-disable no-console */
-
-// const parser = require('ua-parser-js');
-// const requestIp = require('request-ip');
-// const axios = require('axios');
-
 const mongoose = require('mongoose');
 const multer = require('multer');
 const jimp = require('jimp');

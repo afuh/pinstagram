@@ -7,12 +7,12 @@ block content
       .header
         h1= h.siteName
       p Log in to see photos and videos from your friends.  
-      //- .facebook_register.col
-      //-   form(method="GET", action="/login/facebook")
-      //-     input.button(type="submit" value="Log in with Facebook")
-      //- .line-or.row
-      //-   span
-      //-   span.or or
-      //-   span
+      .facebook_register.col
+        form(method="GET", action="/login/facebook")
+          input.button(type="submit" value="Log in with Facebook")
+      .line-or.row
+        span
+        span.or or
+        span
       +formLogin()
       a.account_link(href="/register") Don't have an account?

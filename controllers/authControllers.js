@@ -7,6 +7,12 @@ const mail = require('../handlers/mail');
 
 const User = mongoose.model('User');
 
+exports.gotoFacebook = passport.authenticate('facebook', {  scope: ['email']});
+exports.backfromFacebook = passport.authenticate('facebook', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+});
+
 exports.login = passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: 'Failed login!',
@@ -55,7 +61,7 @@ exports.validateRegister = (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   const user = new User({ email: req.body.email, username: req.body.username });
-  const register = promisify(User.register, User);
+  const register = promisify(User.register, User); // passport!
   await register(user, req.body.password);
   next();
 };

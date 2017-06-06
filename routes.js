@@ -9,6 +9,9 @@ const router = express.Router();
 
 router.get('/', catchErrors(img.recentImages));
 
+router.get('/login/facebook', auth.gotoFacebook);
+router.get('/login/facebook/return', auth.backfromFacebook);
+
 router.get('/register', auth.registerForm);
 router.post('/register',
   auth.validateRegister,
@@ -41,7 +44,7 @@ router.post('/:user/password',
 router.get('/:user', catchErrors(user.showProfile));
 
 router.get('/edit', auth.isLoggedIn, user.showUserData);
-router.post('/edit', catchErrors(auth.updateAccount));
+router.post('/edit', catchErrors(user.updateAccount));
 
 router.get('/:user/upload', auth.isLoggedIn, img.imageForm);
 router.post('/:user/upload',

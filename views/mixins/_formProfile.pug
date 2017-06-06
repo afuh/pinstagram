@@ -2,7 +2,7 @@ mixin formProfile()
   form.form__account.col(method="POST")
     input(type="text" name="name" placeholder="Name" value=`${user.name || ""}`)
     input(type="text" name="username" placeholder="Username" value=`${user.username}` required)
-    input(type="email" name="email" placeholder="Email Address" value=`${user.email}` required)
+    input(type="email" name="email" placeholder="Email Address" value=`${user.email}`)
     input(type="url" name="website" placeholder="Website" value=`${user.website || ""}`)
     textarea(name="bio" placeholder="Bio")= `${user.bio || ""}`
     input.button(type="submit" value="Submit")

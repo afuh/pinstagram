@@ -4,8 +4,11 @@ include mixins/_formProfile
 block content
   .form
     .form__header.row
-      a(href="https://en.gravatar.com/site/login", target="_blank" title=`${h.gravatar}`)
-        img.gravatar(src=`${user.gravatar}&s=60`, alt=`${user.name}'s' avatar`)
+      if user.avatar
+        img.gravatar(src=`${user.avatar}`, alt=`${user.name}'s' avatar` style="height: 60px; width: 60px;")
+      else   
+        a(href="https://en.gravatar.com/site/login", target="_blank" title=`${h.gravatar}`)
+          img.gravatar(src=`${user.gravatar}&s=60`, alt=`${user.name}'s' avatar`)
       h1= user.username
     +formProfile()
     a(href=`/${user.slug}/password`) Change password

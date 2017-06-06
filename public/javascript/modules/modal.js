@@ -10,7 +10,7 @@ export const renderModal = (res) => {
     return `
       <li class="row" data-user=${data.username}>
         <a href="/${data.slug}" class="img">
-          <img src="${data.gravatar}" alt="${data.username}'s avatar">
+          <img src="${data.avatar || data.gravatar}" alt="${data.username}'s avatar">
         </a>
         <div class="user-name col">
           <a href="/${data.slug}">${data.username}</a>
