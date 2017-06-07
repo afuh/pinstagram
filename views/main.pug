@@ -1,17 +1,14 @@
 extends layout
 include mixins/_imgCard
 include mixins/_modal
-include mixins/_user-box
 include mixins/_pagination
+include mixins/_tutorial
 
 block content
-  +modal()
   if !images.length && page === 1
-    .tutorial.col
-      h2 Welcome to #{h.siteName}!
-      p You can #[a(href=`/${user.slug}/upload`) upload ] an image and share it with the world, visit your profile #[a(href=`/${user.slug}`) here] or follow other users
-      +userBox(h.suggestions)
+    +tutorial(`Welcome to ${h.siteName}!`)
   else    
     each image in images
       +imgCard(image)
     +pagination(page, pages, count)    
+  +modal()
