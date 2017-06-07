@@ -12,6 +12,7 @@ const promisify = require("es6-promisify");
 const app = express();
 const routes = require('./routes');
 const helpers = require('./helpers');
+const errors = require('./handlers/errors');
 
 // passport
 require('./handlers/passport');
@@ -55,5 +56,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/', routes);
+
+app.use(errors.notFound);
+app.use(errors.productionErrors);
 
 module.exports = app;
