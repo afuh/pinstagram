@@ -1,6 +1,7 @@
 nav.nav.row
   .nav__logo
-    a(href="/")= h.siteName
+    a(href="/")
+      img.logo(src="/images/logo.png", alt="logo" style="width: 35px;")
   .nav__user.row
     if user
       a.log(href="/logout") Log Out

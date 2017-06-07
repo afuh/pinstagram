@@ -101,7 +101,7 @@ exports.findImg = async (req, res, next) => {
   next();
 }
 
-exports.addLike = async (req, res, next) => {
+exports.addLike = async (req, res) => {
   const img = req.body.img;
   const likes = img.likes.map(obj => obj.toString());
   const operator = likes.includes(req.user.id) ? '$pull' : '$addToSet';
@@ -112,7 +112,6 @@ exports.addLike = async (req, res, next) => {
     { new: true }
   )
   res.json(image.likes)
-  next()
 }
 
 exports.showLikes = async (req, res) => {
