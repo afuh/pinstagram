@@ -8,6 +8,7 @@ const comment = require('./controllers/commentControllers');
 const router = express.Router();
 
 router.get('/', catchErrors(img.recentImages));
+router.get('/page/:page', catchErrors(img.recentImages));
 
 router.get('/login/facebook', auth.gotoFacebook);
 router.get('/login/facebook/return', auth.backfromFacebook);

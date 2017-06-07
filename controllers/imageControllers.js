@@ -13,14 +13,34 @@ exports.recentImages = async (req, res) => {
     res.redirect('/login');
     return;
   }
+
+  const page = req.params.page || 1;
+  const limit = 3
+  const skip = (page * limit) - limit
+
   // Search only my images and the images of the ppl. I follow.
   const following = req.user.following;
   following.push(req.user._id)
 
-  const images = await Image.find(
-    { author: following }
-  ).sort({ created: 'desc' }).limit(12).populate('author comments');
-  res.render('main', { title: "Home", images });
+  const imagesP = Image.find( { author: following })
+  .sort({ created: 'desc' })
+  .skip(skip)
+  .limit(limit)
+  .populate('author comments');
+
+  const countP = Image.count({ author: following });
+
+  const [images, count] = await Promise.all([ imagesP, countP ]);
+
+  const pages = Math.ceil(count / limit);
+
+  if(!images.length && skip) {
+    req.flash('info', `Hey! You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
+    res.redirect(`/page/${pages}`);
+    return;
+  }
+  res.render('main', { title: "Home", images, page, pages, count });
+
 }
 
 exports.imageForm = (req, res) => {
