@@ -40,9 +40,6 @@ const userSchema = new mongoose.Schema({
   following: [
     { type: mongoose.Schema.ObjectId, ref: 'User' }
   ],
-  likes: [
-    { type: mongoose.Schema.ObjectId, ref: 'Image'}
-  ],
   posts: {
     type: Number,
     default: 0
@@ -63,16 +60,20 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', function(next) {
   if (!this.isModified('username')) {
-    next(); // skip it
-    return; // stop this funciton
+    next();
+    return;
   }
   this.slug = slug(this.username);
   next();
 });
 
-userSchema.virtual('gravatar').get(function(){
-  if (!this.email) return;
+userSchema.virtual('likes', {
+  ref: 'Image',
+  localField: '_id',
+  foreignField: 'likes'
+});
 
+userSchema.virtual('gravatar').get(function(){
   const hash = md5(this.email);
   return `https://gravatar.com/avatar/${hash}?d=identicon`;
 });

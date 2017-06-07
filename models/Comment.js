@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const striptags = require('striptags');
 
 mongoose.Promise = global.Promise;
 
@@ -21,6 +22,11 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: 'Your comment must have text!'
   }
+});
+
+commentSchema.pre('save', function(next) {
+  this.text = striptags(this.text); 
+  next();
 });
 
 function autopopulate(next) {

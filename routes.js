@@ -70,8 +70,7 @@ router.post('/api/:user/follow',
 
 router.post('/api/like/:id',
   catchErrors(img.findImg),
-  catchErrors(img.addLike),
-  catchErrors(img.addToUserLikes)
+  catchErrors(img.addLike)
 );
 
 router.get('/api/like/:id/show', catchErrors(img.showLikes))

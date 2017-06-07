@@ -90,16 +90,6 @@ exports.addLike = async (req, res, next) => {
   next()
 }
 
-exports.addToUserLikes = async (req, res, next) => {
-  const likes = req.user.likes.map(obj => obj.toString());
-  const operator = likes.includes(req.params.id) ? '$pull' : '$addToSet';
-  const user = await User.findOneAndUpdate(
-    { _id: req.user._id },
-    { [operator]: { likes: req.params.id } },
-    { new: true }
-  )
-}
-
 exports.showLikes = async (req, res) => {
   const img = await Image.findOne( { _id: req.params.id } ).populate('likes');
   res.json(img.likes)
