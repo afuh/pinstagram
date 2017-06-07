@@ -11,7 +11,7 @@ router.get('/', catchErrors(img.recentImages));
 router.get('/page/:page', catchErrors(img.recentImages));
 
 router.get('/login/facebook', auth.gotoFacebook);
-router.get('/login/facebook/return', auth.backfromFacebook);
+router.get('/login/facebook/return', auth.logInFacebook);
 
 router.get('/register', auth.registerForm);
 router.post('/register',

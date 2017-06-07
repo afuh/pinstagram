@@ -20,6 +20,11 @@ exports.showUserData = (req, res) => {
 exports.updateAccount = async (req, res) => {
   const isUrl = validator.isURL(req.body.website, {  protocols: ['http','https'], require_protocol: true });
 
+  if (req.body.bio.length > 140) {
+    req.flash('error', 'That Bio has too much words!')
+    return res.redirect('back')
+  }
+
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: {

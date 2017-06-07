@@ -15,7 +15,7 @@ exports.recentImages = async (req, res) => {
   }
 
   const page = req.params.page || 1;
-  const limit = 3
+  const limit = 12
   const skip = (page * limit) - limit
 
   // Search only my images and the images of the ppl. I follow.
@@ -60,7 +60,11 @@ exports.upload = multer({
 }).single('photo');
 
 exports.resize = async (req, res, next) => {
-  // rename
+  if (req.body.caption.length > 140) {
+    req.flash('error', 'Upload failed, apparently you have written too much')
+    return res.redirect('back')
+  }
+  //rename
   const extension = req.file.mimetype.split('/')[1];
   req.body.url = crypto.randomBytes(10).toString('hex');
   req.body.photo = `${req.body.url}.${extension}`;
@@ -75,13 +79,14 @@ exports.resize = async (req, res, next) => {
 
 exports.saveImage = async (req, res) => {
   req.body.author = req.user._id;
-  const image = await (new Image(req.body)).save();
+  const imageP = (new Image(req.body)).save();
   req.flash('success', 'You have shared a new image!');
 
-  const user = await User.findOneAndUpdate(
+  const userP = User.findOneAndUpdate(
     { _id: req.user._id },
     { $inc: { posts: 1 } }
   );
+  const [image, user] = await Promise.all([ imageP, userP])
   res.redirect(`/p/${image.url}`);
 }
 

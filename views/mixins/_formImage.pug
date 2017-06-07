@@ -1,5 +1,5 @@
 mixin formImage()
   form.form__image.col(action="" method="POST" enctype="multipart/form-data")
     input(type="file" name="photo" id="photo" accept="image/png, image/jpeg" required)
-    textarea(name="caption" placeholder="Write a caption...")
+    textarea(name="caption" placeholder="Write a caption..." maxlength="140")
     input.button(type="submit" value="Share")

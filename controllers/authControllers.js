@@ -8,16 +8,18 @@ const mail = require('../handlers/mail');
 const User = mongoose.model('User');
 
 exports.gotoFacebook = passport.authenticate('facebook', {  scope: ['email']});
-exports.backfromFacebook = passport.authenticate('facebook', {
+exports.logInFacebook = passport.authenticate('facebook', {
   successRedirect: '/',
-  failureRedirect: '/login'
+  failureRedirect: '/login',
+  failureFlash: true,
+  successFlash: 'You are now logged in'
 });
 
 exports.login = passport.authenticate('local', {
   failureRedirect: '/login',
-  failureFlash: 'Failed login!',
+  failureFlash: 'Invalid username or password',
   successRedirect: '/',
-  successFlash: 'You are now logged in'
+  successFlash: 'You are now logged in!'
 });
 
 exports.logout = (req, res) => {

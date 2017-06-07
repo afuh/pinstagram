@@ -1,5 +1,3 @@
-// const fs = require('fs');
-
 exports.siteName = `Pinstagram`;
 
 exports.dump = obj => JSON.stringify(obj, null, 2);
