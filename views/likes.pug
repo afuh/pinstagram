@@ -10,7 +10,8 @@ block content
       else   
         - const n = images.length
         - const likes = n === 0 ? "" : n === 1 ? `${n} like` : `${n} likes`
-        h3= likes
+        .content__header
+          h3= likes
         .gallery.row
           each image in images  
             +gallery(image)
