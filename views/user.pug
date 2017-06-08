@@ -7,8 +7,8 @@ block content
   section
     .content
       .header.row
-        .header__img.row
-          img(src=`${profile.avatar || profile.gravatar}&s=200`, alt=`${profile.name}'s' avatar` title=`${h.gravatar}`)
+        .header__img.row  
+          img(src=h.avatar(profile, 200), alt=`${profile.name}'s' avatar` title=`${h.gravatar}`)
         .header__data.col
           .header__data--name.row
             h2= profile.username

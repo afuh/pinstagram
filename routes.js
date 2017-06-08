@@ -53,9 +53,20 @@ router.post('/:user/upload',
   catchErrors(img.resize),
   catchErrors(img.saveImage)
 );
+
 router.get('/p/:image', catchErrors(img.showImage));
+router.get('/p/:image/remove', auth.isLoggedIn, catchErrors(img.removeImage));
 
 router.get('/:user/likes', auth.isLoggedIn, catchErrors(user.showLikedImages))
+
+router.get('/avatar', auth.isLoggedIn, user.avatar)
+router.post('/avatar',
+  img.upload,
+  catchErrors(img.resize),
+  catchErrors(user.saveAvatar)
+);
+
+router.get('/remove-avatar', auth.isLoggedIn, user.removeAvatar)
 
 /* API */
 

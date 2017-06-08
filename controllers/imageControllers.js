@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const jimp = require('jimp');
 const crypto = require('crypto');
+const fs = require('fs');
 
 const Image = mongoose.model('Image');
 const User = mongoose.model('User');
@@ -60,7 +61,7 @@ exports.upload = multer({
 }).single('photo');
 
 exports.resize = async (req, res, next) => {
-  if (req.body.caption.length > 140) {
+  if (req.body.caption && req.body.caption.length > 140) {
     req.flash('error', 'Upload failed, apparently you have written too much')
     return res.redirect('back')
   }
@@ -117,4 +118,16 @@ exports.addLike = async (req, res) => {
 exports.showLikes = async (req, res) => {
   const img = await Image.findOne( { _id: req.params.id } ).populate('likes');
   res.json(img.likes)
+}
+
+exports.removeImage = async (req, res) => {
+
+    const img = await Image.findOne( { _id: req.params.image } )
+    await fs.unlinkSync(`${__dirname}/../public/uploads/${img.photo}`);
+    await img.remove()
+
+
+    req.flash('success', 'You have remove the image!');
+    res.redirect('back')
+
 }

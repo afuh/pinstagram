@@ -1,10 +1,12 @@
 mixin imgCard(image = {})
   section
     .img-card
-      .img-card__header.row
+      .img-card__header.row  
         a.img(href=`/${image.author.slug}`) 
-          img(src=`${image.author.avatar || image.author.gravatar}&s=30}`, alt=`${image.author.name}'s' avatar`)
+          img(src=h.avatar(image.author, 200), alt=`${image.author.name}'s' avatar`)
         a(href=`/${image.author.slug}`)= image.author.username
+        if user && user._id.equals(image.author._id)
+          a.remove(href=`/p/${image.id}/remove`) remove image
       .img-card__image
         img(src=`/uploads/${image.photo}` alt=`${image.caption}`)  
       .img-card__content

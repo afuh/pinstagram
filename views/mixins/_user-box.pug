@@ -4,7 +4,7 @@ mixin userBox(data = {})
         each user in data
           li.row
             a.img(href=`/${user.slug}`)
-              img(src=`${user.avatar || user.gravatar}`, alt=`${user.name}'s avatar`)
+              img(src=h.avatar(user), alt=`${user.name}'s avatar`)
             .user-name.col  
               a(href=`/${user.slug}`)= user.username
               span= user.name

@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  .form
+    form.form__image.col(method="POST" enctype="multipart/form-data")
+      input(type="file" name="photo" id="photo" accept="image/png, image/jpeg")
+      input.button(type="submit" value="Share")

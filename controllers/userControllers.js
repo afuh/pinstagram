@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const fs = require('fs');
 
 const User = mongoose.model('User');
 const Image = mongoose.model('Image');
@@ -83,4 +84,29 @@ exports.showFollowers = async (req, res) => {
 exports.showFollowing = async (req, res) => {
   const user = await User.findOne({ slug: req.params.user }).populate('following')
   res.json(user.following)
+}
+
+exports.avatar = (req, res) => {
+  res.render('avatar', {title: "avatar"});
+}
+
+exports.saveAvatar = async (req, res) => {
+  const user = await User.findOneAndUpdate(
+    { _id: req.user._id },
+    { avatar: req.body.photo}
+  )
+  req.flash('success', 'You have updated your avatar!');
+  res.redirect('/edit')
+}
+
+exports.removeAvatar = async (req, res) => {
+
+  const user = await User.findOne( { _id: req.user._id } )
+  const removeFromDisk = fs.unlinkSync(`${__dirname}/../public/uploads/${user.avatar}`);
+  const removeFromDb = user.update({ avatar: undefined });
+
+  await Promise.all([removeFromDisk, removeFromDb])
+
+  req.flash('success', 'You have remove your avatar!');
+  res.redirect('/edit')
 }
