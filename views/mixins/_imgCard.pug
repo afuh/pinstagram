@@ -32,4 +32,4 @@ mixin imgCard(image = {})
       .img-card__comment
         if (user)
           form.comment(action=`/api/comment/${image._id}`, method="POST")
-            input(name="text", placeholder="Add a comment...", autocomplete="off" maxlength="140")        
+            input(name="text", placeholder="Add a comment...", autocomplete="off" maxlength="140" minlength="2")        

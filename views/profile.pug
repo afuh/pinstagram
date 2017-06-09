@@ -6,8 +6,9 @@ block content
     .form__header.row
       .avatar
         img.gravatar(src=h.avatar(user, 60), alt=`${user.name}'s' avatar` style="height: 60px; width: 60px;")
-        a(href="/avatar") change
-        a.remove-avatar(href="#") delete
+        a.change-avatar.row(href="/avatar") change
+        if user.avatar
+          a.remove-avatar.row(href="#") delete
       h1= user.username
     +formProfile()
     a(href=`/${user.slug}/password`) Change password

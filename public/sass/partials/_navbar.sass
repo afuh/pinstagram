@@ -1,29 +1,33 @@
-.nav
-  +position(space-around, center)
+header
+  display: flex
+  justify-content: center
   background: #fff
-  height: 77px
-  border-bottom: 1px solid rgba(0,0,0,.1)
-  &__logo
-    a
-      +logo()
-  &__user
-    align-items: center
-    .log
-      color: #262626
-      font-weight: 300
-      white-space: nowrap
-    a
-      margin: 0 10px
-    .icon__heart
-      +size(28px, 24px)
-      background: url(../images/hearts.png) no-repeat
-      background-size: cover
-    .icon__account
-      background: url(../images/user.png)
-    .icon__upload
-      background: url(../images/Upload-icon.png)
-    .icon__upload,
-    .icon__account
-      +size(24px, 24px)
-      background-size: cover
-      background-repeat: no-repeat
+  border-bottom: 1px solid rgba(0,0,0, 0.1)
+  .nav
+    +position(space-between, center)
+    width: 960px
+    height: 77px
+    &__logo
+      a
+        +logo()
+    &__user
+      align-items: center
+      .log
+        color: #262626
+        font-weight: 300
+        white-space: nowrap
+      a
+        margin: 0 20px
+      .icon__heart
+        +size(28px, 24px)
+        background: url(../images/hearts.png) no-repeat
+        background-size: cover
+      .icon__account
+        background: url(../images/user.png)
+      .icon__upload
+        background: url(../images/Upload-icon.png)
+      .icon__upload,
+      .icon__account
+        +size(24px, 24px)
+        background-size: cover
+        background-repeat: no-repeat

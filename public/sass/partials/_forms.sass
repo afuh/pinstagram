@@ -28,12 +28,33 @@
   &__header
     position: relative
     align-items: center
-    margin-bottom: 20px
+    margin-bottom: 10px
     h1
-      margin-left: 20px
+      margin: 0 0 20px 20px
       font-weight: 200
       font-size: 32px
       line-height: 40px
       white-space: nowrap
-    img
-      border-radius: 50%
+    .avatar
+      +font(14px, 200)
+      .change-avatar
+        color: color(gray)
+        justify-content: center
+      .remove-avatar
+        +size(60px, calc(100% - 16px))
+        +position(center, center)
+        background: rgba(0,0,0, 0.3)
+        color: color(lightgray)
+        border-radius: 50%
+        position: absolute
+        top: 0
+        left: 0
+        opacity: 0
+        visibility: hidden
+        transition: all 0.3s
+      img
+        border-radius: 50%
+      &:hover
+        .remove-avatar
+          opacity: 1
+          visibility: visible

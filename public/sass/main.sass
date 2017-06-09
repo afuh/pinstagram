@@ -11,3 +11,39 @@
 @import "partials/_flashes"
 @import "partials/_likes-section"
 @import "partials/_gallery"
+
+// user
++break(868px)
+  .gallery__img
+    margin: 0
+
+// user
++break(xs)
+  .content
+    .header
+      &__data
+        padding: 0
+      &__img
+        img
+          +size(77px, 77px)
+      &__data--statistics
+        span, a
+          white-space: normal
+          text-align: center
+
+
+//navbar
++break(960px)
+  .nav__logo
+    padding-left: 20px
++break(xs)
+  .nav
+    +position(space-between, center)
+    &__logo
+      display: flex
+      justify-content: center
+      +grid(3, 12)
+      // padding: 0 10px
+    &__user
+      justify-content: space-around
+      +grid(9, 12)
