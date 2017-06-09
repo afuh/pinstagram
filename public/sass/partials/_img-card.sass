@@ -6,23 +6,30 @@
   border-radius: 3px
   background: #fff
   &__header
+    justify-content: space-between
+    position: relative
     align-items: center
     border-bottom: 1px solid color(lightgray)
     height: 60px
     padding: 16px
-    a[class="img"]
-      +size(30px, 30px)
-      border-radius: 50%
-      margin-right: 8px
-      display: flex
-      justify-content: center
-      overflow: hidden
-    img
-      +size(100%, auto)
-    a
+    .user
+      align-items: center
+      a.img
+        +size(30px, 30px)
+        border-radius: 50%
+        margin-right: 8px
+        display: flex
+        justify-content: center
+        overflow: hidden
+      img
+        +size(100%, auto)
+    .username
       font-weight: 600
-    .remove
-      margin-left: 60%
+    .remove-image
+      +font(14px, 200)
+      color: color(gray)
+      &:hover
+        color: darken(color(gray), 20%)
   &__content
     margin: 4px 16px
     padding: 10px
@@ -61,7 +68,7 @@
           background-position: 0 0
   &__comments
     max-height: 200px
-    overflow: scroll
+    // overflow: scroll
     li
       margin: 8px 0
       a

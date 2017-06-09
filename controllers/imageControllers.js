@@ -83,8 +83,10 @@ exports.resize = async (req, res, next) => {
 
 
 exports.makeCover = async (req, res, next) => {
-  // delete the old avatar
-  fs.unlinkSync(`${__dirname}/../public/uploads/avatar/${req.user.avatar}`);
+
+  if (req.user.avatar) {
+    fs.unlinkSync(`${__dirname}/../public/uploads/avatar/${req.user.avatar}`);
+  }
 
   const extension = req.file.mimetype.split('/')[1];
   req.body.url = crypto.randomBytes(10).toString('hex');
@@ -140,14 +142,30 @@ exports.showLikes = async (req, res) => {
   res.json(img.likes)
 }
 
+exports.removeQuestion = async (req, res) => {
+  const img = await Image.findOne( { url: req.params.image } )
+  res.json(img.url)
+}
+
 exports.removeImage = async (req, res) => {
+  const img = await Image.findOne( { url: req.params.image } )
 
-    const img = await Image.findOne( { _id: req.params.image } )
-    await fs.unlinkSync(`${__dirname}/../public/uploads/${img.photo}`);
-    await fs.unlinkSync(`${__dirname}/../public/uploads/gallery/${img.photo}`);
-    await img.remove()
-
-    req.flash('success', 'You have removed the image!');
+  if (img.author.toString() !== req.user.id) {
+    req.flash('error', `You can't remove that image.`);
     res.redirect('/')
+    return;
+  }
+  await fs.unlinkSync(`${__dirname}/../public/uploads/${img.photo}`);
+  await fs.unlinkSync(`${__dirname}/../public/uploads/gallery/${img.photo}`);
+  const remove = img.remove();
 
+  const user = User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $inc: { posts: -1 } }
+  );
+
+  Promise.all([user, remove])
+
+  req.flash('success', 'You have removed the image!');
+  res.redirect('/')
 }

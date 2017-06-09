@@ -11,7 +11,6 @@ users()
   .then(data => exports.suggestions = data)
   .catch(e => console.log(e))
 
-exports.gravatar = "Your Gravatar is an image that follows you from site to site appearing beside your name when you do things like comment or post on a blog. Avatars help identify your posts on blogs and web forums, so why not on any site?"
 
 // Check if the avatar is an original image, a facebook cover or a gravatar
 exports.avatar = (pre, px = 30) => {

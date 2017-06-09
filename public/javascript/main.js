@@ -10,7 +10,7 @@ import { get, getAll, add, addEach } from './modules/shortDom';
 */
 const comments = getAll('form.comment');
 import handleComments from './modules/handleComments'
-addEach(comments, 'submit', handleComments)
+if (comments) addEach(comments, 'submit', handleComments)
 
 
 /*
@@ -18,7 +18,7 @@ addEach(comments, 'submit', handleComments)
 */
 const overlay = get(".modal__overlay");
 import { closeModal } from './modules/modal';
-add(overlay, 'click', closeModal)
+if (overlay) add(overlay, 'click', closeModal)
 
 /*
   ==== Likes ====
@@ -28,8 +28,20 @@ const likeList = getAll('a.likes');
 
 import { addLike, showLikes } from './modules/handleLikes'
 
-addEach(hearts, 'submit', addLike)
-addEach(likeList, 'click', showLikes)
+if (hearts) addEach(hearts, 'submit', addLike)
+if (likeList) addEach(likeList, 'click', showLikes)
+
+/*
+  ==== Remove ====
+*/
+const image = getAll('a.remove-image');
+const avatar = get('a.remove-avatar');
+
+import { removeImage, removeAvatar } from './modules/modalRemove'
+
+if (image) addEach(image, 'click', removeImage);
+if (avatar) add(avatar, 'click', removeAvatar);
+
 
 /*
   ==== Follow ====
@@ -40,6 +52,6 @@ const following = get("a.following");
 
 import { showFollowers, showFollowing, addFollower } from './modules/handleFollow';
 
-add(follower, 'click', showFollowers)
-add(following, 'click', showFollowing)
-add(follow, 'submit', addFollower)
+if (follower) add(follower, 'click', showFollowers)
+if (following) add(following, 'click', showFollowing)
+if (follow) add(follow, 'submit', addFollower)

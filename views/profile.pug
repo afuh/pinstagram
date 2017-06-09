@@ -3,10 +3,11 @@ include mixins/_formProfile
 
 block content
   .form
-    a(href="/avatar") change avatar
-    a(href="/remove-avatar") delete avatar
     .form__header.row
-      img.gravatar(src=h.avatar(user, 60), alt=`${user.name}'s' avatar` style="height: 60px; width: 60px;")
+      .avatar
+        img.gravatar(src=h.avatar(user, 60), alt=`${user.name}'s' avatar` style="height: 60px; width: 60px;")
+        a(href="/avatar") change
+        a.remove-avatar(href="#") delete
       h1= user.username
     +formProfile()
     a(href=`/${user.slug}/password`) Change password

@@ -3,9 +3,7 @@ import axios from 'axios';
 import { get } from './shortDom';
 import { showModal, renderModal } from './modal';
 
-const modal = get(".modal");
-const header = get(".header", modal);
-const ul = get(".contact-list", modal);
+
 
 function addLike(e) {
   e.preventDefault();
@@ -21,6 +19,11 @@ function addLike(e) {
 
 function showLikes(e) {
   e.preventDefault()
+
+  const modal = get(".modal");
+  const header = get(".header", modal);
+  const ul = get(".contact-list", modal);
+
   axios.get(this.href)
     .then(res => {
       header.innerHTML = "Likes";
@@ -29,10 +32,5 @@ function showLikes(e) {
     })
     .catch(error => console.log(error));
 }
-
-function countLikes() {
-
-}
-
 
 export { addLike, showLikes }

@@ -3,12 +3,11 @@ import axios from 'axios';
 import { get } from './shortDom';
 import { showModal, renderModal } from './modal';
 
-const modal = get(".modal");
-const header = get(".header", modal);
-const ul = get(".contact-list", modal);
-const follower = get("a.followers");
-
 function showFollowers(e) {
+  const modal = get(".modal");
+  const header = get(".header", modal);
+  const ul = get(".contact-list", modal);
+
   e.preventDefault()
   axios.get(this.href)
     .then(res => {
@@ -20,6 +19,10 @@ function showFollowers(e) {
 }
 
 function showFollowing(e) {
+  const modal = get(".modal");
+  const header = get(".header", modal);
+  const ul = get(".contact-list", modal);
+  
   e.preventDefault()
   axios.get(this.href)
     .then(res => {
@@ -31,6 +34,8 @@ function showFollowing(e) {
 }
 
 function addFollower(e) {
+  const follower = get("a.followers");
+
   e.preventDefault()
   axios.post(this.action)
     .then(res => {

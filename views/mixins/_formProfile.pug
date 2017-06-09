@@ -6,3 +6,4 @@ mixin formProfile()
     input(type="url" name="website" placeholder="Website" value=`${user.website || ""}`)
     textarea(name="bio" placeholder="Bio" maxlength="140")= `${user.bio || ""}`
     input.button(type="submit" value="Submit")
+    
