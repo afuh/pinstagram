@@ -75,6 +75,26 @@ exports.resize = async (req, res, next) => {
   await photo.resize(600, jimp.AUTO);
   await photo.write(`./public/uploads/${req.body.photo}`);
 
+  await photo.cover(290, 290, jimp.HORIZONTAL_ALIGN_CENTER | jimp.VERTICAL_ALIGN_MIDDLE);
+  await photo.write(`./public/uploads/gallery/${req.body.photo}`);
+
+  next();
+}
+
+
+exports.makeCover = async (req, res, next) => {
+  // delete the old avatar
+  fs.unlinkSync(`${__dirname}/../public/uploads/avatar/${req.user.avatar}`);
+
+  const extension = req.file.mimetype.split('/')[1];
+  req.body.url = crypto.randomBytes(10).toString('hex');
+  req.body.photo = `${req.body.url}.${extension}`;
+
+  const photo = await jimp.read(req.file.buffer);
+  await photo.resize(300, jimp.AUTO);
+  await photo.cover(150, 150, jimp.HORIZONTAL_ALIGN_CENTER | jimp.VERTICAL_ALIGN_MIDDLE);
+  await photo.write(`./public/uploads/avatar/${req.body.photo}`);
+
   next();
 }
 
@@ -124,10 +144,10 @@ exports.removeImage = async (req, res) => {
 
     const img = await Image.findOne( { _id: req.params.image } )
     await fs.unlinkSync(`${__dirname}/../public/uploads/${img.photo}`);
+    await fs.unlinkSync(`${__dirname}/../public/uploads/gallery/${img.photo}`);
     await img.remove()
 
-
-    req.flash('success', 'You have remove the image!');
-    res.redirect('back')
+    req.flash('success', 'You have removed the image!');
+    res.redirect('/')
 
 }

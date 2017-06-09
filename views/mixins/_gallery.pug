@@ -1,6 +1,6 @@
 mixin gallery(image = {})
   a.gallery__img.row(href=`/p/${image.url}`)
-    img(src=`/uploads/${image.photo}` alt=`${image.caption}`)
+    img(src=`/uploads/gallery/${image.photo}` alt=`${image.caption}`)
     .hover__icons.row
       .icon.row
         .icon__heart

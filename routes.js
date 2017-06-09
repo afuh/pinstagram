@@ -62,7 +62,7 @@ router.get('/:user/likes', auth.isLoggedIn, catchErrors(user.showLikedImages))
 router.get('/avatar', auth.isLoggedIn, user.avatar)
 router.post('/avatar',
   img.upload,
-  catchErrors(img.resize),
+  catchErrors(img.makeCover),
   catchErrors(user.saveAvatar)
 );
 

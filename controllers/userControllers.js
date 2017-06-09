@@ -102,11 +102,11 @@ exports.saveAvatar = async (req, res) => {
 exports.removeAvatar = async (req, res) => {
 
   const user = await User.findOne( { _id: req.user._id } )
-  const removeFromDisk = fs.unlinkSync(`${__dirname}/../public/uploads/${user.avatar}`);
+  const removeFromDisk = fs.unlinkSync(`${__dirname}/../public/uploads/avatar/${user.avatar}`);
   const removeFromDb = user.update({ avatar: undefined });
 
   await Promise.all([removeFromDisk, removeFromDb])
 
-  req.flash('success', 'You have remove your avatar!');
+  req.flash('success', 'You have removed your avatar!');
   res.redirect('/edit')
 }

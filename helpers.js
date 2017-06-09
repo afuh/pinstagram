@@ -22,6 +22,6 @@ exports.avatar = (pre, px = 30) => {
   if (pre.avatar.includes("http")) {
     return pre.avatar;
   } else {
-    return `/uploads/${pre.avatar}`;
+    return `/uploads/avatar/${pre.avatar}`;
   }
 }

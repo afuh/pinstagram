@@ -11,12 +11,18 @@
     height: 60px
     padding: 16px
     a[class="img"]
-      margin-right: 8px
-    img
+      +size(30px, 30px)
       border-radius: 50%
-      width: 30px
+      margin-right: 8px
+      display: flex
+      justify-content: center
+      overflow: hidden
+    img
+      +size(100%, auto)
     a
       font-weight: 600
+    .remove
+      margin-left: 60%
   &__content
     margin: 4px 16px
     padding: 10px

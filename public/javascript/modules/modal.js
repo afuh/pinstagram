@@ -8,7 +8,7 @@ export const showModal = () => modal.classList.add("modal__show");
 export const renderModal = (res) => {
   return res.map(data => {
     // Check if the avatar is an original image, a facebook cover or a gravatar
-    const checkAvatar = !data.avatar ?  `${data.gravatar}&s=30` : (data.avatar.includes("http") ? data.avatar : `/uploads/${data.avatar}`);
+    const checkAvatar = !data.avatar ?  `${data.gravatar}&s=30` : (data.avatar.includes("http") ? data.avatar : `/uploads/avatar/${data.avatar}`);
     return `
       <li class="row" data-user=${data.username}>
         <a href="/${data.slug}" class="img">

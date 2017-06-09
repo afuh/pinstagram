@@ -6,11 +6,9 @@
     +position(center, center)
     position: relative
     max-width: 290px
-    max-height: 290px
     margin: 12px 0
-    overflow: hidden
     img
-      +size(auto, 100%)
+      +size(100%, auto)
     .hover__icons
       +size(100%, 100%)
       +position(center, center)
@@ -30,8 +28,8 @@
           margin: 0 6px
           color: #fff
         &__heart
-          background-position: 0 0
-        &__comment
           background-position: 0 -21px
+        &__comment
+          background-position: 0 0
       &:hover
         opacity: 1
