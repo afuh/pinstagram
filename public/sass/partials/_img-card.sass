@@ -68,7 +68,7 @@
           background-position: 0 0
   &__comments
     max-height: 200px
-    overflow: auto
+    overflow: scroll
     li
       justify-content: space-between
       margin: 8px 0
@@ -76,7 +76,8 @@
         font-weight: 600
         margin-right: 0.5em
       .remove-comment
-        padding: 0 4px
+        margin-right: 10px
+        padding: 0 6px
         color: color(gray)
         &:hover
           color: darken(color(gray), 20%)

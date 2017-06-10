@@ -5,10 +5,13 @@ import dompurify from 'dompurify';
 function addComment(e) {
   e.preventDefault()
   const sibling = this.parentNode.previousSibling;
-  const commentList = get("ul.comments", sibling);
+  const ul = get("ul.comments", sibling);
   const input = this.firstChild;
   const trim = input.value.trim()
   const text = dompurify.sanitize(trim)
+
+  // used for autoscroll to the last comment
+  const cont = get('div.content__comments', sibling);
 
   if (text.length < 1) return;
 
@@ -23,11 +26,15 @@ function addComment(e) {
           <a class="remove-comment" href="/api/comment/${res.data.comment._id}/remove">✕</a>
         </li>
       `
-      commentList.insertAdjacentHTML("beforeend", render);
+      ul.insertAdjacentHTML("beforeend", render);
       input.value = "";
 
-      const comment = getAll('a.remove-comment');
-      addEach(comment, 'click', removeComment)
+      // autoscroll
+      const scroll = Math.max(cont.scrollHeight, cont.clientHeight);
+      cont.scrollTop = scroll - cont.clientHeight
+
+      const remove = getAll('a.remove-comment');
+      addEach(remove, 'click', removeComment)
     })
 }
 
