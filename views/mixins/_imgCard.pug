@@ -27,7 +27,7 @@ mixin imgCard(image = {})
               li.row
                 .row
                   a(href=`/${comment.author.slug}`)= comment.author.username
-                  span= comment.text
+                  span= comment.text.replace(/&lt;/g,'<')
                 if user && user._id.equals(comment.author._id)
                   a.remove-comment(href=`/api/comment/${comment._id}/remove`) ✕
         time.img-card__date(datetime=image.created)
@@ -35,4 +35,4 @@ mixin imgCard(image = {})
       .img-card__comment
         if (user)
           form.comment(action=`/api/comment/${image._id}`, method="POST")
-            input(name="text", placeholder="Add a comment...", autocomplete="off" maxlength="140" minlength="2")
+            input(name="text", placeholder="Add a comment...", autocomplete="off" maxlength="140")

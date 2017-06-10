@@ -24,10 +24,10 @@ const commentSchema = new mongoose.Schema({
   }
 });
 
-commentSchema.pre('save', function(next) {
-  this.text = striptags(this.text); 
-  next();
-});
+// commentSchema.pre('save', function(next) {
+//   this.text = striptags(this.text);
+//   next();
+// });
 
 function autopopulate(next) {
   this.populate('author');
