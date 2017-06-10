@@ -1,6 +1,6 @@
 mixin imgCard(image = {})
   section
-    .img-card
+    .img-card(style="position: relative;")
       .img-card__header.row
         .user.row
           a.img(href=`/${image.author.slug}`) 
@@ -24,12 +24,15 @@ mixin imgCard(image = {})
         .content__comments   
           ul.comments
             each comment in image.comments
-              li
-                a(href=`/${comment.author.slug}`)= comment.author.username
-                span= comment.text
+              li.row
+                .row
+                  a(href=`/${comment.author.slug}`)= comment.author.username
+                  span= comment.text
+                if user && user._id.equals(comment.author._id)
+                  a.remove-comment(href=`/api/comment/${comment._id}/remove`) ✕
         time.img-card__date(datetime=image.created)
           p= h.moment(image.created).startOf().fromNow()
       .img-card__comment
         if (user)
           form.comment(action=`/api/comment/${image._id}`, method="POST")
-            input(name="text", placeholder="Add a comment...", autocomplete="off" maxlength="140" minlength="2")        
+            input(name="text", placeholder="Add a comment...", autocomplete="off" maxlength="140" minlength="2")

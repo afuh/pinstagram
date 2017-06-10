@@ -72,6 +72,7 @@ router.get('/remove-avatar-confirm', auth.isLoggedIn, user.removeAvatar)
 /* API */
 
 router.post('/api/comment/:id', catchErrors(comment.addComment));
+router.get('/api/comment/:id/remove', auth.isLoggedIn, catchErrors(comment.removeComment));
 
 router.get('/api/:user/followers', catchErrors(user.showFollowers))
 router.get('/api/:user/following', catchErrors(user.showFollowing))

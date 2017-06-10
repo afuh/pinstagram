@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { get } from './shortDom';
+import { get, getAll, addEach } from './shortDom';
 
-function handleComments(e) {
+function addComment(e) {
   e.preventDefault()
   const sibling = this.parentNode.previousSibling;
   const commentList = get("ul.comments", sibling);
@@ -10,13 +10,29 @@ function handleComments(e) {
   axios.post(this.action, { text: text.value } )
     .then(res => {
       const render = `
-        <li>
-          <a href="/${res.data.slug}">${res.data.username}</a><span>${res.data.comment.text}</span>
+        <li class="row">
+          <div class="row">
+            <a href="/${res.data.slug}">${res.data.username}</a>
+            <span>${res.data.comment.text}</span>
+          </div>
+          <a class="remove-comment" href="/api/comment/${res.data.comment._id}/remove">✕</a>
         </li>
       `
       commentList.insertAdjacentHTML("beforeend", render);
       text.value = "";
+
+      const comment = getAll('a.remove-comment');
+      addEach(comment, 'click', removeComment)
     })
 }
 
-export default handleComments;
+function removeComment(e) {
+  e.preventDefault()
+  const comment = this.parentNode;
+
+  axios.get(this.href)
+    .then(() => comment.parentNode.removeChild(comment))
+}
+
+
+export { addComment, removeComment };

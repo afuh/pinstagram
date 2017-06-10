@@ -9,9 +9,12 @@ import { get, getAll, add, addEach } from './modules/shortDom';
   ==== Comments ====
 */
 const comments = getAll('form.comment');
-import handleComments from './modules/handleComments'
-if (comments) addEach(comments, 'submit', handleComments)
+const removeButton = getAll('a.remove-comment');
 
+import { addComment, removeComment } from './modules/handleComments'
+
+if (comments) addEach(comments, 'submit', addComment)
+if (removeButton) addEach(removeButton, 'click', removeComment)
 
 /*
   ==== Modal ====

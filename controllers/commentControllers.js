@@ -15,3 +15,16 @@ exports.addComment = async (req, res) => {
   const comment = await new Comment(req.body).save()
   res.json({ comment, slug, username })
 }
+
+exports.removeComment = async (req, res) => {
+  const comment = await Comment.findOne( { _id: req.params.id } )
+
+  if (comment.author._id.toString() !== req.user.id) {
+      req.flash('error', `You can't remove that comment.`);
+      res.redirect('/')
+      return;
+    }
+
+  await comment.remove()
+  res.json(comment._id)
+}
