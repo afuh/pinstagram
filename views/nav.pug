@@ -4,6 +4,7 @@ nav.nav.row
       img.logo(src="/images/logo.png", alt="logo" style="width: 35px;")
   .nav__user.row
     if user
+      a(href=`/${user.slug}/notifications`) notifications
       a.log(href="/logout") Log Out
       a(href=`/${user.slug}/likes`)
         .icon__heart

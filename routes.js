@@ -79,8 +79,12 @@ router.get('/api/:user/following', catchErrors(user.showFollowing))
 
 router.post('/api/:user/follow',
   catchErrors(user.findProfile),
+  catchErrors(user.notify),
   catchErrors(user.follow)
-)
+);
+
+
+router.get('/:user/notifications/', catchErrors(user.showNotifications));
 
 router.post('/api/like/:id',
   catchErrors(img.findImg),
@@ -88,5 +92,6 @@ router.post('/api/like/:id',
 );
 
 router.get('/api/like/:id/show', catchErrors(img.showLikes))
+
 
 module.exports = router;
