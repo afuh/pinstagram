@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const Comment = mongoose.model('Comment');
+const Image = mongoose.model('Image');
 
-exports.addComment = async (req, res) => {
+exports.addComment = async (req, res, next) => {
   if (req.body.text.length > 140) {
     req.flash('error', 'Comment failed, apparently you have written too much')
     return res.redirect('/')
@@ -14,6 +15,14 @@ exports.addComment = async (req, res) => {
 
   const comment = await new Comment(req.body).save()
   res.json({ comment, slug, username })
+
+  // next -> notification
+  const image = await Image.findOne({ _id: req.params.id })
+  req.body.id = image.author
+  req.body.image = { url: image.url, name: image.photo }
+  req.body.text = 2;
+  req.body.notify = true
+  next()
 }
 
 exports.removeComment = async (req, res) => {

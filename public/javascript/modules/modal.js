@@ -1,9 +1,15 @@
+import { get } from './shortDom';
+
 export const closeModal = (e) => {
   modal.classList.remove("modal__show");
+  get('body').classList.remove('stop-scrolling')
   e.stopPropagation()
 }
 
-export const showModal = () => modal.classList.add("modal__show");
+export const showModal = () => {
+  modal.classList.add("modal__show");
+  get('body').classList.add('stop-scrolling')
+}
 
 export const renderModal = (res) => {
   return res.map(data => {

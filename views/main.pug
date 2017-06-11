@@ -1,6 +1,5 @@
 extends layout
 include mixins/_imgCard
-include mixins/_modal
 include mixins/_pagination
 include mixins/_tutorial
 
@@ -11,4 +10,3 @@ block content
     each image in images
       +imgCard(image)
     +pagination(page, pages, count)    
-  +modal()

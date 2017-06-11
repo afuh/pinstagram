@@ -52,6 +52,7 @@ const userSchema = new mongoose.Schema({
   notifications: [{
     author: { username: String, slug: String, avatar: String},
     notify: String,
+    image: { url: String, name: String },
     created: { type: Date, default: Date.now }
   }],
   oauthID: Number,
@@ -77,12 +78,6 @@ userSchema.virtual('likes', {
   localField: '_id',
   foreignField: 'likes'
 });
-
-// userSchema.virtual('notifications', {
-//   ref: 'Notification',
-//   localField: '_id',
-//   foreignField: 'user'
-// });
 
 userSchema.virtual('gravatar').get(function(){
   const hash = md5(this.email);

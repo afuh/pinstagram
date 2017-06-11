@@ -4,6 +4,7 @@ const img = require('./controllers/imageControllers');
 const auth = require('./controllers/authControllers');
 const user = require('./controllers/userControllers');
 const comment = require('./controllers/commentControllers');
+const notify = require('./controllers/notificationControllers');
 
 const router = express.Router();
 
@@ -71,7 +72,10 @@ router.get('/remove-avatar-confirm', auth.isLoggedIn, user.removeAvatar)
 
 /* API */
 
-router.post('/api/comment/:id', catchErrors(comment.addComment));
+router.post('/api/comment/:id',
+  catchErrors(comment.addComment),
+  catchErrors(notify.addNotification)
+);
 router.get('/api/comment/:id/remove', auth.isLoggedIn, catchErrors(comment.removeComment));
 
 router.get('/api/:user/followers', catchErrors(user.showFollowers))
@@ -79,16 +83,17 @@ router.get('/api/:user/following', catchErrors(user.showFollowing))
 
 router.post('/api/:user/follow',
   catchErrors(user.findProfile),
-  catchErrors(user.notify),
-  catchErrors(user.follow)
+  catchErrors(user.follow),
+  catchErrors(notify.addNotification)
 );
 
-
-router.get('/:user/notifications/', catchErrors(user.showNotifications));
+router.get('/api/:user/notifications/', catchErrors(notify.showNotifications));
+router.get('/api/:user/notifications/clear', catchErrors(notify.clearNotifications));
 
 router.post('/api/like/:id',
   catchErrors(img.findImg),
-  catchErrors(img.addLike)
+  catchErrors(img.addLike),
+  catchErrors(notify.addNotification)
 );
 
 router.get('/api/like/:id/show', catchErrors(img.showLikes))

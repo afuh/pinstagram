@@ -13,7 +13,6 @@ mongoose.connection.on('error', (err) => {
 require('./models/User');
 require('./models/Image');
 require('./models/Comment');
-require('./models/Notification');
 
 const app = require('./app');
 

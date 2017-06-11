@@ -3,6 +3,7 @@
 .modal
   +size(50%, auto)
   max-width: 400px
+  min-width: 300px
   position: fixed
   top: 10%
   left: 50%
@@ -36,13 +37,19 @@
 
 /* ==== Style ====  */
 .header
+  justify-content: space-between
   border-bottom: solid 1px color(lightgray)
   +font(16px, 600)
   padding: 16px
-
+  a
+    +font(14px, 400)
+    color: color(gray)
 .contact-list
+  justify-content: space-between
+  overflow: auto
+  max-height: 400px
   li
-    +position(space-around, center)
+    align-items: center
     padding: 8px 16px
     border-bottom: solid 1px color(lightgray)
     img
@@ -60,3 +67,10 @@
         +font(14px, 400)
         line-height: 20px
         white-space: nowrap
+    .profile-image
+      img
+        border-radius: 0
+
+.stop-scrolling
+  height: 100%
+  overflow: hidden

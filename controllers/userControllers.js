@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const fs = require('fs');
-const moment = require('moment');
 
 const User = mongoose.model('User');
 const Image = mongoose.model('Image');
-const Notification = mongoose.model('Notification');
+
 
 exports.showProfile = async (req, res, next) => {
   const profile = await User.findOne({ slug: req.params.user }).populate('followers following');
@@ -56,7 +55,7 @@ exports.findProfile = async (req, res, next) => {
   next();
 }
 
-exports.follow = async (req, res) => {
+exports.follow = async (req, res, next) => {
   const profile = req.body.profile;
   const followers = profile.followers.map(obj => obj.toString());
   const operator = followers.includes(req.user.id) ? '$pull' : '$addToSet';
@@ -76,6 +75,13 @@ exports.follow = async (req, res) => {
 
   const [user, following] = await Promise.all([userP, followingP])
   res.json(user.followers)
+
+  // next -> notification
+  req.body.id = user.id
+  req.body.image = { url: null, name: null }
+  req.body.text = 0;
+  req.body.notify = operator === "$pull" ? false : true
+  next()
 }
 
 exports.showFollowers = async (req, res) => {
@@ -111,68 +117,4 @@ exports.removeAvatar = async (req, res) => {
 
   req.flash('success', 'You have removed your avatar!');
   res.redirect('/edit')
-}
-
-
-
-
-
-// ==================================================================
-// Versión creando un model y haciendo virtual el campo en user.
-// ==================================================================
-// exports.notify = async (req, res, next) => {
-//   const profile = req.body.profile
-//   const notify = await new Notification({
-//     author: req.user._id,
-//     user: profile._id,
-//     text: `${req.user.username} te empezó a seguir`
-//   }).save()
-//   next()
-// }
-//
-//
-// exports.showNotifications = async (req, res) => {
-//   const user = await User.findOne({ slug: req.params.user }).populate('notifications')
-//
-//   const notification = await Notification.find({ _id: { $in: user.notifications }}).populate('author')
-//
-//   const n = []
-//
-//   notification.map(a => {
-//     const data = {
-//       username: a.author.username,
-//       slug: a.author.slug,
-//       avatar: a.author.avatar || a.author.gravatar,
-//       notify: a.text,
-//       date: moment(a.created).fromNow()
-//     }
-//     n.push(data)
-//   })
-//
-//   res.json(n)
-// }
-
-// ==================================================================
-// Versión haciendo a mano el campo directamente en el usuario
-// ==================================================================
-exports.notify = async (req, res, next) => {
-  const notify = req.body.notify
-
-  const user = await User.findOneAndUpdate(
-    { slug: req.params.user },
-    { $addToSet: { notifications: {
-        author: {
-          username: req.user.username,
-          slug: req.user.slug,
-          avatar: req.user.avatar || req.user.gravatar
-        },
-        notify
-    }}}
-  )
-  next()
-}
-
-exports.showNotifications = async (req, res) => {
-  const user = await User.findOne({ slug: req.params.user })
-  res.json(user.notifications)
 }

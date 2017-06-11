@@ -58,3 +58,10 @@ import { showFollowers, showFollowing, addFollower } from './modules/handleFollo
 if (follower) add(follower, 'click', showFollowers)
 if (following) add(following, 'click', showFollowing)
 if (follow) add(follow, 'submit', addFollower)
+
+/*
+  ==== Notifications ====
+*/
+const notification = get("a.notifications")
+import showNotifications from './modules/handleNotifications'
+if (notification) add(notification, 'click', showNotifications)
