@@ -7,14 +7,14 @@ nav.nav.row
   .nav__user.row
     if user
       +modal()
-      a.log(href="/logout") Log Out
-      a.notifications.modal__open(href=`/api/${user.slug}/notifications`)
+      a.nav-i.log(href="/logout") Log Out
+      a.nav-i.notifications.modal__open(href=`/api/${user.slug}/notifications`)
         .icon__notify
-      a(href=`/${user.slug}/likes`)
+      a.nav-i(href=`/${user.slug}/likes`)
         .icon__heart
-      a(href=`/${user.slug}/upload`) 
+      a.nav-i(href=`/${user.slug}/upload`) 
         .icon__upload
-      a(href=`/${user.slug}`)
+      a.nav-i(href=`/${user.slug}`)
         .icon__account
     else 
-      a.log(href="/login") Log In 
+      a.nav-i.log(href="/login") Log In 
