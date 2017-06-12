@@ -3,18 +3,22 @@ include mixins/_modal
 nav.nav.row
   .nav__logo
     a(href="/")
-      img.logo(src="/images/logo.png", alt="logo" style="width: 35px;")
+      img.logo(src="/images/logo.svg", alt="logo" style="width: 35px;")
   .nav__user.row
     if user
       +modal()
-      a.nav-i.log(href="/logout") Log Out
-      a.nav-i.notifications.modal__open(href=`/api/${user.slug}/notifications`)
-        .icon__notify
+      - const notifyClass = user.notifications.length ? 'icon__notify-on' : '' 
+      a.nav-i.notifications.modal__open(href=`/api/${user.slug}/notifications` class=)
+        //- if user.notifications.length  
+        //-   span.notify-count.row= user.notifications.length
+        div.icon__notify(class=notifyClass)
       a.nav-i(href=`/${user.slug}/likes`)
         .icon__heart
       a.nav-i(href=`/${user.slug}/upload`) 
         .icon__upload
       a.nav-i(href=`/${user.slug}`)
         .icon__account
+      a.nav-i.log(href="/logout")
+        .icon__logout    
     else 
       a.nav-i.log(href="/login") Log In 

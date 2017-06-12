@@ -1,3 +1,7 @@
+/* Credits */
+// Icons made by Madebyoliver: http://www.flaticon.com/authors/madebyoliver
+// Email template by Wes Bos: http://wesbos.com
+
 import 'normalize.css';
 import "../sass/main.sass";
 import { get, getAll, add, addEach } from './modules/shortDom';

@@ -17,19 +17,34 @@ header
         font-weight: 300
         white-space: nowrap
       a.nav-i
+        // position: relative
         margin: 0 20px
-      .icon__notify
-        background: url(../images/notify.png)
-      .icon__heart
-        background: url(../images/heart.png)
-      .icon__account
-        background: url(../images/user.png)
-      .icon__upload
-        background: url(../images/Upload-icon.png)
-      .icon__upload,
-      .icon__account,
-      .icon__notify,
-      .icon__heart
-        +size(24px, 24px)
-        background-size: cover
-        background-repeat: no-repeat
+        // span.notify-count
+        //   +font(11px, 600)
+        //   +size(100%, 100%)
+        //   position: absolute
+        //   +position(center, center)
+        //   top: 0
+        //   left: 0
+      .icon
+        &__notify
+          background: url(../images/notify.svg)
+          &-on
+            background: url(../images/notifyon.svg)
+        &__heart
+          background: url(../images/heart.svg)
+        &__account
+          background: url(../images/user.svg)
+        &__upload
+          background: url(../images/upload.svg)
+        &__logout
+          background: url(../images/logout.svg)
+      .icon
+        &__upload,
+        &__account,
+        &__notify,
+        &__heart,
+        &__logout
+          +size(24px, 24px)
+          background-size: cover
+          background-repeat: no-repeat
