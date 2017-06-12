@@ -2,7 +2,7 @@ extends layout
 
 block content
   .form
-    p Reset your password
+    p= title
     form.form__reset.col(method="POST")
       input(type="password" name="password" placeholder="New Password" required)
       input(type="password" name="confirm" placeholder="New Password, again" required)

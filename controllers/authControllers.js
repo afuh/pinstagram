@@ -124,7 +124,7 @@ exports.confirmToken = async (req, res, next) => {
 
 // if the tokens are true, show the reset form
 exports.reset = (req, res) => {
-  res.render('reset', { title: 'Reset your Password' });
+  res.render('reset', { title: 'Change your Password' });
 }
 
 // double check the new password

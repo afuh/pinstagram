@@ -1,18 +1,24 @@
-extends layout
 include mixins/_formLogin
-
-block content
-  section
-    .form
-      .header
-        h1= h.siteName
-      p Log in to see photos and videos from your friends.  
-      .facebook_register.col
-        form(method="GET", action="/login/facebook")
-          input.button(type="submit" value="Log in with Facebook")
-      .line-or.row
-        span
-        span.or or
-        span
-      +formLogin()
-      a.account_link(href="/register") Don't have an account?
+doctype html
+html
+  head
+    title= `${title} | ${h.siteName}`
+    link(rel="shortcut icon" type="image/png" href="/images/favicon.png")
+    link(rel='stylesheet', href='/dist/style.css') 
+    //- script(src="http://localhost:8080/public/dist/bundle.js")  
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body
+    section
+      .form
+        .header.row
+          img.logo(src="/images/logo.svg", alt="logo")
+          h1= h.siteName
+        .facebook_register.col
+          form(method="GET", action="/login/facebook")
+            input.button(type="submit" value="Log in with Facebook")
+        .line-or.row
+          span
+          span.or or
+          span
+        +formLogin()
+        a.account_link(href="/register") Don't have an account?

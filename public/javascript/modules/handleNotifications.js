@@ -47,7 +47,6 @@ function showNotifications(e) {
 
   axios.get(this.href)
     .then(res => {
-      console.log(res);
       const { notify, user } = res.data
 
       const headerContent = `

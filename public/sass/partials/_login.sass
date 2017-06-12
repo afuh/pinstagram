@@ -1,10 +1,26 @@
 .form
+  margin-top: 10%
   .header
-    text-align: center
+    border: none !important
+    +position(center, center)
+    margin-bottom: 10px
+    img.logo
+      padding-right: 10px
+      width: 60px
+      border-right: 2px solid color(lightgray)
     h1
-      +logo()
+      padding-left: 10px
+      font-weight: 200
+      font-size: 32px
+      line-height: 40px
+      white-space: nowrap
+  &__message
+    +font(17px, 600)
+    text-align: center
+    color: color(gray)
+    line-height: 20px
   .facebook_register
-    margin: 10px 0     
+    margin: 10px 0
   .form__login
     .forgot-pass
       position: relative
@@ -26,7 +42,7 @@
       background: color(lightgray)
     .or
       color: color(lightgray)
-      padding: 0 5px
+      padding: 0 5px 20px
   .account_link,
   &:active
     color: color(black)

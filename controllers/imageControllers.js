@@ -45,7 +45,7 @@ exports.recentImages = async (req, res) => {
 }
 
 exports.imageForm = (req, res) => {
-  res.render('uploadImage', { title: "Upload" });
+  res.render('uploadImage', { title: "Share an image" });
 }
 
 exports.upload = multer({

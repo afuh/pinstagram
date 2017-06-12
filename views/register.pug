@@ -1,12 +1,20 @@
-extends layout
 include mixins/_formRegister
 
-block content
+doctype html
+html
+  head
+    title= `${title} | ${h.siteName}`
+    link(rel="shortcut icon" type="image/png" href="/images/favicon.png")
+    link(rel='stylesheet', href='/dist/style.css') 
+    //- script(src="http://localhost:8080/public/dist/bundle.js")  
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body
   section
     .form
-      .header
+      .header.row
+        img.logo(src="/images/logo.svg", alt="logo")
         h1= h.siteName
-      p Sign up to see photos and videos from your friends.
+      p.form__message Sign up to see photos and videos from your friends.
       +formRegister()
       a.account_link(href="/login") Have an account?
       
