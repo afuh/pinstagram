@@ -45,7 +45,7 @@ exports.recentImages = async (req, res) => {
 }
 
 exports.imageForm = (req, res) => {
-  res.render('uploadImage', { title: "Share an image" });
+  res.json(req.user.slug)
 }
 
 exports.upload = multer({
@@ -110,7 +110,7 @@ exports.saveImage = async (req, res) => {
     { $inc: { posts: 1 } }
   );
   const [image, user] = await Promise.all([ imageP, userP])
-  res.redirect(`/p/${image.url}`);
+  res.redirect(`back`);
 }
 
 exports.showImage = async (req, res) => {

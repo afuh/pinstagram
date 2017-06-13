@@ -48,13 +48,6 @@ router.get('/:user', catchErrors(user.showProfile));
 router.get('/edit', auth.isLoggedIn, user.showUserData);
 router.post('/edit', catchErrors(user.updateAccount));
 
-router.get('/:user/upload', auth.isLoggedIn, img.imageForm);
-router.post('/:user/upload',
-  img.upload,
-  catchErrors(img.resize),
-  catchErrors(img.saveImage)
-);
-
 router.get('/p/:image', catchErrors(img.showImage));
 router.get('/p/:image/remove', catchErrors(img.removeQuestion));
 router.get('/p/:image/remove-confirm', auth.isLoggedIn, catchErrors(img.removeImage));
@@ -70,6 +63,13 @@ router.post('/:user',
 
 
 /* API */
+router.get('/api/:user/upload', auth.isLoggedIn, img.imageForm);
+router.post('/api/:user/upload',
+  img.upload,
+  catchErrors(img.resize),
+  catchErrors(img.saveImage)
+);
+
 router.post('/api/comment/:id',
   catchErrors(comment.addComment),
   catchErrors(notify.addNotification)

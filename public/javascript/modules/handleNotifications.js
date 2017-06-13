@@ -1,13 +1,10 @@
 import moment from 'moment';
 import axios from 'axios';
 import { get } from './shortDom';
+import { showModal } from './modal';
 
-export const showModal = () => {
-  modal.classList.add("modal__show");
-  get('body').classList.add('stop-scrolling')
-}
 
-export const renderModal = (res) => {
+const renderModal = (res) => {
   return res.map(data => {
     // Check if the avatar is an original image, a facebook cover or a gravatar
     const checkAvatar = !data.author.avatar ?  `${data.author.gravatar}&s=30` : (data.author.avatar.includes("http") ? data.author.avatar : `/uploads/avatar/${data.author.avatar}`);

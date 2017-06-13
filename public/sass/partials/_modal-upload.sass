@@ -1,0 +1,20 @@
+.upload
+  justify-content: center
+  &__message
+    +font(17px, 600)
+    text-align: center
+    color: color(gray)
+    margin: 0 0 20px 0
+  input[type='file']
+    position: fixed
+    bottom: 1000%
+  &__label
+    font-weight: 300
+    +position(center, center)
+    cursor: pointer
+    border: 1px dashed color(lightgray)
+    width: 100%
+    min-height: 40px
+    border-radius: 3px
+    &:hover
+      border: 2px dashed color(lightgray)

@@ -2,6 +2,7 @@
 // Icons made by Madebyoliver: http://www.flaticon.com/authors/madebyoliver
 // Email template by Wes Bos: http://wesbos.com
 
+
 import 'normalize.css';
 import "../sass/main.sass";
 import { get, getAll, add, addEach } from './modules/shortDom';
@@ -69,3 +70,10 @@ if (follow) add(follow, 'submit', addFollower)
 const notification = get("a.notifications")
 import showNotifications from './modules/handleNotifications'
 if (notification) add(notification, 'click', showNotifications)
+
+/*
+  ==== Upload images ====
+*/
+const upload = get('a.upload__image')
+import uploadImage from './modules/uploadImage';
+if (upload) add(upload, "click", uploadImage)
