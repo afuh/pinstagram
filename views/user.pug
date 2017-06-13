@@ -18,7 +18,7 @@ block content
           .header__data--name.row
             h2= profile.username
             if user && user._id.equals(profile._id)
-              a(href=`/edit`) Edit Profile
+              a.edit-profile(href=`/edit`) Edit Profile
             else if user
               form.follow(method="POST", action=`/api/${profile.username}/follow`)
                 - const folllowerList = profile.followers.map(obj => obj._id.toString());
@@ -29,10 +29,13 @@ block content
             a(href=`/api/${profile.username}/followers`).followers.modal__open #{profile.followers.length} followers
             a(href=`/api/${profile.username}/following`).following.modal__open #{profile.following.length} following
           .header__data--profile
-            h2= profile.name || ""
-            span= profile.bio || ""
-            if profile.webiste
-            a(href=`${profile.website}`, target="_blank")= profile.website
+            if profile.name
+              h2= profile.name
+            if profile.bio  
+              span= profile.bio
+            if profile.website
+              - const website = profile.website.includes('http') ? profile.website : `http://${profile.website}`
+              a.website(href=website target="_blank")= profile.website
       .gallery.row
         each image in images  
           +gallery(image)
