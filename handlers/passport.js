@@ -19,7 +19,7 @@ const options = {
 passport.use(new FacebookStrategy(options, (accessToken, refreshToken, profile, done) => {
   User.findOne({ oauthID: profile.id }, (err, user) => {
     if (err) {
-      console.log(err.message);
+      done(err)
     }
     if (!err && user !== null) {
       done(null, user);
@@ -33,7 +33,7 @@ passport.use(new FacebookStrategy(options, (accessToken, refreshToken, profile, 
         });
         user.save(function(err) {
           if(err) {
-            console.log(err.message);
+            done(err)
           } else {
             done(null, user);
           }

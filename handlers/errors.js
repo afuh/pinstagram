@@ -11,10 +11,17 @@ exports.notFound = (req, res, next) => {
 };
 
 exports.productionErrors = (err, req, res, next) => {
+
+  let message = err.message
+
+  if (err.errors && err.errors.email.kind === 'duplicate') {
+    message = "A user with the given email is already registered"
+  }
+
   res.status(err.status || 500);
   res.render('error', {
     title: "Page Not Found",
-    message: err.message,
+    message,
     status: err.status
   });
 };

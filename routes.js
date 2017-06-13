@@ -17,7 +17,7 @@ router.get('/login/facebook/return', auth.logInFacebook);
 router.get('/register', auth.registerForm);
 router.post('/register',
   auth.validateRegister,
-  auth.register,
+  catchErrors(auth.register),
   auth.login
 );
 

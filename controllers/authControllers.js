@@ -44,7 +44,7 @@ exports.validateRegister = (req, res, next) => {
   req.checkBody('username', 'Invalid Username').notEmpty();
   req.checkBody('email', 'Invalid Email').isEmail();
   req.sanitizeBody('email').normalizeEmail({
-    remove_dots: false,
+    gmail_emove_dots: false,
     remove_extension: false,
     gmail_remove_subaddress: false
   });

@@ -16,7 +16,7 @@
     "assets": "webpack -w --display-max-modules 0",
     "devServer": "webpack-dev-server --inline",
     "prod": "npm run clean && NODE_ENV=production webpack -p --output-public-path /public/dist",
-    "fotos": "rimraf ./public/uploads/*",
+    "fotos": "rimraf ./public/uploads/*.jpeg",
     "addData": "node ./data/load-sample-data.js",
     "removeData": "node ./data/load-sample-data.js --delete",
     "data": "npm run removeData && npm run addData && npm start"
