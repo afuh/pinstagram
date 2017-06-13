@@ -1,4 +1,5 @@
 include mixins/_formLogin
+include mixins/_flash
 doctype html
 html
   head
@@ -9,6 +10,8 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     section
+      block messages
+        +flash() 
       .form
         .header.row
           img.logo(src="/images/logo.svg", alt="logo")

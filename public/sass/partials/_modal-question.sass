@@ -1,20 +1,23 @@
 .sure-modal
-  +font(16px, 300)
   +position(center, center)
+  +size(100%, auto)
   position: absolute
-  top: -45px
+  top: inherit
   right: 0
-  width: 100%
-  background: #fff
-  border: 1px solid color(blue)
+  background: color(white)
+  box-shadow: 0 17px 50px 0 rgba(0,0,0,0.2), 0 12px 15px 0 rgba(0,0,0,0.3)
+  border-bottom: 3px solid color(lightblue)
   border-radius: 3px
-  padding: 10px 0
-  z-index: 9999
+  padding: 10px
+  &__yes
+    border-right: 1px solid color(lightgray)
   &__yes,
   &__no
+    font-size: 16px !important
+    font-weight: 400 !important
+    color: color(black) !important
+    padding: 0 12px
     cursor: pointer
-    text-align: center
-    width: 40px
     transition: all 0.2s
     &:hover
-      transform: scale(1.2)
+      color: color(lightblue) !important

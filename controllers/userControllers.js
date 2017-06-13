@@ -94,27 +94,23 @@ exports.showFollowing = async (req, res) => {
   res.json(user.following)
 }
 
-exports.avatar = (req, res) => {
-  res.render('avatar', {title: "avatar"});
-}
-
 exports.saveAvatar = async (req, res) => {
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },
     { avatar: req.body.photo}
   )
   req.flash('success', 'You have updated your avatar!');
-  res.redirect('/edit')
+  res.redirect(`/${req.user.slug}`)
 }
 
 exports.removeAvatar = async (req, res) => {
 
   const user = await User.findOne( { _id: req.user._id } )
-  const removeFromDisk = fs.unlinkSync(`${__dirname}/../public/uploads/avatar/${user.avatar}`);
+  const removeFromDisk = !user.avatar.includes('http') && fs.unlinkSync(`${__dirname}/../public/uploads/avatar/${user.avatar}`);
   const removeFromDb = user.update({ avatar: undefined });
 
   await Promise.all([removeFromDisk, removeFromDb])
 
   req.flash('success', 'You have removed your avatar!');
-  res.redirect('/edit')
+  res.redirect(`/${req.user.slug}`)
 }

@@ -7,6 +7,13 @@ block content
       .header.row
         .header__img.row  
           img(src=h.avatar(profile, 200), alt=`${profile.name}'s' avatar`)
+          .avatar.row
+            form.col(method="POST" enctype="multipart/form-data" style="height: auto;")
+              label.avatar__change(for="photo")
+                input(type="file" name="photo" id="photo" accept="image/png, image/jpeg" onchange="form.submit()")
+            if user.avatar
+              a.remove-avatar.row(href="#")
+                .avatar__remove(title="Remove current picture")
         .header__data.col
           .header__data--name.row
             h2= profile.username

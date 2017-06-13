@@ -1,11 +1,11 @@
 @import "settings/_settings"
 @import "partials/_forms"
+@import "partials/_modal-question"
+@import "partials/_modal-users"
 @import "partials/_user"
 @import "partials/_img-card"
 @import "partials/_navbar"
 @import "partials/_login"
-@import "partials/_modal-users"
-@import "partials/_modal-question"
 @import "partials/_tutorial"
 @import "partials/_pagination"
 @import "partials/_flashes"
@@ -26,6 +26,12 @@
       &__img
         img
           +size(77px, 77px)
+        .avatar
+          +size(77px, 100%)
+          &__change,
+          &__remove
+            margin: 0 10px
+            +size(14px, 14px)
       &__data--statistics
         span, a
           white-space: normal

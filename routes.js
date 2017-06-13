@@ -61,22 +61,22 @@ router.get('/p/:image/remove-confirm', auth.isLoggedIn, catchErrors(img.removeIm
 
 router.get('/:user/likes', auth.isLoggedIn, catchErrors(user.showLikedImages))
 
-router.get('/avatar', auth.isLoggedIn, user.avatar)
-router.post('/avatar',
+// change avatar
+router.post('/:user',
   img.upload,
-  catchErrors(img.makeCover),
+  catchErrors(img.makeAvatar),
   catchErrors(user.saveAvatar)
 );
 
-router.get('/remove-avatar-confirm', auth.isLoggedIn, user.removeAvatar)
 
 /* API */
-
 router.post('/api/comment/:id',
   catchErrors(comment.addComment),
   catchErrors(notify.addNotification)
 );
+
 router.get('/api/comment/:id/remove', auth.isLoggedIn, catchErrors(comment.removeComment));
+router.get('/api/remove-avatar-confirm', auth.isLoggedIn, catchErrors(user.removeAvatar))
 
 router.get('/api/:user/followers', catchErrors(user.showFollowers))
 router.get('/api/:user/following', catchErrors(user.showFollowing))

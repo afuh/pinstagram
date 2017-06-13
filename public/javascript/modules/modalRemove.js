@@ -6,9 +6,8 @@ function renderModal (parent, href) {
 
   const render =  `
   <div class="sure-modal row">
-    <span class="sure-modal__question">are you sure?</span>
-    <a class="sure-modal__yes" href=${href}> ✔︎ </a>
-    <span class="sure-modal__no"> ✘ </span>
+    <a class="sure-modal__yes" href=${href}> remove </a>
+    <span class="sure-modal__no"> cancel </span>
   </div>
   `
   parent.insertAdjacentHTML("beforeend", render);
@@ -37,7 +36,9 @@ function removeAvatar(e) {
   e.preventDefault()
   const parent = this.parentNode;
 
-  renderModal.call(this, parent, `/remove-avatar-confirm`)
+  console.log(parent.parentNode);
+
+  renderModal.call(this, parent, `/api/remove-avatar-confirm`)
 }
 
 export { removeImage, removeAvatar }

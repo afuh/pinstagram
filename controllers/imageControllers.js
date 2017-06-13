@@ -82,9 +82,9 @@ exports.resize = async (req, res, next) => {
 }
 
 
-exports.makeCover = async (req, res, next) => {
+exports.makeAvatar = async (req, res, next) => {
 
-  if (req.user.avatar) {
+  if (req.user.avatar && !req.user.avatar.includes('http')) {
     fs.unlinkSync(`${__dirname}/../public/uploads/avatar/${req.user.avatar}`);
   }
 

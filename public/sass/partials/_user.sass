@@ -6,12 +6,6 @@
     padding: 30px 0
     border: 0
     margin-top: 10px
-    &__img
-      +grid(2, 6)
-      justify-content: center
-      img
-        +size(150px, 150px)
-        border-radius: 50%
     &__data
       height: 150px
       justify-content: space-between
@@ -60,3 +54,43 @@
         a
           font-weight: 600
           margin-left: 0.5em
+
+
+.avatar
+  input[type='file']
+    position: fixed
+    right: 100%
+    bottom: 100%
+  +position(center, center)
+  +size(150px, 100%)
+  border-radius: 50%
+  position: absolute
+  background: rgba(0,0,0, 0)
+  &__change
+    background: url(../images/edit.svg)
+    cursor: pointer
+  &__remove
+    background: url(../images/remove.svg)
+  &__change,
+  &__remove
+    opacity: 0
+    visibility: hidden
+    margin: 0 20px
+    +size(20px, 20px)
+    background-size: cover
+    background-repeat: no-repeat
+
+.header__img
+  position: relative
+  +grid(2, 6)
+  justify-content: center
+  img
+    +size(150px, 150px)
+    border-radius: 50%
+  &:hover
+    .avatar
+      background: rgba(0,0,0, 0.3)
+      &__change,
+      &__remove
+        opacity: 1
+        visibility: visible
