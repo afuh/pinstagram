@@ -20,7 +20,7 @@ exports.showUserData = (req, res) => {
 // https://docs.mongodb.com/manual/reference/method/db.collection.findOneAndUpdate/
 
 exports.updateAccount = async (req, res) => {
-  const isUrl = validator.isURL(req.body.website, {  protocols: ['http','https'], require_protocol: true });
+  const isUrl = validator.isURL(req.body.website, {  protocols: ['http','https'], require_protocol: false });
 
   if (req.body.bio.length > 140) {
     req.flash('error', 'That Bio has too much words!')

@@ -19,7 +19,7 @@
           line-height: 40px
           white-space: nowrap
           margin-right: 20px
-        a, button
+        a.edit-profile, button
           +font(14px, 600)
           line-height: 26px
           cursor: pointer
@@ -28,6 +28,7 @@
           border: 1px solid color(blue)
           padding: 0 24px
           border-radius: 3px
+          white-space: nowrap
           &:active
             opacity: 0.5
         .Following
@@ -51,7 +52,9 @@
         span
           margin-left: 0.5em
           font-weight: 400
-        a
+        a.website
+          +font(16px, 600)
+          color: #003569
           font-weight: 600
           margin-left: 0.5em
 
