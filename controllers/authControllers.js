@@ -138,7 +138,7 @@ exports.confirmPasswords = (req, res, next) => {
 exports.updatePassword = async (req, res) => {
   const user = req.body.user || req.user;
 
-  // passport
+  // passport-local-mongoose
   const setPassword = promisify(user.setPassword, user)
   await setPassword(req.body.password)
 

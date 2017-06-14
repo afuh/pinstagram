@@ -7,4 +7,4 @@ block content
       img.gravatar(src=h.avatar(user, 60), alt=`${user.name}'s' avatar` style="height: 60px; width: 60px;")
       h1= user.username
     +formProfile()
-    a(href=`/${user.slug}/password`) Change password
+    a(href=`/reset`) Change password

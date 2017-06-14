@@ -35,14 +35,6 @@ router.post('/reset/:token',
   catchErrors(auth.updatePassword)
 )
 
-// change password
-router.get('/:user/password', auth.isLoggedIn, auth.reset);
-router.post('/:user/password',
-  auth.confirmPasswords,
-  catchErrors(auth.updatePassword)
-)
-
-
 router.get('/:user', catchErrors(user.showProfile));
 
 router.get('/edit', auth.isLoggedIn, user.showUserData);
@@ -53,13 +45,6 @@ router.get('/p/:image/remove', catchErrors(img.removeQuestion));
 router.get('/p/:image/remove-confirm', auth.isLoggedIn, catchErrors(img.removeImage));
 
 router.get('/:user/likes', auth.isLoggedIn, catchErrors(user.showLikedImages))
-
-// change avatar
-router.post('/:user',
-  img.upload,
-  catchErrors(img.makeAvatar),
-  catchErrors(user.saveAvatar)
-);
 
 
 /* API */
@@ -97,6 +82,13 @@ router.post('/api/like/:id',
 );
 
 router.get('/api/like/:id/show', catchErrors(img.showLikes))
+
+// change avatar
+router.post('/:user',
+  img.upload,
+  catchErrors(img.makeAvatar),
+  catchErrors(user.saveAvatar)
+);
 
 
 module.exports = router;
