@@ -12,7 +12,7 @@ function addLike(e) {
   axios.post(this.action)
     .then(res => {
       this.likes.classList.toggle("on");
-      counter.textContent = `${res.data.length} likes`;
+      counter.textContent = `${res.data} likes`;
     })
     .catch(error => console.log(error));
 }

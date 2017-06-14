@@ -82,7 +82,7 @@ exports.follow = async (req, res, next) => {
   )
 
   const [user, following] = await Promise.all([userP, followingP])
-  res.json(user.followers)
+  res.json(user.followers.length)
 
   // next -> notification
   req.body.id = user.id
@@ -94,12 +94,34 @@ exports.follow = async (req, res, next) => {
 
 exports.showFollowers = async (req, res) => {
   const user = await User.findOne({ slug: req.params.user }).populate('followers')
-  res.json(user.followers)
+
+  const follower = user.followers.map(profile => {
+    return {
+      name: profile.name,
+      username: profile.username,
+      slug: profile.slug,
+      gravatar: profile.gravatar,
+      avatar: profile.avatar
+    }
+  })
+
+  res.json(follower)
 }
 
 exports.showFollowing = async (req, res) => {
   const user = await User.findOne({ slug: req.params.user }).populate('following')
-  res.json(user.following)
+
+  const following = user.following.map(profile => {
+    return {
+      name: profile.name,
+      username: profile.username,
+      slug: profile.slug,
+      gravatar: profile.gravatar,
+      avatar: profile.avatar
+    }
+  })
+
+  res.json(following)
 }
 
 exports.saveAvatar = async (req, res) => {

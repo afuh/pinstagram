@@ -140,7 +140,7 @@ exports.addLike = async (req, res, next) => {
     { [operator]: { likes: req.user.id } },
     { new: true }
   )
-  res.json(image.likes)
+  res.json(image.likes.length)
 
   // next -> notification
   req.body.id = image.author
@@ -152,7 +152,18 @@ exports.addLike = async (req, res, next) => {
 
 exports.showLikes = async (req, res) => {
   const img = await Image.findOne( { _id: req.params.id } ).populate('likes');
-  res.json(img.likes)
+
+  const like = img.likes.map(like => {
+    return {
+      name: like.name,
+      username: like.username,
+      slug: like.slug,
+      gravatar: like.gravatar,
+      avatar: like.avatar
+    }
+  })
+
+  res.json(like)
 }
 
 exports.removeQuestion = async (req, res) => {

@@ -14,7 +14,7 @@ const renderModal = (res) => {
     const img = `
       <div>
         <a href="/p/${data.image.url}" class="profile-image">
-          <img src="/uploads/gallery/${data.image.name}" alt="${data.image.name}">
+          <img src="/uploads/gallery/${data.image.name}" alt="${data.image.name}" class="thumb-img">
         </a>
       </div>
       `
