@@ -9,12 +9,18 @@
     position: fixed
     bottom: 1000%
   &__label
+    position: relative
     font-weight: 300
     +position(center, center)
     cursor: pointer
-    border: 1px dashed color(lightgray)
+    border: 2px dashed color(bluegray)
     width: 100%
     min-height: 40px
     border-radius: 3px
     &:hover
-      border: 2px dashed color(lightgray)
+      box-shadow: $shadow
+    .icon-modal__upload
+      position: absolute
+      color: color(gray)
+    .thumb
+      z-index: 9999

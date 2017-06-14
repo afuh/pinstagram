@@ -28,8 +28,9 @@ function uploadImage(e) {
         <div class="upload form">
           <p class="upload__message"> Share a new image! </p>
           <form class="form__image col" action="/api/${res.data}/upload" method="POST" enctype="multipart/form-data">
-            <label for="photo" class="upload__label row">
+            <label for="photo" class="upload__label col">
               <img class="thumb">
+              <div class="icon-modal__upload"> ⬆︎ </div>
               <input type="file" name="photo" id="photo" accept="image/png, image/jpeg" required />
             </label>
             <textarea name="caption" placeholder="Write a caption..." maxlength="140"></textarea>
