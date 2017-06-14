@@ -73,6 +73,6 @@ if (notification) add(notification, 'click', showNotifications)
 /*
   ==== Upload images ====
 */
-const upload = get('a.upload__image')
+const upload = getAll('a.upload__image')
 import uploadImage from './modules/uploadImage';
-if (upload) add(upload, "click", uploadImage)
+if (upload) addEach(upload, "click", uploadImage)

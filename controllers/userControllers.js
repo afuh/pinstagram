@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const fs = require('fs');
+const { suggestions } = require('../helpers');
 
 const User = mongoose.model('User');
 const Image = mongoose.model('Image');
@@ -46,6 +47,13 @@ exports.updateAccount = async (req, res) => {
 exports.showLikedImages = async (req, res) => {
   const user = await User.findOne({ slug: req.params.user }).populate('likes')
   const images = await Image.find({ _id: { $in: user.likes } }).populate('comments')
+
+  if (!images.length) {
+    const profiles = await suggestions(req.user._id);
+    res.render('tutorial', { title: 'find people', text: `You haven't liked any images yet`, profiles })
+    return;
+  }
+
   res.render('likes', {images, title: "Likes"})
 }
 

@@ -1,6 +1,6 @@
 .tutorial,
   margin: 60px auto
-  width: 600px
+  max-width: 500px
   border: 1px solid color(lightgray)
   border-radius: 3px
   background: #fff
@@ -10,9 +10,18 @@
     line-height: 24px
   a
     font-weight: 600
-  h2
+  h3
     border-bottom: 1px solid color(lightgray)
     padding-bottom: 10px
+  h3, p  
     text-align: center
   .box__content
-    box-shadow: 0 1px 5px color(lightgray), 0 -1px 5px color(lightgray)
+    // box-shadow: 0 1px 5px color(lightgray), 0 -1px 5px color(lightgray)
+  .contact-list
+    flex-wrap: wrap
+    li.contact
+      margin: 2px
+      border: 1px solid color(lightgray)
+      flex-basis: calc(50% - 4px)
+      .user-name
+        justify-content: center

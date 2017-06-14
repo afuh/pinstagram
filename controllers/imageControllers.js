@@ -4,18 +4,18 @@ const multer = require('multer');
 const jimp = require('jimp');
 const crypto = require('crypto');
 const fs = require('fs');
+const { siteName, suggestions } = require('../helpers');
 
 const Image = mongoose.model('Image');
 const User = mongoose.model('User');
 
-// Home page
+// =========
+// Home Page
+// =========
 exports.recentImages = async (req, res) => {
-  if (!req.user) {
-    res.redirect('/login');
-    return;
-  }
+  if (!req.user) return res.redirect('/login');
 
-  const page = req.params.page || 1;
+  const page = req.params.page || 1;
   const limit = 12
   const skip = (page * limit) - limit
 
@@ -38,6 +38,12 @@ exports.recentImages = async (req, res) => {
   if(!images.length && skip) {
     req.flash('info', `Hey! You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
     res.redirect(`/page/${pages}`);
+    return;
+  }
+
+  if (!images.length) {
+    const profiles = await suggestions(req.user._id);
+    res.render('tutorial', { title: 'Welcome!', text: `Welocome to ${siteName}!`, profiles })
     return;
   }
   res.render('main', { title: "Home", images, page, pages, count });

@@ -1,7 +1,0 @@
-include _user-box
-
-mixin tutorial(text)
-  .tutorial.col
-    h2= text
-    p You can #[a(href=`/${user.slug}/upload`) upload ] an image and share it with the world, visit your profile #[a(href=`/${user.slug}`) here] or follow other users
-    +userBox(h.suggestions)

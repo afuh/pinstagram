@@ -46,8 +46,11 @@ function showNotifications(e) {
     .then(res => {
       const { notify, user } = res.data
 
+      const n = notify.length
+      const notification = n === 1 ? `${n} new notification` : `${n} new notifications`
+
       const headerContent = `
-        ${notify.length} new notifications
+        ${notification}
         <a href="/api/${user}/notifications/clear"> clear all </a>
       `
       header.innerHTML = !notify.length ? 'No new notifications' : headerContent;

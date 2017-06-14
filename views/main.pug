@@ -1,12 +1,8 @@
 extends layout
 include mixins/_imgCard
 include mixins/_pagination
-include mixins/_tutorial
 
 block content
-  if !images.length && page === 1
-    +tutorial(`Welcome to ${h.siteName}!`)
-  else    
-    each image in images
-      +imgCard(image)
-    +pagination(page, pages, count)    
+  each image in images
+    +imgCard(image)
+  +pagination(page, pages, count)    

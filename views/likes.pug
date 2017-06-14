@@ -1,17 +1,13 @@
 extends layout
 include mixins/_gallery
-include mixins/_tutorial
 
 block content
   section
     .content
-      if !images.length
-        +tutorial(`You haven't liked any images yet`)
-      else   
-        - const n = images.length
-        - const likes = n === 0 ? "" : n === 1 ? `${n} like` : `${n} likes`
-        .content__header
-          h3= likes
-        .gallery.row
-          each image in images  
-            +gallery(image)
+      - const n = images.length
+      - const likes = !n ? "" : n === 1 ? `${n} like` : `${n} likes`
+      .content__header
+        h3= likes
+      .gallery.row
+        each image in images  
+          +gallery(image)

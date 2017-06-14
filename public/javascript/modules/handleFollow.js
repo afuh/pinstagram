@@ -22,7 +22,7 @@ function showFollowing(e) {
   const modal = get(".modal");
   const header = get(".header", modal);
   const ul = get(".contact-list", modal);
-  
+
   e.preventDefault()
   axios.get(this.href)
     .then(res => {
