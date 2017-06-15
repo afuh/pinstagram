@@ -14,7 +14,7 @@ function addLike(e) {
       this.likes.classList.toggle("on");
       counter.textContent = `${res.data} likes`;
     })
-    .catch(error => console.log(error));
+    .catch(err => console.log(err.message));
 }
 
 function showLikes(e) {
@@ -23,14 +23,14 @@ function showLikes(e) {
   const modal = get(".modal");
   const header = get(".header", modal);
   const ul = get(".contact-list", modal);
-  
+
   axios.get(`/api${this.pathname}`)
     .then(res => {
       header.innerHTML = "Likes";
       ul.innerHTML = renderModal(res.data).join(" ")
       showModal()
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err.message));
 }
 
 export { addLike, showLikes }

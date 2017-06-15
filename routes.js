@@ -42,7 +42,7 @@ router.post('/edit', catchErrors(user.updateAccount));
 
 router.get('/p/:image', catchErrors(img.showImage));
 router.get('/p/:image/likes', catchErrors(img.showLikes))
-router.post('/p/:image/remove', catchErrors(img.removeQuestion));
+router.put('/p/:image/remove', catchErrors(img.removeQuestion));
 router.get('/p/:image/remove-confirm', auth.isLoggedIn, catchErrors(img.removeImage));
 
 router.get('/likes', auth.isLoggedIn, catchErrors(user.showLikedImages))
@@ -59,6 +59,8 @@ router.post('/upload',
   catchErrors(img.resize),
   catchErrors(img.saveImage)
 );
+
+router.get('/comment/:id/remove', auth.isLoggedIn, catchErrors(comment.removeComment));
 
 /* API */
 router.post('/api/comment/:id',

@@ -15,7 +15,7 @@ function showFollowers(e) {
       ul.innerHTML = renderModal(res.data).join(" ")
       showModal()
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log(err.message));
 }
 
 function showFollowing(e) {
@@ -30,7 +30,7 @@ function showFollowing(e) {
       ul.innerHTML = renderModal(res.data).join(" ")
       showModal()
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log(err.message));
 }
 
 function addFollower(e) {
@@ -47,7 +47,7 @@ function addFollower(e) {
         button.innerHTML = "Following" :
         button.innerHTML = "Follow"
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log(err.message));
 }
 
 export { showFollowers, showFollowing, addFollower }

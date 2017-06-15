@@ -58,7 +58,7 @@ function showNotifications(e) {
       header.innerHTML = !n ? 'No new notifications' : headerContent;
       ul.innerHTML = renderModal(notify).join(" ")
       showModal()
-    }).catch(err => console.log(err))
+    }).catch(err => console.log(err.message))
 }
 
 export default showNotifications;

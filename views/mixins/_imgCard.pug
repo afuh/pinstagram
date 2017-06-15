@@ -29,7 +29,7 @@ mixin imgCard(image = {})
                   a(href=`/${comment.author.slug}`)= comment.author.username
                   span= comment.text.replace(/&lt;/g,'<')
                 if user && user._id.equals(comment.author._id)
-                  a.remove-comment(href=`/api/comment/${comment._id}/remove`) ✕
+                  a.remove-comment(href=`/comment/${comment._id}/remove`) ✕
         time.img-card__date(datetime=image.created)
           p= h.moment(image.created).startOf().fromNow()
       .img-card__comment

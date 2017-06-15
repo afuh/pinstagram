@@ -35,5 +35,10 @@ exports.removeComment = async (req, res) => {
     }
 
   await comment.remove()
-  res.json(comment._id)
+
+  if (req.path.includes('api')) {
+    res.json(comment._id);
+    return;
+  }
+  res.redirect('back')
 }

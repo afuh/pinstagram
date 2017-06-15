@@ -23,7 +23,7 @@ function addComment(e) {
             <a href="/${res.data.slug}">${res.data.username}</a>
             <span>${text}</span>
           </div>
-          <a class="remove-comment" href="/api/comment/${res.data.comment._id}/remove">✕</a>
+          <a class="remove-comment" href="/comment/${res.data.comment._id}/remove">✕</a>
         </li>
       `
       ul.insertAdjacentHTML("beforeend", render);
@@ -36,14 +36,16 @@ function addComment(e) {
       const remove = getAll('a.remove-comment');
       addEach(remove, 'click', removeComment)
     })
+    .catch(err => console.log(err.message))
 }
 
 function removeComment(e) {
   e.preventDefault()
   const comment = this.parentNode;
 
-  axios.get(this.href)
+  axios.get(`/api${this.pathname}`)
     .then(() => comment.parentNode.removeChild(comment))
+    .catch(err => console.log(err.message))
 }
 
 
