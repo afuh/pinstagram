@@ -8,13 +8,13 @@ nav.nav.row
     if user
       +modal()
       - const notifyClass = user.notifications.length ? 'icon__notify-on' : '' 
-      a.nav-i.notifications.modal__open(href=`/api/${user.slug}/notifications` class=)
+      a.nav-i.notifications.modal__open(href=`/notifications`)
         //- if user.notifications.length  
         //-   span.notify-count.row= user.notifications.length
         div.icon__notify(class=notifyClass)
-      a.nav-i(href=`/${user.slug}/likes`)
+      a.nav-i(href=`/likes`)
         .icon__heart
-      a.nav-i.upload__image(href=`/api/${user.slug}/upload`) 
+      a.nav-i.upload__image(href=`/upload`) 
         .icon__upload
       a.nav-i(href=`/${user.slug}`)
         .icon__account

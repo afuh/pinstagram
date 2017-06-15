@@ -40,15 +40,20 @@ exports.addNotification = async (req, res) => {
 }
 
 exports.showNotifications = async (req, res) => {
-  const user = await User.findOne({ slug: req.params.user })
+  const user = await User.findOne({ _id: req.user._id })
   const notify = user.notifications.reverse();
 
-  res.json({notify, user: req.params.user})
+  if (req.path.includes('api')) {
+    res.json(notify)
+    return;
+  }
+
+  res.render('list', { title: "Notifications", list: notify })
 }
 
 exports.clearNotifications = async (req, res) => {
   const user = await User.findOneAndUpdate(
-    { slug: req.params.user },
+    { _id: req.user._id  },
     { notifications: [] }
   )
   res.redirect('back')

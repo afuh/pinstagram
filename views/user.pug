@@ -26,8 +26,8 @@ block content
                 button(type="submit" class=followClass)= followClass
           .header__data--statistics.row 
             span #{profile.posts} posts
-            a(href=`/api/${profile.username}/followers`).followers.modal__open #{profile.followers.length} followers
-            a(href=`/api/${profile.username}/following`).following.modal__open #{profile.following.length} following
+            a(href=`/${profile.slug}/followers`).followers.modal__open #{profile.followers.length} followers
+            a(href=`/${profile.slug}/following`).following.modal__open #{profile.following.length} following
           .header__data--profile
             if profile.name
               h2= profile.name

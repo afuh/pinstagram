@@ -45,7 +45,7 @@ exports.updateAccount = async (req, res) => {
 }
 
 exports.showLikedImages = async (req, res) => {
-  const user = await User.findOne({ slug: req.params.user }).populate('likes')
+  const user = await User.findOne({ _id: req.user._id }).populate('likes')
   const images = await Image.find({ _id: { $in: user.likes } }).populate('comments')
 
   if (!images.length) {
@@ -93,35 +93,49 @@ exports.follow = async (req, res, next) => {
 }
 
 exports.showFollowers = async (req, res) => {
+  const followers = []
+
   const user = await User.findOne({ slug: req.params.user }).populate('followers')
 
-  const follower = user.followers.map(profile => {
-    return {
+  user.followers.map(profile => {
+    return followers.push({
       name: profile.name,
       username: profile.username,
       slug: profile.slug,
       gravatar: profile.gravatar,
       avatar: profile.avatar
-    }
+    })
   })
 
-  res.json(follower)
+  if (req.path.includes('api')) {
+    res.json(followers);
+    return;
+  }
+
+  res.render('list', { title: "Followers", list: followers })
 }
 
 exports.showFollowing = async (req, res) => {
+  const following = []
+
   const user = await User.findOne({ slug: req.params.user }).populate('following')
 
-  const following = user.following.map(profile => {
-    return {
+  user.following.map(profile => {
+    return following.push({
       name: profile.name,
       username: profile.username,
       slug: profile.slug,
       gravatar: profile.gravatar,
       avatar: profile.avatar
-    }
+    })
   })
 
-  res.json(following)
+  if (req.path.includes('api')) {
+    res.json(following);
+    return;
+  }
+
+  res.render('list', { title: "Following", list: following })
 }
 
 exports.saveAvatar = async (req, res) => {

@@ -1,0 +1,27 @@
+mixin notificationsList(data = {}, title)
+  - const style = "max-width: 400px; margin: 60px auto; border: solid 1px #efefef;"
+  - const n = data.length
+  - const notification = n === 1 ? `${n} new notification` : `${n} new notifications`
+  .modal__content(style=style)
+    if !data.length
+      .header No new notifications
+    else 
+      .header.row= notification
+        a(href="/api/notifications/clear") clear all
+    ul.contact-list
+      each profile in data
+        - const { username, slug, avatar } = profile.author
+        - const { url, name } = profile.image
+        - const checkAvatar = avatar.includes('http') ? avatar : `/uploads/avatar/${avatar}`
+        li.row(data-user=username)
+          a.img(src=`/${slug}`)
+            img(src=checkAvatar alt=`${username}'s avatar`)
+          .user-name
+            a(href=`/${slug}`)= username
+            span(style="color: #262626")= ` ${profile.notify}`
+            span(style="display: block; font-size: 12px")
+              time(datetime=profile.created)= h.moment(profile.created).fromNow()
+          if name
+            div
+              a.profile-image(href=`/p/${url}`)
+                img.thumb-img(src=`/uploads/gallery/${name}` alt=`${name}`)

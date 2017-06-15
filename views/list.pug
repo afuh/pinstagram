@@ -1,0 +1,9 @@
+extends layout
+include mixins/_profilesList
+include mixins/_notificationsList
+
+block content
+  if title === "Notifications"
+    +notificationsList(list, title) 
+  else   
+    +profilesList(list, title)

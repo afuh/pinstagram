@@ -51,7 +51,7 @@ exports.recentImages = async (req, res) => {
 }
 
 exports.imageForm = (req, res) => {
-  res.json(req.user.slug)
+  res.render('share-image', {title: 'Share an Image'})
 }
 
 exports.upload = multer({
@@ -151,19 +151,26 @@ exports.addLike = async (req, res, next) => {
 }
 
 exports.showLikes = async (req, res) => {
-  const img = await Image.findOne( { _id: req.params.id } ).populate('likes');
+  const likes = []
 
-  const like = img.likes.map(like => {
-    return {
+  const img = await Image.findOne( { url: req.params.image } ).populate('likes');
+
+  img.likes.map(like => {
+    return likes.push({
       name: like.name,
       username: like.username,
       slug: like.slug,
       gravatar: like.gravatar,
       avatar: like.avatar
-    }
+    })
   })
 
-  res.json(like)
+  if (req.path.includes('api')) {
+    res.json(likes)
+    return;
+  }
+
+  res.render('list', { title: "Likes", list: likes })
 }
 
 exports.removeQuestion = async (req, res) => {

@@ -23,14 +23,14 @@ function showLikes(e) {
   const modal = get(".modal");
   const header = get(".header", modal);
   const ul = get(".contact-list", modal);
-
-  axios.get(this.href)
+  
+  axios.get(`/api${this.pathname}`)
     .then(res => {
       header.innerHTML = "Likes";
       ul.innerHTML = renderModal(res.data).join(" ")
       showModal()
     })
-    .catch(error => console.log(error));
+    .catch(err => console.log(err));
 }
 
 export { addLike, showLikes }

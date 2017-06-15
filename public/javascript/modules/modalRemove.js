@@ -27,7 +27,7 @@ function removeImage(e){
   e.preventDefault()
   const parent = this.parentNode;
 
-  axios.get(this.href)
+  axios.post(`/api${this.pathname}`)
     .then(res => renderModal.call(this, parent, `/p/${res.data}/remove-confirm`))
 }
 
@@ -35,8 +35,6 @@ function removeImage(e){
 function removeAvatar(e) {
   e.preventDefault()
   const parent = this.parentNode;
-
-  console.log(parent.parentNode);
 
   renderModal.call(this, parent, `/api/remove-avatar-confirm`)
 }

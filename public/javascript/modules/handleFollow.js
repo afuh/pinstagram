@@ -9,7 +9,7 @@ function showFollowers(e) {
   const ul = get(".contact-list", modal);
 
   e.preventDefault()
-  axios.get(this.href)
+  axios.get(`/api${this.pathname}`)
     .then(res => {
       header.innerHTML = "Followers";
       ul.innerHTML = renderModal(res.data).join(" ")
@@ -24,7 +24,7 @@ function showFollowing(e) {
   const ul = get(".contact-list", modal);
 
   e.preventDefault()
-  axios.get(this.href)
+  axios.get(`/api${this.pathname}`)
     .then(res => {
       header.innerHTML = "Following";
       ul.innerHTML = renderModal(res.data).join(" ")
