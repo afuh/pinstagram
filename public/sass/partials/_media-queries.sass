@@ -1,0 +1,54 @@
+// user
++break(868px)
+  .gallery__img
+    margin: 0
+
+// user
++break(xs)
+  .content
+    .header
+      &__data
+        padding: 0
+        &--name
+          a.edit-profile
+            padding: 0 4px
+            font-weight: 300
+            margin-right: 10px
+      &__img
+        img
+          +size(77px, 77px)
+        .avatar
+          +size(77px, 100%)
+          &__change,
+          &__remove
+            margin: 0 10px
+            +size(14px, 14px)
+      &__data--statistics
+        span, a
+          white-space: normal
+          text-align: center
+
+
+//navbar
++break(960px)
+  .nav__logo
+    padding-left: 20px
++break(xs)
+  .nav
+    +position(space-between, center)
+    &__logo
+      display: flex
+      justify-content: center
+      +grid(3, 12)
+    &__user
+      justify-content: space-around
+      +grid(9, 12)
+      .nav-i
+        margin: 0 !important
+        .icon
+          &__heart,
+          &__notify,
+          &__upload,
+          &__account,
+          &__logout,
+            +size(28px, 28px)

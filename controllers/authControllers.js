@@ -4,9 +4,9 @@ const passport = require('passport');
 const crypto = require('crypto');
 
 const mail = require('../handlers/mail');
-
 const User = mongoose.model('User');
 
+// ======== Facebook  ======== //
 exports.gotoFacebook = passport.authenticate('facebook', {  scope: ['email']});
 exports.logInFacebook = passport.authenticate('facebook', {
   successRedirect: '/',
@@ -15,6 +15,7 @@ exports.logInFacebook = passport.authenticate('facebook', {
   successFlash: 'You are now logged in'
 });
 
+// ======== Local ======== //
 exports.login = passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: 'Invalid username or password',
@@ -28,6 +29,7 @@ exports.logout = (req, res) => {
   res.redirect('/login')
 }
 
+// ======== Autenticate ======== //
 exports.isLoggedIn = (req, res, next) => {
   if(req.isAuthenticated()) {
     next();
@@ -38,7 +40,7 @@ exports.isLoggedIn = (req, res, next) => {
 }
 
 
-// express validator
+// ======== Register validator ======== //
 exports.validateRegister = (req, res, next) => {
   req.sanitizeBody('username');
   req.checkBody('username', 'Invalid Username').notEmpty();
@@ -68,6 +70,7 @@ exports.register = async (req, res, next) => {
   next();
 };
 
+// ======== Login / Register forms ======== //
 exports.loginForm = (req, res) => {
   res.render('login', { title: "login" });
 }
@@ -76,9 +79,7 @@ exports.registerForm = (req, res) => {
   res.render('register', { title: "register" });
 }
 
-/*
-  ======= RESET PASSWORD
-*/
+// ======== Reset Password ======== //
 
 // ask the user for the email
 exports.forgotForm = (req, res) => {

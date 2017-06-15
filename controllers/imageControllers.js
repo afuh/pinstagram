@@ -9,9 +9,7 @@ const { siteName, suggestions } = require('../helpers');
 const Image = mongoose.model('Image');
 const User = mongoose.model('User');
 
-// =========
-// Home Page
-// =========
+// ======== Home page ======== //
 exports.recentImages = async (req, res) => {
   if (!req.user) return res.redirect('/login');
 
@@ -50,6 +48,7 @@ exports.recentImages = async (req, res) => {
 
 }
 
+// ======== Upload Image ======== //
 exports.imageForm = (req, res) => {
   res.render('share-image', {title: 'Share an Image'})
 }
@@ -87,7 +86,7 @@ exports.resize = async (req, res, next) => {
   next();
 }
 
-
+// ======== Avatar resizr/crop middleware ======== //
 exports.makeAvatar = async (req, res, next) => {
 
   if (req.user.avatar && !req.user.avatar.includes('http')) {
@@ -106,6 +105,7 @@ exports.makeAvatar = async (req, res, next) => {
   next();
 }
 
+// ======== Save image ======== //
 exports.saveImage = async (req, res) => {
   req.body.author = req.user._id;
   const imageP = (new Image(req.body)).save();
@@ -124,6 +124,7 @@ exports.showImage = async (req, res) => {
   res.render('image', { title: image.caption, image });
 }
 
+// ======== Add likes ======== //
 exports.findImg = async (req, res, next) => {
   const img = await Image.findOne( { _id: req.params.id } );
   req.body.img = img;
@@ -150,6 +151,7 @@ exports.addLike = async (req, res, next) => {
   next()
 }
 
+// ======== Show Likes ======== //
 exports.showLikes = async (req, res) => {
   const likes = []
 
@@ -173,6 +175,7 @@ exports.showLikes = async (req, res) => {
   res.render('list', { title: "Likes", list: likes })
 }
 
+// ======== Remove image ======== //
 exports.removeQuestion = async (req, res) => {
   const img = await Image.findOne( { url: req.params.image } )
   res.json(img.url)

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -47,7 +46,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        use: 'file-loader?name=images/[hash:6].[ext]'
+        use: 'file-loader?name=images/[name].[ext]'
       }
     ]
   },
@@ -75,8 +74,4 @@ if (isProd) {
 
 process.noDeprecation = true;
 
-/*
-
-https://webpack.github.io/docs/webpack-dev-server.html#combining-with-an-existing-server
-
-*/
+// https://webpack.github.io/docs/webpack-dev-server.html#combining-with-an-existing-server

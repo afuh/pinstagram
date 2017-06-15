@@ -9,8 +9,6 @@ nav.nav.row
       +modal()
       - const notifyClass = user.notifications.length ? 'icon__notify-on' : '' 
       a.nav-i.notifications.modal__open(href=`/notifications`)
-        //- if user.notifications.length  
-        //-   span.notify-count.row= user.notifications.length
         div.icon__notify(class=notifyClass)
       a.nav-i(href=`/likes`)
         .icon__heart

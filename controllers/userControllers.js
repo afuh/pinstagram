@@ -6,7 +6,7 @@ const { suggestions } = require('../helpers');
 const User = mongoose.model('User');
 const Image = mongoose.model('Image');
 
-
+// ======== User profile ======== //
 exports.showProfile = async (req, res, next) => {
   const profile = await User.findOne({ slug: req.params.user }).populate('followers following');
   if (!profile) return next();
@@ -17,8 +17,6 @@ exports.showProfile = async (req, res, next) => {
 exports.showUserData = (req, res) => {
   res.render('profile', { title: "Edit Profile" });
 }
-
-// https://docs.mongodb.com/manual/reference/method/db.collection.findOneAndUpdate/
 
 exports.updateAccount = async (req, res) => {
   const isUrl = validator.isURL(req.body.website, {  protocols: ['http','https'], require_protocol: false });
@@ -44,6 +42,7 @@ exports.updateAccount = async (req, res) => {
   res.redirect(`${req.user.slug}`)
 }
 
+// ======== User likes page ======== //
 exports.showLikedImages = async (req, res) => {
   const user = await User.findOne({ _id: req.user._id }).populate('likes')
   const images = await Image.find({ _id: { $in: user.likes } }).populate('comments')
@@ -57,6 +56,7 @@ exports.showLikedImages = async (req, res) => {
   res.render('likes', {images, title: "Likes"})
 }
 
+// ======== Follow ======== //
 exports.findProfile = async (req, res, next) => {
   const user = await User.findOne({ slug: req.params.user })
   req.body.profile = user;
@@ -138,6 +138,7 @@ exports.showFollowing = async (req, res) => {
   res.render('list', { title: "Following", list: following })
 }
 
+// ======== Avatar ======== //
 exports.saveAvatar = async (req, res) => {
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },

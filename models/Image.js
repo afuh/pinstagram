@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const striptags = require('striptags');
-// const slug = require('slugs');
 
 mongoose.Promise = global.Promise
 

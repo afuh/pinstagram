@@ -65,9 +65,9 @@ function slug (str) {
       replace(/í/g, 'i').
       replace(/ó/g, 'o').
       replace(/ú/g, 'u').
-      replace(new RegExp('[' + p.join('') + ']', 'g'), ' ').    //  replace preserved characters with spaces
-      replace(/-{2,}/g, ' ').     //  remove duplicate spaces
-      replace(/^\s\s*/, '').replace(/\s\s*$/, '').    //  trim both sides of string
-      replace(/[^\w\ ]/gi, '').   //  replaces all non-alphanumeric with empty string
-      replace(/[\ ]/gi, s);    //  Convert spaces to dashes
+      replace(new RegExp('[' + p.join('') + ']', 'g'), ' ').
+      replace(/-{2,}/g, ' ').
+      replace(/^\s\s*/, '').replace(/\s\s*$/, '').
+      replace(/[^\w\ ]/gi, '').
+      replace(/[\ ]/gi, s);
 }

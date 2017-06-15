@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
-// ==================================================================
-// Versión haciendo a mano el campo directamente en el usuario
-// ==================================================================
+// ======== Add notifications ======== //
+// Follow an user and like or comment a photo will send a notification to the user
 exports.addNotification = async (req, res) => {
+  // Unfollow, unlike or delete a comment set the flag as 'false'
   const flag = req.body.notify
-  // console.log({id: req.body.id, image: req.body.image, text: req.body.text, flag});
 
   if (!flag) return res.end()
   // don't send a notification to yourself

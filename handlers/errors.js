@@ -11,7 +11,6 @@ exports.notFound = (req, res, next) => {
 };
 
 exports.productionErrors = (err, req, res, next) => {
-
   let message = err.message
 
   if (err.errors && err.errors.email.kind === 'duplicate') {
