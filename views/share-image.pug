@@ -1,9 +1,12 @@
 extends layout
 
 block content
-  .form
+  .upload.form
     p.upload__message  Share a new image! 
-    form.form__image.col(action='/api/upload', method='POST', enctype='multipart/form-data')
-      input(type='file', name='photo', id="photo" accept='image/png, image/jpeg', required)
+    form.form__image.col(action='/upload', method='POST', enctype='multipart/form-data')
+      label.upload__label.col(for='photo')
+        img.thumb
+        .icon-modal__upload  ⬆︎ 
+        input.upload-image(type='file' id="photo" name='photo' accept='image/png image/jpeg' required)
       textarea(name='caption', placeholder='Write a caption...', maxlength='140')
       input.button(type='submit', value='Share')

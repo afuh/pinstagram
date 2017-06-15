@@ -1,0 +1,34 @@
+/* ==== Open/Close ====  */
+.modal
+  +size(50%, auto)
+  max-width: 400px
+  min-width: 300px
+  position: fixed
+  top: 77px
+  left: 50%
+  z-index: 9999
+  visibility: hidden
+  transform: translate(-50%)
+  &__show
+    visibility: visible
+  &__content
+    background: #fff
+    transition: all 0.1s
+    transform: scale(1)
+    opacity: 1
+
+.modal__overlay
+  +size(100%, 100vh)
+  position: fixed
+  visibility: hidden
+  top: 0
+  left: 0
+  z-index: 1000
+  opacity: 0
+  background: rgba(black, 0.6)
+  transition: all 0.1s
+
+.modal__show ~ .modal__overlay
+  opacity: 1
+  visibility: visible
+  background: rgba(black, 0.6)

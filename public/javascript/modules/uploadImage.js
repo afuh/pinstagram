@@ -1,15 +1,13 @@
 import { get } from './shortDom';
 import { showModal } from './modal';
-import axios from 'axios';
 
 function preUpload(event) {
   const [image] = event.target.files;
   const reader = new FileReader();
 
-  const modal = get(".modal");
-  const thumb = get("img.thumb", modal);
+  const thumb = get("img.thumb");
 
-  thumb.alt = image.name;
+  // thumb.alt = image.name;
 
   reader.onload = (event) => thumb.src = event.target.result;
   reader.readAsDataURL(image);
@@ -42,4 +40,4 @@ function uploadImage(e) {
 }
 
 
-export default uploadImage
+export { uploadImage, preUpload }
