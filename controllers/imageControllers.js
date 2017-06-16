@@ -4,6 +4,7 @@ const multer = require('multer');
 const jimp = require('jimp');
 const crypto = require('crypto');
 const fs = require('fs');
+const promisify = require("es6-promisify");
 const { siteName, suggestions } = require('../helpers');
 
 const Image = mongoose.model('Image');
@@ -86,13 +87,8 @@ exports.resize = async (req, res, next) => {
   next();
 }
 
-// ======== Avatar resizr/crop middleware ======== //
+// ======== Avatar resize/crop middleware ======== //
 exports.makeAvatar = async (req, res, next) => {
-
-  if (req.user.avatar && !req.user.avatar.includes('http')) {
-    fs.unlinkSync(`${__dirname}/../public/uploads/avatar/${req.user.avatar}`);
-  }
-
   const extension = req.file.mimetype.split('/')[1];
   req.body.url = crypto.randomBytes(10).toString('hex');
   req.body.photo = `${req.body.url}.${extension}`;
@@ -100,6 +96,11 @@ exports.makeAvatar = async (req, res, next) => {
   const photo = await jimp.read(req.file.buffer);
   await photo.resize(300, jimp.AUTO);
   await photo.cover(150, 150, jimp.HORIZONTAL_ALIGN_CENTER | jimp.VERTICAL_ALIGN_MIDDLE);
+
+  if (req.user.avatar && !req.user.avatar.includes('http')) {
+    const remove = promisify(fs.unlink)
+    await remove(`${__dirname}/../public/uploads/avatar/${req.user.avatar}`)
+  }
   await photo.write(`./public/uploads/avatar/${req.body.photo}`);
 
   next();
@@ -108,14 +109,17 @@ exports.makeAvatar = async (req, res, next) => {
 // ======== Save image ======== //
 exports.saveImage = async (req, res) => {
   req.body.author = req.user._id;
-  const imageP = (new Image(req.body)).save();
+
+  const image = (new Image(req.body)).save();
   req.flash('success', 'You have shared a new image!');
 
-  const userP = User.findOneAndUpdate(
+  const user = User.findOneAndUpdate(
     { _id: req.user._id },
     { $inc: { posts: 1 } }
   );
-  const [image, user] = await Promise.all([ imageP, userP])
+
+  await Promise.all([ image, user ])
+
   res.redirect(`back`);
 }
 
@@ -162,19 +166,17 @@ exports.addLike = async (req, res, next) => {
 
 // ======== Show Likes ======== //
 exports.showLikes = async (req, res) => {
-  const likes = []
-
   const img = await Image.findOne( { url: req.params.image } ).populate('likes');
 
-  img.likes.map(like => {
-    return likes.push({
+  const likes = [...img.likes.map(like => {
+    return {
       name: like.name,
       username: like.username,
       slug: like.slug,
       gravatar: like.gravatar,
       avatar: like.avatar
-    })
-  })
+    }
+  })]
 
   if (req.path.includes('api')) {
     res.json(likes)
@@ -190,25 +192,40 @@ exports.removeQuestion = async (req, res) => {
   res.json(img.url)
 }
 
-exports.removeImage = async (req, res) => {
+exports.removeImage = async (req, res, next) => {
   const img = await Image.findOne( { url: req.params.image } )
+  req.body.img = img;
 
   if (img.author.toString() !== req.user.id) {
     req.flash('error', `You can't remove that image.`);
     res.redirect('/')
     return;
   }
-  await fs.unlinkSync(`${__dirname}/../public/uploads/${img.photo}`);
-  await fs.unlinkSync(`${__dirname}/../public/uploads/gallery/${img.photo}`);
-  const remove = img.remove();
 
+  const remove = img.remove();
   const user = User.findOneAndUpdate(
     { _id: req.user._id },
     { $inc: { posts: -1 } }
   );
 
-  Promise.all([user, remove])
+  await Promise.all([user, remove])
 
+  fs.unlinkSync(`${__dirname}/../public/uploads/${img.photo}`);
+  fs.unlinkSync(`${__dirname}/../public/uploads/gallery/${img.photo}`);
+
+  next()
+}
+
+// If the user delete an image, remove it from the notifications if it exists
+exports.removeNotification = async (req, res) => {
+  const img = req.body.img;
+  const user = await User.findOne({ _id: img.author })
+
+  const remove = user.notifications.filter(not => {
+    return !not.image.url.includes(img.url)
+  })
+
+  await user.update({ notifications: remove })
   req.flash('success', 'You have removed the image!');
   res.redirect('/')
 }

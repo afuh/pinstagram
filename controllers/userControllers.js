@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const fs = require('fs');
+const promisify = require("es6-promisify");
+
 const { suggestions } = require('../helpers');
 
 const User = mongoose.model('User');
@@ -10,7 +12,7 @@ const Image = mongoose.model('Image');
 exports.showProfile = async (req, res, next) => {
   const profile = await User.findOne({ slug: req.params.user }).populate('followers following');
   if (!profile) return next();
-  const images = await Image.find({ author: profile._id }).sort({ created: 'desc' }).limit(12).populate('comments');
+  const images = await Image.find({ author: profile._id }).sort({ created: 'desc' }).limit(32).populate('comments');
   res.render('user', { title: profile.username, images, profile });
 }
 
@@ -93,19 +95,17 @@ exports.follow = async (req, res, next) => {
 }
 
 exports.showFollowers = async (req, res) => {
-  const followers = []
-
   const user = await User.findOne({ slug: req.params.user }).populate('followers')
 
-  user.followers.map(profile => {
-    return followers.push({
+  const followers = [...user.followers.map(profile => {
+    return {
       name: profile.name,
       username: profile.username,
       slug: profile.slug,
       gravatar: profile.gravatar,
       avatar: profile.avatar
-    })
-  })
+    }
+  })]
 
   if (req.path.includes('api')) {
     res.json(followers);
@@ -116,19 +116,17 @@ exports.showFollowers = async (req, res) => {
 }
 
 exports.showFollowing = async (req, res) => {
-  const following = []
-
   const user = await User.findOne({ slug: req.params.user }).populate('following')
 
-  user.following.map(profile => {
-    return following.push({
+  const following = [...user.following.map(profile => {
+    return {
       name: profile.name,
       username: profile.username,
       slug: profile.slug,
       gravatar: profile.gravatar,
       avatar: profile.avatar
-    })
-  })
+    }
+  })]
 
   if (req.path.includes('api')) {
     res.json(following);
@@ -149,9 +147,10 @@ exports.saveAvatar = async (req, res) => {
 }
 
 exports.removeAvatar = async (req, res) => {
+  const remove = promisify(fs.unlink)
 
   const user = await User.findOne( { _id: req.user._id } )
-  const removeFromDisk = !user.avatar.includes('http') && fs.unlinkSync(`${__dirname}/../public/uploads/avatar/${user.avatar}`);
+  const removeFromDisk = !user.avatar.includes('http') && remove(`${__dirname}/../public/uploads/avatar/${user.avatar}`);
   const removeFromDb = user.update({ avatar: undefined });
 
   await Promise.all([removeFromDisk, removeFromDb])
