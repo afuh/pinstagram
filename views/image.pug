@@ -1,7 +1,13 @@
 extends layout
 include mixins/_imgCard
 
-
 block content
   section
-    +imgCard(image)
+    .current-img.row
+      .prev-img
+        if prev
+          a.arrow.row(href=`/p/${prev}`) ❮
+      +imgCard(current)
+      .next-img
+        if next
+          a.arrow.row(href=`/p/${next}`) ❯

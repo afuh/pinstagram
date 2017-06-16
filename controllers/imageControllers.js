@@ -120,8 +120,17 @@ exports.saveImage = async (req, res) => {
 }
 
 exports.showImage = async (req, res) => {
-  const image = await Image.findOne({ url: req.params.image }).populate('author comments');
-  res.render('image', { title: image.caption, image });
+  const current = await Image.findOne({ url: req.params.image }).populate('author comments');
+
+  const [p, n] = await Promise.all([
+    Image.find({ _id: { $gt: current._id } }).sort({ _id: 1 }).limit(1),
+    Image.find({ _id: { $lt: current._id } }).sort({ _id: -1 }).limit(1)
+  ])
+
+  const prev = p[0] && p[0].url
+  const next = n[0] && n[0].url
+
+  res.render('image', { title: current.caption, current, prev, next });
 }
 
 // ======== Add likes ======== //

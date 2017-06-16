@@ -80,3 +80,24 @@
         color: color(gray)
         &:hover
           color: darken(color(gray), 20%)
+
+// View current photo section
+.current-img
+  max-width: 800px
+  margin: 60px auto
+  justify-content: center
+  .prev-img,
+  .next-img
+    min-width: 50px
+    max-width: 50px
+    a.arrow
+      +position(center, center)
+      height: 100%
+      padding: 10px 20px
+      font-size: 30px
+      color: color(lightgray)
+      transition: color 0.3s
+      &:hover
+        color: color(gray)
+  .img-card
+    margin: 0
