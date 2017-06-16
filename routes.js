@@ -62,7 +62,7 @@ router.put('/p/:image/remove', catchErrors(img.removeQuestion));
 router.get('/p/:image/remove-confirm',
   auth.isLoggedIn,
   catchErrors(img.removeImage),
-  catchErrors(img.removeNotification)
+  catchErrors(notify.removeNotification)
 );
 
 router.get('/comment/:id/remove', auth.isLoggedIn, catchErrors(comment.removeComment));

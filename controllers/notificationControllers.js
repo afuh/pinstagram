@@ -57,3 +57,18 @@ exports.clearNotifications = async (req, res) => {
   )
   res.redirect('back')
 }
+
+// If the user delete an image, remove it from the notifications if it exists
+exports.removeNotification = async (req, res) => {
+  const img = req.body.img;
+  const user = await User.findOne({ _id: img.author })
+
+  const remove = user.notifications.filter(not => {
+    return !not.image.url || !not.image.url.includes(img.url)
+  });
+  
+  await user.update({ notifications: remove })
+
+  req.flash('success', 'You have removed the image!');
+  res.redirect('back')
+}

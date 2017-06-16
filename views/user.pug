@@ -25,9 +25,14 @@ block content
                 - const followClass = folllowerList.includes(user._id.toString()) ? 'Following' : "Follow";
                 button(type="submit" class=followClass)= followClass
           .header__data--statistics.row 
-            span #{profile.posts} posts
-            a(href=`/${profile.slug}/followers`).followers.modal__open #{profile.followers.length} followers
-            a(href=`/${profile.slug}/following`).following.modal__open #{profile.following.length} following
+            .number #{profile.posts}
+            span posts
+            a(href=`/${profile.slug}/followers`).followers.modal__open.row 
+              .number #{profile.followers.length} 
+              span followers
+            a(href=`/${profile.slug}/following`).following.modal__open.row
+              .number #{profile.following.length} 
+              span following
           .header__data--profile
             if profile.name
               h2= profile.name

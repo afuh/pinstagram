@@ -36,14 +36,19 @@
           border: 1px solid color(lightgray)
           color: color(black)
       &--statistics
-          margin: 10px 0
-          a, span
-            +font(16px, 300)
-            color: color(black)
+        margin: 10px 0
+        a, span
+          +font(16px, 300)
+          color: color(black)
+          white-space: nowrap
+          &:not(a)
             margin-right: 40px
-            white-space: nowrap
-            &::first-letter
-              font-weight: 600
+        .number
+          margin-right: 0.5em
+          font-weight: 600
+
+            // &::first-letter
+            //   font-weight: 600
       &--profile
         h2
           +font(16px, 600)
