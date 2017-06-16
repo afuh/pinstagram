@@ -72,18 +72,18 @@ exports.register = async (req, res, next) => {
 
 // ======== Login / Register forms ======== //
 exports.loginForm = (req, res) => {
-  res.render('login', { title: "login" });
+  res.render('login', { title: "Login" });
 }
 
 exports.registerForm = (req, res) => {
-  res.render('register', { title: "register" });
+  res.render('register', { title: "Register" });
 }
 
 // ======== Reset Password ======== //
 
 // ask the user for the email
 exports.forgotForm = (req, res) => {
-  res.render('forgot', {title: 'forgot'} )
+  res.render('forgot', {title: 'Change your Password'} )
 }
 
 // if the email is true, set the tokens and generate an URL to send it to the user per email
@@ -151,4 +151,32 @@ exports.updatePassword = async (req, res) => {
 
   req.flash('success', 'Your password has been reset!');
   res.redirect(`/${user.slug}`);
+}
+
+// ======== Change Password ======== //
+exports.passwordForm = (req, res) => {
+  res.render('password', {title: 'Change your Password'})
+}
+
+exports.username = (req, res, next) => {
+  req.body.username = req.user.username;
+  next()
+}
+
+exports.passwordCheck = passport.authenticate('local', {
+  failureRedirect: 'back',
+  failureFlash: 'Invalid password'
+})
+
+exports.generateUrl = async (req, res) => {
+  const user = await User.findOne({ _id: req.user._id });
+  if (!user) {
+    req.flash('error', "Something went terribly wrong")
+    return res.redirect('/login')
+  }
+  user.resetPasswordToken = crypto.randomBytes(20).toString('hex');
+  user.resetPasswordExpires = Date.now() + 300000 // 5 minutes from now
+  await user.save();
+
+  res.redirect(`/reset/${user.resetPasswordToken}`);
 }

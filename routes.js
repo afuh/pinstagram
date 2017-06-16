@@ -27,7 +27,7 @@ router.post('/login', auth.login);
 
 router.get('/logout', auth.logout);
 
-// ======== Password reset ======== //
+// ======== Reset Password ======== //
 router.get('/reset', auth.forgotForm);
 router.post('/reset', catchErrors(auth.forgot));
 router.get('/reset/:token', catchErrors(auth.confirmToken), auth.reset)
@@ -35,6 +35,14 @@ router.post('/reset/:token',
   auth.confirmPasswords,
   catchErrors(auth.confirmToken),
   catchErrors(auth.updatePassword)
+)
+
+// ======== Change Password ======== //
+router.get('/change-password', auth.isLoggedIn, auth.passwordForm)
+router.post('/change-password',
+  auth.username,
+  auth.passwordCheck,
+  catchErrors(auth.generateUrl)
 )
 
 // ======== User profile ======== //
