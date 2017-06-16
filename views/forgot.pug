@@ -1,8 +1,7 @@
-extends layout
+extends login
+
 include mixins/_formReset
 
-block content
-  section
-    .form
-      p We can help you change your password using the email address linked to your account
-      +formReset()
+block forms
+  p.form__message We can help you change your password using the email address linked to your account
+  +formReset()

@@ -1,10 +1,9 @@
 extends layout
 include mixins/_formProfile
+include mixins/_formHeader
 
 block content
   .form
-    .form__header.row
-      img.gravatar(src=h.avatar(user, 60), alt=`${user.name}'s' avatar` style="height: 60px; width: 60px;")
-      h1= user.username
+    +formHeader()
     +formProfile()
-    a(href=`/reset`) Change password
+    a(href=`/change-password`) Change password

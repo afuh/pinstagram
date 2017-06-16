@@ -1,5 +1,6 @@
 include mixins/_formLogin
 include mixins/_flash
+include mixins/_loginHeader
 doctype html
 html
   head
@@ -10,17 +11,16 @@ html
   body
     section
       block messages
-        +flash() 
-      .form
-        .header.row
-          img.logo(src="/images/logo.svg", alt="logo")
-          h1= h.siteName
-        .facebook_register.col
-          form(method="GET", action="/login/facebook")
-            input.button(type="submit" value="Log in with Facebook")
-        .line-or.row
-          span
-          span.or or
-          span
-        +formLogin()
-        a.account_link(href="/register") Don't have an account?
+        +flash()  
+        .form
+          +loginHeader()
+          block forms   
+            .facebook_register.col
+              form(method="GET", action="/login/facebook")
+                input.button(type="submit" value="Log in with Facebook")
+            .line-or.row
+              span
+              span.or or
+              span
+            +formLogin()
+            a.account_link(href="/register") Don't have an account?

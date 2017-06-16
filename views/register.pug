@@ -1,23 +1,10 @@
-include mixins/_formRegister
-include mixins/_flash
+extends login
 
-doctype html
-html
-  head
-    title= `${title} | ${h.siteName}`
-    link(rel="shortcut icon" type="image/png" href="/images/favicon.png")
-    link(rel='stylesheet', href='/dist/style.css') 
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-  body
-  section
-    block messages
-      +flash()
-    .form
-      .header.row
-        img.logo(src="/images/logo.svg", alt="logo")
-        h1= h.siteName
-      p.form__message Sign up to see photos and videos from your friends.
-      +formRegister()
-      a.account_link(href="/login") Have an account?
-      
-    
+include mixins/_formRegister
+
+block forms
+  p.form__message Sign up to see photos and videos from your friends.
+  +formRegister()
+  a.account_link(href="/login") Have an account?
+  
+  
