@@ -2,44 +2,54 @@
 +break(868px)
   .gallery__img
     margin: 0
-
-// user
 +break(xs)
   .content
     .header
+      flex-flow: column
       &__data
+        width: 100%
         padding: 0
+        justify-content: space-around
+        align-items: center
         &--name
-          a.edit-profile
-            padding: 0 4px
-            font-weight: 300
-            margin-right: 10px
-      &__img
-        img
-          +size(77px, 77px)
-        .avatar
-          +size(77px, 100%)
-          &__change,
-          &__remove
-            margin: 0 10px
-            +size(14px, 14px)
+          +position(center, center)
+          margin: 4px 0
+          h2
+            margin: 0
+          form.follow, a.edit-profile
+            margin-left: 10px
       &__data--statistics
+        width: 100%
+        justify-content: space-around
         span, a
+          margin: 0 !important
           white-space: normal
-          text-align: center
+      &__data--profile
+        padding: 0 12px
 
 
 //navbar
 +break(960px)
   .nav__logo
+    transition: all 0.2s
     padding-left: 20px
 +break(xs)
+  header
+    position: fixed
+    top: 0
+    z-index: 99
+    width: 100%
+    box-shadow: $shadow
+  article
+    margin-top: 80px
   .nav
     +position(space-between, center)
     &__logo
+      padding-left: 0
       display: flex
       justify-content: center
       +grid(3, 12)
+      border-right: 1px solid color(lightgray)
     &__user
       justify-content: space-around
       +grid(9, 12)
@@ -52,3 +62,22 @@
           &__account,
           &__logout,
             +size(28px, 28px)
+
+// img-card
++break(700px)
+  .img-card
+    border-radius: 0
+    margin: 8px 0
+  .current-img
+    width: 100%
+    position: relative
+  .prev-img,
+  .next-img
+    z-index: 9
+    height: 100%
+    position: absolute
+    a.arrow
+  .prev-img
+    left: 0
+  .next-img
+    right: 0

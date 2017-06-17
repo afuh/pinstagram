@@ -39,7 +39,7 @@ function addFollower(e) {
   e.preventDefault()
   axios.post(this.action)
     .then(res => {
-      const followers = `${res.data} followers`
+      const followers = `<div class="number">${res.data}</div><span>followers</span>`
       const button = this.firstChild;
       follower.innerHTML = followers;
       button.classList.toggle("Following");
