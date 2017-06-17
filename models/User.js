@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    validate: [validator.isEmail, 'Invalid Email Address']
+    validate: [validator.isEmail, 'Invalid Email Address'],
+    required: "Please Supply an email address"
   },
   name: {
     type: String,
@@ -22,7 +23,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
     unique: true,
-    lowercase: true,
     validate: [validator.isAlphanumeric, 'Invalid username'],
     required: "Please supply an username"
   },
@@ -85,6 +85,6 @@ userSchema.virtual('gravatar').get(function(){
 });
 
 // https://github.com/saintedlama/passport-local-mongoose#options
-userSchema.plugin(passportLocalMongoose, { usernameField: 'username' })
+userSchema.plugin(passportLocalMongoose, { usernameField: 'username', usernameLowerCase: true })
 
 module.exports = mongoose.model('User', userSchema);

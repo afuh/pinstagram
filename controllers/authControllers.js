@@ -41,15 +41,19 @@ exports.isLoggedIn = (req, res, next) => {
 
 
 // ======== Register validator ======== //
+// express-validator
 exports.validateRegister = (req, res, next) => {
   req.sanitizeBody('username');
-  req.checkBody('username', 'Invalid Username').notEmpty();
+  req.checkBody('username', 'Please supply an username').notEmpty();
+  req.checkBody('username', 'Invalid Username').isAlphanumeric();
+
   req.checkBody('email', 'Invalid Email').isEmail();
   req.sanitizeBody('email').normalizeEmail({
     gmail_emove_dots: false,
     remove_extension: false,
     gmail_remove_subaddress: false
   });
+
   req.checkBody('password', 'Password Cannot be Blank').notEmpty();
   req.checkBody('password-confirm', 'Confirmed Password Cannot be Blank').notEmpty();
   req.checkBody('password-confirm', 'You passwords do not match').equals(req.body.password);
@@ -57,7 +61,7 @@ exports.validateRegister = (req, res, next) => {
   const errors = req.validationErrors();
   if (errors) {
     req.flash('error', errors.map(err => err.msg) );
-    res.render('register', {title: 'Register', body: req.body });
+    res.render('register', {title: 'Register', body: req.body, flashes: req.flash() });
     return;
   }
   next();
@@ -65,7 +69,7 @@ exports.validateRegister = (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   const user = new User({ email: req.body.email, username: req.body.username });
-  const register = promisify(User.register, User); // passport!
+  const register = promisify(User.register, User); // passport-local-mongoose
   await register(user, req.body.password);
   next();
 };

@@ -10,17 +10,16 @@ exports.notFound = (req, res, next) => {
   next(err);
 };
 
-exports.productionErrors = (err, req, res, next) => {
+exports.productionErrors = (err, req, res) => {
   let message = err.message
 
   if (err.errors && err.errors.email.kind === 'duplicate') {
     message = "A user with the given email is already registered"
+  } else if (err.name && err.name == 'UserExistsError') {
+    message = 'Sorry, that username is taken.'
   }
 
   res.status(err.status || 500);
-  res.render('error', {
-    title: "Page Not Found",
-    message,
-    status: err.status
-  });
+  req.flash('error', message)
+  res.redirect('back')
 };
