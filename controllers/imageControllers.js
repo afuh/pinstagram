@@ -124,11 +124,16 @@ exports.saveImage = async (req, res) => {
 }
 
 exports.showImage = async (req, res) => {
-  const current = await Image.findOne({ url: req.params.image }).populate('author comments');
+  const [current, profile] = await Promise.all([
+    Image.findOne({ url: req.params.image }).populate('author comments'),
+    req.user ? req.user : User.findOne({ url: req.params.user })
+  ])
+
+  if (!current) return res.redirect('/');
 
   const [p, n] = await Promise.all([
-    Image.find({ _id: { $gt: current._id } }).sort({ _id: 1 }).limit(1),
-    Image.find({ _id: { $lt: current._id } }).sort({ _id: -1 }).limit(1)
+    Image.find({ _id: { $gt: current._id }, author: profile._id }).sort({ _id: 1 }).limit(1),
+    Image.find({ _id: { $lt: current._id }, author: profile._id }).sort({ _id: -1 }).limit(1)
   ])
 
   const prev = p[0] && p[0].url
@@ -213,5 +218,6 @@ exports.removeImage = async (req, res, next) => {
   fs.unlinkSync(`${__dirname}/../public/uploads/${img.photo}`);
   fs.unlinkSync(`${__dirname}/../public/uploads/gallery/${img.photo}`);
 
+  // to removeNotification
   next()
 }

@@ -66,9 +66,8 @@ exports.removeNotification = async (req, res) => {
   const remove = user.notifications.filter(not => {
     return !not.image.url || !not.image.url.includes(img.url)
   });
-  
   await user.update({ notifications: remove })
 
   req.flash('success', 'You have removed the image!');
-  res.redirect('back')
+  res.redirect('/')
 }
