@@ -32,13 +32,13 @@ exports.updateAccount = async (req, res) => {
     { _id: req.user._id },
     { $set: {
         name: req.body.name,
-        username: req.body.username,
+        // username: req.body.username,
         email: req.body.email,
         website: isUrl ? req.body.website : "",
         bio: req.body.bio
       }
     },
-    { new: true, runValidators: true, context: 'query' }
+    { new: true, runValidators: false, context: 'query' }
   );
   req.flash('success', "Updated the profile!");
   res.redirect(`${req.user.slug}`)
