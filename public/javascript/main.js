@@ -62,8 +62,10 @@ if (notification) add(notification, 'click', showNotifications)
 // ======== Upload images ======== //
 const upload = get('a.upload__image')
 const input = get('input.upload-image')
+const imageForm = get('form.form__image')
 
-import { uploadImage, preUpload } from './modules/uploadImage';
+import { uploadImage, preUpload, loader } from './modules/uploadImage';
 
 if (upload) add(upload, "click", uploadImage)
 if (input) input.onchange = () => preUpload(event)
+if (imageForm) add(imageForm, 'submit', loader)

@@ -1,4 +1,4 @@
-import { get } from './shortDom';
+import { get, add } from './shortDom';
 import { showModal } from './modal';
 
 function preUpload(event) {
@@ -6,8 +6,6 @@ function preUpload(event) {
   const reader = new FileReader();
 
   const thumb = get("img.thumb");
-
-  // thumb.alt = image.name;
 
   reader.onload = (event) => thumb.src = event.target.result;
   reader.readAsDataURL(image);
@@ -29,7 +27,7 @@ function uploadImage(e) {
           <input type="file" name="photo" id="photo" accept="image/png, image/jpeg" required />
         </label>
         <textarea name="caption" placeholder="Write a caption..." maxlength="140"></textarea>
-        <input class="button" type="submit" value="Share"/>
+        <input class="button submit-image" type="submit" value="Share"/>
       </form>
     </div>
   `
@@ -37,7 +35,23 @@ function uploadImage(e) {
   const input = get('input[type="file"]', modal)
   input.onchange = () => preUpload(event);
 
+  const imageForm = get('form.form__image')
+  add(imageForm, 'submit', loader)
+}
+
+function loader() {
+  const submit = get('input.submit-image')
+  const form = submit.parentNode
+  form.removeChild(submit)
+
+  const render = `
+    <div class="loader-cont row">
+      <div class="loader"></div>
+    </div>
+  `
+
+  form.insertAdjacentHTML("beforeend", render);
 }
 
 
-export { uploadImage, preUpload }
+export { uploadImage, preUpload, loader }
