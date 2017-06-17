@@ -1,5 +1,6 @@
-mixin gallery(image = {})
-  a.gallery__img.row(href=`/p/${image.url}`)
+mixin gallery(image = {}, like)
+  - const path = like ? '/like' : ''
+  a.gallery__img.row(href=`/p/${image.url}${path}`)
     img(src=`/uploads/gallery/${image.photo}` alt=`${image.caption}`)
     .hover__icons.row
       .icon.row

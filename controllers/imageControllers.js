@@ -123,6 +123,7 @@ exports.saveImage = async (req, res) => {
   res.redirect(`back`);
 }
 
+// ======== Show Profile Image / Find prev and next ======== //
 exports.showImage = async (req, res) => {
   const [current, profile] = await Promise.all([
     Image.findOne({ url: req.params.image }).populate('author comments'),
@@ -140,6 +141,27 @@ exports.showImage = async (req, res) => {
   const next = n[0] && n[0].url
 
   res.render('image', { title: current.caption, current, prev, next });
+}
+
+// ======== Show Liked Image / Find prev and next ======== //
+exports.showLike = async (req, res) => {
+
+  const [current, user] = await Promise.all([
+    Image.findOne({ url: req.params.image }).populate('author comments'),
+    User.findOne({ _id: req.user._id }).populate('likes')
+  ])
+
+  if (!current) return res.redirect('/');
+
+  const [n, p] = await Promise.all([
+    Image.find({ _id: { $in: user.likes, $gt: current._id } }).sort({ _id: 1 }).limit(1),
+    Image.find({ _id: { $in: user.likes, $lt: current._id } }).sort({ _id: -1 }).limit(1)
+  ])
+
+  const prev = p[0] && p[0].url
+  const next = n[0] && n[0].url
+
+  res.render('image', { title: current.caption, current, prev, next, like: true });
 }
 
 // ======== Add likes ======== //

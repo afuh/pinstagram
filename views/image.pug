@@ -3,11 +3,12 @@ include mixins/_imgCard
 
 block content
   section
+    - const path = like ? '/like' : ''
     .current-img.row
       .prev-img
         if prev
-          a.arrow.row(href=`/p/${prev}`) ❮
+          a.arrow.row(href=`/p/${prev}${path}`) ❮
       +imgCard(current)
       .next-img
         if next
-          a.arrow.row(href=`/p/${next}`) ❯
+          a.arrow.row(href=`/p/${next}${path}`) ❯  
