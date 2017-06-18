@@ -13,11 +13,11 @@ exports.suggestions = async (_id) => {
   const user = await User.findOne({ _id })
 
   const profiles = await User.find({
-    posts: { $gt: 0 },
+    posts: { $gt: 2 },
     _id: { $ne: _id, $nin: user.following },
   })
   .sort({ created: 'desc' })
-  .limit(6)
+  .limit(12)
 
   return profiles.map(profile => {
     return {

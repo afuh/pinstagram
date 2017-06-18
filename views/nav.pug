@@ -10,6 +10,8 @@ nav.nav.row
       - const notifyClass = user.notifications.length ? 'icon__notify-on' : '' 
       a.nav-i.notifications.modal__open(href=`/notifications`)
         div.icon__notify(class=notifyClass)
+      a.nav-i.discover(href="/discover")
+        .icon__discover
       a.nav-i(href=`/likes`)
         .icon__heart
       a.nav-i.upload__image(href=`/upload`) 

@@ -47,13 +47,16 @@
     &__logo
       padding-left: 0
       display: flex
-      justify-content: center
+      +position(center, center)
+      align-self: stretch
       +grid(3, 12)
-      border-right: 1px solid color(lightgray)
     &__user
+      border-left: 1px solid color(lightgray)
+      height: 100%
       justify-content: space-around
       +grid(9, 12)
       .nav-i
+        width: 100%
         margin: 0 !important
         .icon
           &__heart,
@@ -61,7 +64,8 @@
           &__upload,
           &__account,
           &__logout,
-            +size(28px, 28px)
+          &__discover
+            +size(30px, 30px)
 
 // img-card
 +break(700px)

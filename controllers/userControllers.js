@@ -175,3 +175,9 @@ exports.removeAvatar = async (req, res) => {
   req.flash('success', 'You have removed your avatar!');
   res.redirect(`/${req.user.slug}`)
 }
+
+// ======== Discover people ======== //
+exports.discoverPeople = async (req, res) => {
+  const list = await suggestions(req.user._id);
+  res.render('list', { title: 'Discover People', list })
+}

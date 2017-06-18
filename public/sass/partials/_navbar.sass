@@ -11,6 +11,7 @@ header
       a
         +logo()
     &__user
+      height: 100%
       position: relative
       align-items: center
       .log
@@ -19,6 +20,9 @@ header
         white-space: nowrap
       a.nav-i
         margin: 0 20px
+        display: flex
+        +position(center, center)
+        align-self: stretch
       .icon
         &__notify
           background: url(../images/notify.svg)
@@ -32,12 +36,15 @@ header
           background: url(../images/upload.svg)
         &__logout
           background: url(../images/logout.svg)
+        &__discover
+          background: url(../images/discover.svg)
       .icon
         &__upload,
         &__account,
         &__notify,
         &__heart,
-        &__logout
+        &__logout,
+        &__discover
           +size(24px, 24px)
           background-size: cover
           background-repeat: no-repeat

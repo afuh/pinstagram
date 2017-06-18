@@ -82,6 +82,10 @@ router.post('/upload',
 );
 
 
+// ======== Discover people ======== //
+router.get('/discover', auth.isLoggedIn, catchErrors(user.discoverPeople));
+
+
 
 // **********
 // API
