@@ -23,12 +23,27 @@ exports.showUserData = (req, res) => {
 }
 
 exports.updateAccount = async (req, res) => {
-  const isUrl = validator.isURL(req.body.website, {  protocols: ['http','https'], require_protocol: false });
-
-  if (req.body.bio.length > 140) {
-    req.flash('error', 'That Bio has too much words!')
+  if (!validator.isLength(req.body.bio, {min: undefined, max: 140})) {
+    req.flash('error', 'That Bio has too much words! Try with the short version')
     return res.redirect('back')
   }
+
+  if (!validator.isLength(req.body.name, {min: undefined, max: 60})) {
+    req.flash('error', 'Wow, that is a really long name! Try with your Nickname instead')
+    return res.redirect('back')
+  }
+
+  if (!validator.isLength(req.body.website, {min: undefined, max: 60})) {
+    req.flash('error', 'I think you should try with a shorter Url')
+    return res.redirect('back')
+  }
+
+  if (!validator.isEmail(req.body.email)) {
+    req.flash('error', 'Invalid email, please try again')
+    return res.redirect('back')
+  }
+
+  const isUrl = validator.isURL(req.body.website, {  protocols: ['http','https'], require_protocol: false });
 
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },

@@ -5,7 +5,7 @@ const Image = mongoose.model('Image');
 
 exports.addComment = async (req, res, next) => {
   if (req.body.text.length > 140) {
-    req.flash('error', 'Comment failed, apparently you have written too much, please try again')
+    req.flash('error', 'Apparently you have written too much, please try again')
     return res.redirect('/')
   }
   req.body.author = req.user._id
