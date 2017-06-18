@@ -9,21 +9,23 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 // Look for profiles to suggest the user
-exports.suggestions = async (user) => {
-  const users = await User.find({
-    posts: { $gt: 1 },
-    _id: { $ne: user }
+exports.suggestions = async (_id) => {
+  const user = await User.findOne({ _id })
+
+  const profiles = await User.find({
+    posts: { $gt: 0 },
+    _id: { $ne: _id, $nin: user.following },
   })
   .sort({ created: 'desc' })
   .limit(6)
 
-  return users.map(user => {
+  return profiles.map(profile => {
     return {
-      name: user.name,
-      username: user.username,
-      slug: user.slug,
-      gravatar: user.gravatar,
-      avatar: user.avatar
+      name: profile.name,
+      username: profile.username,
+      slug: profile.slug,
+      gravatar: profile.gravatar,
+      avatar: profile.avatar
     }
   })
 }

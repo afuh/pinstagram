@@ -12,7 +12,9 @@ const Image = mongoose.model('Image');
 exports.showProfile = async (req, res, next) => {
   const profile = await User.findOne({ slug: req.params.user }).populate('followers following');
   if (!profile) return next();
+
   const images = await Image.find({ author: profile._id }).sort({ created: 'desc' }).limit(32).populate('comments');
+
   res.render('user', { title: profile.username, images, profile });
 }
 
