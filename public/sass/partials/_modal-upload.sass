@@ -1,4 +1,5 @@
 .upload
+  margin-top: 0 !important
   z-index: 9999
   justify-content: center
   &__message
@@ -9,8 +10,14 @@
   input[type='file']
     position: fixed
     bottom: 1000%
+  textarea[name="caption"]
+    margin-top: 10px
+    &:focus
+      outline: none
+      border: 1px solid color(lightblue)
   &__label
-    position: relative
+    overflow-y: scroll
+    max-height: 50vh
     font-weight: 300
     +position(center, center)
     cursor: pointer
@@ -24,9 +31,9 @@
       position: absolute
       color: color(gray)
     .thumb
-      z-index: 999
+      z-index: 9
 
-// loader 
+// loader
 .loader-cont
   margin-top: 10px
   width: 100%

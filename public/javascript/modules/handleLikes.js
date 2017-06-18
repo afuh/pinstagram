@@ -21,13 +21,16 @@ function showLikes(e) {
   e.preventDefault()
 
   const modal = get(".modal");
-  const header = get(".header", modal);
-  const ul = get(".contact-list", modal);
+  const content = get(".modal__content", modal);
 
   axios.get(`/api${this.pathname}`)
     .then(res => {
-      header.innerHTML = "Likes";
-      ul.innerHTML = renderModal(res.data).join(" ")
+      content.innerHTML = `
+        <div class="header row"> Likes </div>
+        <ul class="contact-list">
+          ${renderModal(res.data).join(" ")}
+        </ul>
+      `
       showModal()
     })
     .catch(err => console.log(err.message));

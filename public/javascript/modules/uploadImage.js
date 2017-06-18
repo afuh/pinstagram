@@ -22,11 +22,13 @@ function uploadImage(e) {
       <p class="upload__message"> Share a new image! </p>
       <form class="form__image col" action="/upload" method="POST" enctype="multipart/form-data">
         <label for="photo" class="upload__label col">
-          <img class="thumb">
+          <div class="thumb-cont col">
+            <img class="thumb">
+          </div>
           <div class="icon-modal__upload"> ⬆︎ </div>
           <input type="file" name="photo" id="photo" accept="image/png, image/jpeg" required />
         </label>
-        <textarea name="caption" placeholder="Write a caption..." maxlength="140"></textarea>
+        <textarea type="text" name="caption" placeholder="Write a caption..." maxlength="140" autocomplete="off"></textarea>
         <input class="button submit-image" type="submit" value="Share"/>
       </form>
     </div>

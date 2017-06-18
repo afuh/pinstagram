@@ -41,8 +41,7 @@ function showNotifications(e) {
   e.preventDefault()
 
   const modal = get(".modal");
-  const header = get(".header", modal);
-  const ul = get(".contact-list", modal);
+  const content = get(".modal__content", modal);
 
   axios.get(`/api${this.pathname}`)
     .then(res => {
@@ -55,8 +54,12 @@ function showNotifications(e) {
         ${notification}
         <a href="/api/notifications/clear"> clear all </a>
       `
-      header.innerHTML = !n ? 'No new notifications' : headerContent;
-      ul.innerHTML = renderModal(notify).join(" ")
+      content.innerHTML = `
+        <div class="header row"> ${!n ? 'No new notifications' : headerContent} </div>
+        <ul class="contact-list">
+          ${renderModal(notify).join(" ")}
+        </ul>
+      `
       showModal()
     }).catch(err => console.log(err.message))
 }

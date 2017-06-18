@@ -3,31 +3,34 @@ import axios from 'axios';
 import { get } from './shortDom';
 import { showModal, renderModal } from './modal';
 
-function showFollowers(e) {
-  const modal = get(".modal");
-  const header = get(".header", modal);
-  const ul = get(".contact-list", modal);
+const modal = get(".modal");
+const content = get(".modal__content", modal);
 
+function showFollowers(e) {
   e.preventDefault()
   axios.get(`/api${this.pathname}`)
     .then(res => {
-      header.innerHTML = "Followers";
-      ul.innerHTML = renderModal(res.data).join(" ")
+      content.innerHTML = `
+        <div class="header row"> Followers </div>
+        <ul class="contact-list">
+          ${renderModal(res.data).join(" ")}
+        </ul>
+      `
       showModal()
     })
     .catch(error => console.log(err.message));
 }
 
 function showFollowing(e) {
-  const modal = get(".modal");
-  const header = get(".header", modal);
-  const ul = get(".contact-list", modal);
-
   e.preventDefault()
   axios.get(`/api${this.pathname}`)
     .then(res => {
-      header.innerHTML = "Following";
-      ul.innerHTML = renderModal(res.data).join(" ")
+      content.innerHTML = `
+        <div class="header row"> Following </div>
+        <ul class="contact-list">
+          ${renderModal(res.data).join(" ")}
+        </ul>
+        `
       showModal()
     })
     .catch(error => console.log(err.message));
