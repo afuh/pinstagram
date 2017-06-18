@@ -17,9 +17,11 @@ mixin imgCard(image = {})
               - const likesList = image.likes.map(obj => obj.toString());
               - const likesClass = likesList.includes(user._id.toString()) ? 'icon__heart on' : 'icon__heart'
               button(type="submit" name="likes" class=likesClass)
-            a.likes.modal__open(href=`/p/${image.url}/likes`) #{image.likes.length} likes    
+            a.likes.modal__open(href=`/p/${image.url}/likes`) #{image.likes.length} likes
         .content__caption
           p.caption= image.caption
+          time.img-card__date(datetime=image.created)
+            p(style="margin: 5px 0;")= h.moment(image.created).startOf().fromNow()  
         if image.comments.length
         .content__comments   
           ul.comments
@@ -30,8 +32,6 @@ mixin imgCard(image = {})
                   span= comment.text.replace(/&lt;/g,'<')
                 if user && user._id.equals(comment.author._id)
                   a.remove-comment(href=`/comment/${comment._id}/remove`) ✕
-        time.img-card__date(datetime=image.created)
-          p= h.moment(image.created).startOf().fromNow()
       .img-card__comment
         if (user)
           form.comment(action=`/api/comment/${image._id}`, method="POST")

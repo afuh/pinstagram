@@ -33,6 +33,7 @@
   &__content
     margin: 4px 16px
     padding: 10px
+
   &__date
     font-size: 10px
     text-transform: uppercase
@@ -65,6 +66,8 @@
         border: none
         &.on
           background: url(../images/hearton.svg) no-repeat
+  &__caption
+    white-space: pre-wrap      
   &__comments
     max-height: 200px
     overflow: scroll
@@ -81,7 +84,7 @@
         &:hover
           color: darken(color(gray), 20%)
 
-// View current photo section
+// View current photo
 .current-img
   max-width: 800px
   margin: 60px auto 0
