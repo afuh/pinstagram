@@ -18,10 +18,9 @@ const options = {
 
 passport.use(new FacebookStrategy(options, (accessToken, refreshToken, profile, done) => {
   User.findOne({ oauthID: profile.id }, (err, user) => {
-    if (err) {
-      done(err)
-    }
-    if (!err && user !== null) {
+    if (err) return done(err);
+
+    if (user !== null) {
       done(null, user);
     } else {
         const user = new User({
@@ -31,13 +30,7 @@ passport.use(new FacebookStrategy(options, (accessToken, refreshToken, profile, 
           avatar: profile._json.cover.source,
           email: profile.emails[0].value
         });
-        user.save(function(err) {
-          if(err) {
-            done(err)
-          } else {
-            done(null, user);
-          }
-        });
+        user.save(err => err ? done(err) : done(null, user))
       }
     });
   }
