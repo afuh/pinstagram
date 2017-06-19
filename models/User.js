@@ -3,6 +3,7 @@ const validator = require('validator');
 const slug = require('slugs');
 const md5 = require('md5');
 const passportLocalMongoose = require('passport-local-mongoose');
+const findOrCreate = require('mongoose-findorcreate')
 
 mongoose.Promise = global.Promise
 
@@ -83,6 +84,8 @@ userSchema.virtual('gravatar').get(function(){
   const hash = md5(this.email);
   return `https://gravatar.com/avatar/${hash}?d=identicon`;
 });
+
+userSchema.plugin(findOrCreate);
 
 userSchema.statics.getSusggestions = async function(user){
   const profiles = await this.find({

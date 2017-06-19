@@ -8,34 +8,26 @@ passport.use(User.createStrategy());
 
 // https://github.com/jaredhanson/passport-facebook
 const FacebookStrategy = require('passport-facebook').Strategy;
-const options = {
+const facebookOptions = {
     clientID: process.env.APP_ID,
     clientSecret: process.env.APP_SECRET,
     callbackURL: process.env.APP_URL,
     enableProof: true,
     profileFields: ['id', 'displayName', 'email', 'cover']
 }
-
-passport.use(new FacebookStrategy(options, (accessToken, refreshToken, profile, done) => {
-  User.findOne({ oauthID: profile.id }, (err, user) => {
-    if (err) return done(err);
-
-    if (user !== null) {
-      done(null, user);
-    } else {
-        const user = new User({
-          oauthID: profile.id,
-          name: profile.displayName,
-          username: slug(profile.displayName),
-          avatar: profile._json.cover.source,
-          email: profile.emails[0].value
-        });
-        user.save(err => err ? done(err) : done(null, user))
-      }
-    });
+passport.use(new FacebookStrategy(facebookOptions, (accessToken, refreshToken, profile, done) => {
+  const user = {
+    oauthID: profile.id,
+    name: profile.displayName,
+    username: slug(profile.displayName),
+    avatar: profile._json.cover.source,
+    email: profile.emails[0].value
   }
-));
 
+  User.findOrCreate({ oauthID: profile.id }, user)
+    .then(res => done(null, res.doc))
+    .catch(err => done(err))
+}))
 
 
 // http://www.passportjs.org/docs#sessions
