@@ -41,7 +41,8 @@ exports.recentImages = async (req, res) => {
   }
 
   if (!images.length) {
-    const profiles = await suggestions(req.user._id);
+    const user = await User.findById(req.user._id)
+    const profiles = await User.getSusggestions(user)
     res.render('tutorial', { title: 'Welcome!', text: `Welocome to ${siteName}!`, profiles })
     return;
   }

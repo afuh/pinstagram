@@ -67,7 +67,8 @@ exports.showLikedImages = async (req, res) => {
   const images = await Image.find({ _id: { $in: user.likes } }).populate('comments')
 
   if (!images.length) {
-    const profiles = await suggestions(req.user._id);
+    const user = await User.findById(req.user._id)
+    const profiles = await User.getSusggestions(user)
     res.render('tutorial', { title: 'find people', text: `You haven't liked any images yet`, profiles })
     return;
   }
@@ -178,6 +179,7 @@ exports.removeAvatar = async (req, res) => {
 
 // ======== Discover people ======== //
 exports.discoverPeople = async (req, res) => {
-  const list = await suggestions(req.user._id);
+  const user = await User.findById(req.user._id)
+  const list = await User.getSusggestions(user)
   res.render('list', { title: 'Discover People', list })
 }

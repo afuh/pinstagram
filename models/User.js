@@ -84,6 +84,25 @@ userSchema.virtual('gravatar').get(function(){
   return `https://gravatar.com/avatar/${hash}?d=identicon`;
 });
 
+userSchema.statics.getSusggestions = async function(user){
+  const profiles = await this.find({
+    posts: { $gt: 2 },
+    _id: { $ne: user, $nin: user.following },
+  })
+  .sort({ created: 'desc' })
+  .limit(12)
+
+  return profiles.map(profile => {
+    return {
+      name: profile.name,
+      username: profile.username,
+      slug: profile.slug,
+      gravatar: profile.gravatar,
+      avatar: profile.avatar
+    }
+  })
+}
+
 // https://github.com/saintedlama/passport-local-mongoose#options
 userSchema.plugin(passportLocalMongoose, { usernameField: 'username', usernameLowerCase: true })
 
