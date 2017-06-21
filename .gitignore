@@ -4,6 +4,7 @@
 
 *.log
 variables.env
+variables.env.now
 node_modules
 
 dist
