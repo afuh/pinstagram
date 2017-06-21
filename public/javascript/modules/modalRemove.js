@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { add } from './shortDom';
+import { add, get } from './shortDom';
 
 function renderModal (parent, href) {
   if (this.nextElementSibling) return;
@@ -40,4 +40,19 @@ function removeAvatar(e) {
   renderModal.call(this, parent, `/api/remove-avatar-confirm`)
 }
 
-export { removeImage, removeAvatar }
+
+function loaderAvatar() {
+  const remove = get('a.remove-avatar');
+
+  this.parentNode.removeChild(this)
+  if (remove) remove.parentNode.removeChild(remove)
+
+  const render = `
+    <div class="loader-cont row">
+      <div class="loader"></div>
+    </div>
+  `
+  get('div.avatar').insertAdjacentHTML("beforeend", render);
+}
+
+export { removeImage, removeAvatar, loaderAvatar }

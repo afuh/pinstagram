@@ -1,4 +1,10 @@
 /* eslint-disable no-console */
+
+/* Credits */
+// Icons made by Madebyoliver http://www.flaticon.com/authors/madebyoliver
+// Loader by SamHerbert http://samherbert.net/svg-loaders/
+// Email template by Wes Bos http://wesbos.com
+
 const mongoose = require('mongoose');
 const mongodbErrorHandler = require('mongoose-mongodb-errors')
 require('dotenv').config({ path: 'variables.env' });

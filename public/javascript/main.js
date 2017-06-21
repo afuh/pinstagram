@@ -1,7 +1,3 @@
-/* Credits */
-// Icons made by Madebyoliver: http://www.flaticon.com/authors/madebyoliver
-// Email template by Wes Bos: http://wesbos.com
-
 import 'normalize.css';
 import "../sass/main.sass";
 import { get, getAll, add, addEach } from './modules/shortDom';
@@ -35,11 +31,13 @@ if (likeList) addEach(likeList, 'click', showLikes)
 // ======== Remove image / Avatar ======== //
 const image = getAll('a.remove-image');
 const avatar = get('a.remove-avatar');
+const label = get('label.avatar__change');
 
-import { removeImage, removeAvatar } from './modules/modalRemove'
+import { removeImage, removeAvatar, loaderAvatar } from './modules/modalRemove'
 
 if (image) addEach(image, 'click', removeImage);
 if (avatar) add(avatar, 'click', removeAvatar);
+if (label) add(label, 'change' , loaderAvatar) ;
 
 
 // ======== Follow ======== //
@@ -52,6 +50,7 @@ import { showFollowers, showFollowing, addFollower } from './modules/handleFollo
 if (follower) add(follower, 'click', showFollowers)
 if (following) add(following, 'click', showFollowing)
 if (follow) add(follow, 'submit', addFollower)
+
 
 // ======== Notifications ======== //
 const notification = get("a.notifications")

@@ -3,8 +3,6 @@ const validator = require('validator');
 const fs = require('fs');
 const promisify = require("es6-promisify");
 
-const { suggestions } = require('../helpers');
-
 const User = mongoose.model('User');
 const Image = mongoose.model('Image');
 
