@@ -79,7 +79,7 @@ exports.resize = async (req, res, next) => {
 
   // resize
   const photo = await jimp.read(req.file.buffer);
-  await photo.resize(600, jimp.AUTO);
+  await photo.resize(600, jimp.AUTO).quality(70);
   await photo.write(`./public/uploads/${req.body.photo}`);
 
   await photo.cover(290, 290, jimp.HORIZONTAL_ALIGN_CENTER | jimp.VERTICAL_ALIGN_MIDDLE);
@@ -95,7 +95,7 @@ exports.makeAvatar = async (req, res, next) => {
   req.body.photo = `${req.body.url}.${extension}`;
 
   const photo = await jimp.read(req.file.buffer);
-  await photo.resize(300, jimp.AUTO);
+  await photo.resize(300, jimp.AUTO).quality(70);
   await photo.cover(150, 150, jimp.HORIZONTAL_ALIGN_CENTER | jimp.VERTICAL_ALIGN_MIDDLE);
 
   if (req.user.avatar && !req.user.avatar.includes('http')) {
