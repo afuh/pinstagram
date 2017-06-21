@@ -7,8 +7,8 @@ block content
     .current-img.row
       .prev-img
         if prev
-          a.arrow.row(href=`/p/${prev}${path}`) ❮
+          a.arrow.prev.row(href=`/p/${prev}${path}`) ❮
       +imgCard(current)
       .next-img
         if next
-          a.arrow.row(href=`/p/${next}${path}`) ❯  
+          a.arrow.next.row(href=`/p/${next}${path}`) ❯  

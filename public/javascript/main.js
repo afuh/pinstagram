@@ -68,3 +68,13 @@ import { uploadImage, preUpload, loader } from './modules/uploadImage';
 if (upload) add(upload, "click", uploadImage)
 if (input) input.onchange = () => preUpload(event)
 if (imageForm) add(imageForm, 'submit', loader)
+
+
+// ======== Prev / Next ======== //
+add(window, 'keydown', e => {
+  if (!window.location.pathname.includes('/p/')) return;
+  const next = get('a.next');
+  const prev = get('a.prev')
+  if (e.keyCode === 39 && next) next.click()
+  if (e.keyCode === 37 && prev) prev.click()
+})

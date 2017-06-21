@@ -29,7 +29,7 @@ mixin imgCard(image = {})
               li.row
                 .row
                   a(href=`/${comment.author.slug}`)= comment.author.username
-                  span= comment.text.replace(/&lt;/g,'<')
+                  span= comment.text.replace(/&lt;/g,'<').replace(/&gt;/g,'>')
                 if user && user._id.equals(comment.author._id)
                   a.remove-comment(href=`/comment/${comment._id}/remove`) ✕
       .img-card__comment
