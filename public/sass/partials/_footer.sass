@@ -1,0 +1,20 @@
+footer
+  width: 100%
+  margin-top: 10%
+  display: flex
+  justify-content: center
+  background: #fff
+  border-top: 1px solid rgba(0,0,0, 0.1)
+  .footer
+    +position(center, center)
+    +size(960px, 45px)
+    span
+      +font(13px, 200)
+    span.date
+      margin-top: 2px
+      color: color(gray)
+    a
+      font-weight: 600
+      transition: all 0.2s
+      &:hover
+        color: color(cyan)

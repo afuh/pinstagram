@@ -8,11 +8,14 @@ html
     link(rel='stylesheet', href='/dist/style.css') 
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
-    header
-      include nav  
-    article
-      block messages
-        +flash()
-      block content
-      block scripts
-      script(src="/dist/bundle.js")  
+    .main-content.col
+      header
+        include _nav  
+      article
+        block messages
+          +flash()
+        block content
+        block scripts
+        script(src="/dist/bundle.js")  
+      footer
+        include _footer
