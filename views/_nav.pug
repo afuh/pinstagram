@@ -5,20 +5,20 @@ nav.nav.row
     a(href="/")
       img.logo(src="/images/logo.svg", alt="logo" style="width: 35px;")
   .nav__user.row
+    +modal()
     if user
-      +modal()
       - const notifyClass = user.notifications.length ? 'icon__notify-on' : '' 
-      a.nav-i.notifications.modal__open(href=`/notifications`)
+      a.nav-i.notifications.modal__open(href=`/notifications` title="Notifications")
         div.icon__notify(class=notifyClass)
-      a.nav-i.discover(href="/discover")
+      a.nav-i.discover(href="/discover" title="Discover people")
         .icon__discover
-      a.nav-i(href=`/likes`)
+      a.nav-i(href=`/likes` title="My Likes")
         .icon__heart
-      a.nav-i.upload__image(href=`/upload`) 
+      a.nav-i.upload__image(href=`/upload` title="Share an Image") 
         .icon__upload
-      a.nav-i(href=`/${user.slug}`)
+      a.nav-i(href=`/${user.slug}` title="My Profile")
         .icon__account
-      a.nav-i.log(href="/logout")
+      a.nav-i.log(href="/logout" title="Log Out")
         .icon__logout    
     else 
       a.nav-i.log(href="/login") Log In 

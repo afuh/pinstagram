@@ -11,8 +11,10 @@ function addLike(e) {
 
   axios.post(this.action)
     .then(res => {
+      const n = res.data
+      const likes = n === 1 ? `${n} like` : n === 0 ? `Be the first to like this` : `${n} likes`
       this.likes.classList.toggle("on");
-      counter.textContent = `${res.data} likes`;
+      counter.textContent = likes;
     })
     .catch(err => console.log(err.message));
 }
