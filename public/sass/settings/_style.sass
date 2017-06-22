@@ -69,3 +69,30 @@ button, input[type="submit"]
   color: color(black)
   text-decoration: none
   font-size: $size
+
+.main-content
+  min-height: 100vh
+  article
+    flex: 1
+
+// ================ Helpers ================ //
+.row
+  +container(row)
+
+.col
+  +container(col)
+
+=size($w, $h)
+  width: $w
+  height: $h
+
+=position($x, $y)
+  justify-content: $x
+  align-items: $y
+
+=font($size, $weight)
+  font-size: $size
+  font-weight: $weight
+
+=b($c: red)
+  border: 1px solid $c

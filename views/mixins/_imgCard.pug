@@ -21,7 +21,7 @@ mixin imgCard(image = {})
         .content__caption
           p.caption= image.caption
           time.img-card__date(datetime=image.created)
-            p(style="margin: 5px 0;")= h.moment(image.created).startOf().fromNow()  
+            p(style="margin: 5px 0;")= h.moment(image.created).fromNow()  
         if image.comments.length
         .content__comments   
           ul.comments
