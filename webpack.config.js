@@ -2,9 +2,7 @@
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require('autoprefixer');
-const webpack = require('webpack');
 const path = require("path");
-const chalk = require('chalk');
 
 const postcss = {
   loader: 'postcss-loader',
@@ -13,20 +11,16 @@ const postcss = {
   }
 };
 
-const isProd = process.env.NODE_ENV === "production";
-const cssDev = ['style-loader', 'css-loader', postcss, 'sass-loader'];
-const cssProd = ExtractTextPlugin.extract({
+const css = ExtractTextPlugin.extract({
                 fallback: 'style-loader',
                 use: ['css-loader', postcss, 'sass-loader'],
               });
 
 module.exports = {
   entry: './public/javascript/main.js',
-  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, "public", "dist"),
     filename: 'bundle.js',
-    // publicPath: "http://localhost:8080/public/dist"
   },
   module: {
     rules: [
@@ -37,8 +31,7 @@ module.exports = {
       },
       {
         test: /\.(s+(a|c)ss|css)$/,
-        // use: isProd ? cssProd : cssDev
-        use: cssProd
+        use: css
       },
       {
         test: /\.pug$/,
@@ -61,16 +54,9 @@ module.exports = {
     new ExtractTextPlugin({
        filename: 'style.css',
        allChunks: true,
-      //  disable: !isProd
      }),
   ]
 };
-
-if (isProd) {
-  console.log(chalk.bold("\n\n\t PRODUCTION\n\n"));
-} else {
-  console.log(chalk.bold("\n\n\t DEVELOPMENT\n\n"));
-}
 
 process.noDeprecation = true;
 

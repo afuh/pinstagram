@@ -12,10 +12,9 @@
     "cambiar": "node ./start.js",
     "start": "concurrently \"npm run nodemon\" \"npm run assets\" -n \"node,webpack\" --prefix name -c \"blue.bold,magenta.bold\"",
     "clean": "rimraf ./public/dist/*",
-    "removeAll": "rimraf ./public/uploads/**/*.jpeg && rimraf ./public/uploads/**/*.jpeg && npm run removeData",
     "nodemon": "nodemon ./start.js",
     "assets": "webpack -w --display-max-modules 0",
-    "devServer": "webpack-dev-server --inline",
+    "devServer": "webpack-dev-server --inline"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
