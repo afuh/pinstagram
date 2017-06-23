@@ -17,7 +17,7 @@ This is my first approach to the Back-end kingdom.
 - **Client side**: ES6 vanilla Javascript and Sass
 
 ## Live App
-**View it on [Heroku](#)**
+**View it on [Heroku](https://pinstagram-app.herokuapp.com/)**
 
 You can create your own account or login in with one of the following accounts:
 
