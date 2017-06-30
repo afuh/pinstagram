@@ -2,10 +2,10 @@
 
 ![pinstagram](public/images/screenshots/1.jpg)
 
-Pinstagram is full stack Instagram clone. Is the result of exercising with Node, MongoDB and its frameworks.
+Pinstagram is a full stack Instagram clone. It's the result of exercising with Node, MongoDB and its frameworks.
 The goal was to build a functional clone of some Internet-based photo-sharing application.
 
-I finally decided to copy the web version of Instagram and add some extra features to it, such as the ability to upload images in the browser or to be able to see all the images I liked in one place, such as the Pinterest boards.
+I finally decided to copy the web version of Instagram and add some extra features to it, such as the ability to upload images in the browser or to be able to see all the images that I liked in one place, such as the Pinterest boards.
 
 This is my first approach to the Back-end kingdom.
 
