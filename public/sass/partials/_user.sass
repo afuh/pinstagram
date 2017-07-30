@@ -68,6 +68,7 @@
   +size(150px, 100%)
   border-radius: 50%
   position: absolute
+  left: 0
   background: rgba(0,0,0, 0)
   &__change
     background: url(../images/edit.svg)
@@ -83,20 +84,26 @@
     background-size: cover
     background-repeat: no-repeat
 
-.header__img
-  position: relative
-  +grid(2, 6)
-  justify-content: center
-  img
+.header
+  &__img-cont
     +size(150px, 150px)
     border-radius: 50%
-  &:hover
-    .avatar
-      background: rgba(0,0,0, 0.3)
-      &__change,
-      &__remove
-        opacity: 1
-        visibility: visible
+    overflow: hidden
+    display: flex
+    justify-content: center
+    position: relative
+  &__img
+    +grid(2, 6)
+    justify-content: center
+    img
+      +size(auto, 100%)
+    &:hover
+      .avatar
+        background: rgba(0,0,0, 0.3)
+        &__change,
+        &__remove
+          opacity: 1
+          visibility: visible
 
 .avatar
   .loader-cont
