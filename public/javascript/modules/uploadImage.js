@@ -2,7 +2,7 @@ import { get, add } from './shortDom';
 import { showModal } from './modal';
 
 function preUpload(event) {
-  const [image] = event.target.files;
+  const image = event.target.files[0];
   const reader = new FileReader();
 
   const thumb = get("img.thumb");
