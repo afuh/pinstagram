@@ -5,10 +5,11 @@ const jimp = require('jimp');
 const crypto = require('crypto');
 const fs = require('fs');
 const promisify = require("es6-promisify");
-const { siteName, suggestions } = require('../helpers');
+const { siteName } = require('../helpers');
 
 const Image = mongoose.model('Image');
 const User = mongoose.model('User');
+const Comment = mongoose.model('Comment');
 
 // ======== Home page ======== //
 exports.recentImages = async (req, res) => {
@@ -218,13 +219,20 @@ exports.removeQuestion = async (req, res) => {
 }
 
 exports.removeImage = async (req, res, next) => {
-  const img = await Image.findOne( { url: req.params.image } )
+  const img = await Image.findOne( { url: req.params.image } ).populate('comments')
+
   req.body.img = img;
 
   if (img.author.toString() !== req.user.id) {
     req.flash('error', `You can't remove that image.`);
     res.redirect('/')
     return;
+  }
+
+  if (img.comments.length) {
+    await Comment.find({
+      _id: img.comments.map(comment => comment._id)
+    }).remove()
   }
 
   const remove = img.remove();
@@ -237,6 +245,8 @@ exports.removeImage = async (req, res, next) => {
 
   fs.unlinkSync(`${__dirname}/../public/uploads/${img.photo}`);
   fs.unlinkSync(`${__dirname}/../public/uploads/gallery/${img.photo}`);
+
+
 
   // to removeNotification
   next()
