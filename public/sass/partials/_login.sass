@@ -1,17 +1,16 @@
 .form
   margin-top: 77px
   .header
+    @extend .row, .centrate
     border: none !important
-    +position(center, center)
     margin-bottom: 10px
     img.logo
       padding-right: 10px
       width: 60px
       border-right: 2px solid color(lightgray)
     h1
+      +font(32px, 200)
       padding-left: 10px
-      font-weight: 200
-      font-size: 32px
       line-height: 40px
       white-space: nowrap
   &__message
@@ -20,6 +19,7 @@
     color: color(gray)
     line-height: 20px
   .facebook_register
+    @extend .col
     margin: 10px 0
     position: relative
     form::after
@@ -28,6 +28,7 @@
       left: 20%
       top: 15px
   .form__login
+    @extend .col
     .forgot-pass
       position: relative
       text-align: right
@@ -37,6 +38,7 @@
         top: - 30px
         right: 10px
   .line-or
+    @extend .row
     justify-content: space-around
     text-transform: uppercase
     span:first-child,

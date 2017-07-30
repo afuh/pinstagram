@@ -1,11 +1,11 @@
 mixin suggestions(data = {})
   .box__content
-      ul.contact-list.row
+      ul.contact-list
         each profile in data
-          li.contact.row
+          li.contact
             a.img(href=`/${profile.slug}`)
               img(src=h.avatar(profile), alt=`${profile.name}'s avatar`)
-            .user-name.col  
+            .user-name  
               a(href=`/${profile.slug}`)= profile.username
               if profile.name
                 span= profile.name

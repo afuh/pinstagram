@@ -1,7 +1,7 @@
 .header
-  justify-content: space-between
-  border-bottom: solid 1px color(lightgray)
   +font(16px, 600)
+  @extend .row, .gray-border
+  justify-content: space-between
   padding: 16px
   a
     +font(14px, 400)
@@ -11,6 +11,7 @@
   overflow: auto
   max-height: 451px
   li
+    @extend .row
     align-items: center
     padding: 8px 16px
     border-bottom: solid 1px color(lightgray)
@@ -19,14 +20,15 @@
       +size(30px, 30px)
       border-radius: 50%
     .user-name
+      @extend .col
       padding-left: 10px
       +grid(5, 6)
       a
         +font(15px, 600)
         line-height: 20px
       span
-        color: color(gray)
         +font(14px, 400)
+        color: color(gray)
         line-height: 20px
         white-space: nowrap
     .profile-image

@@ -22,7 +22,7 @@ const renderModal = (res) => {
       `
 
     return `
-      <li class="row" data-user=${username}>
+      <li data-user=${username}>
         <a href="/${slug}" class="img">
           <img src="${checkAvatar}" alt="${username}'s avatar">
         </a>
@@ -55,7 +55,7 @@ function showNotifications(e) {
         <a href="/api/notifications/clear"> clear all </a>
       `
       content.innerHTML = `
-        <div class="header row"> ${!n ? 'No new notifications' : headerContent} </div>
+        <div class="header"> ${!n ? 'No new notifications' : headerContent} </div>
         <ul class="contact-list">
           ${renderModal(notify).join(" ")}
         </ul>

@@ -5,7 +5,7 @@ function renderModal (parent, href) {
   if (this.nextElementSibling) return;
 
   const render =  `
-  <div class="sure-modal row">
+  <div class="sure-modal">
     <a class="sure-modal__yes" href=${href}> remove </a>
     <span class="sure-modal__no"> cancel </span>
   </div>
@@ -48,7 +48,7 @@ function loaderAvatar() {
   if (remove) remove.parentNode.removeChild(remove)
 
   const render = `
-    <div class="loader-cont row">
+    <div class="loader-cont">
       <div class="loader"></div>
     </div>
   `

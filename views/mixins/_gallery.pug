@@ -1,9 +1,9 @@
 mixin gallery(image = {}, like)
   - const path = like ? '/like' : ''
-  a.gallery__img.row(href=`/p/${image.url}${path}`)
+  a.gallery__img(href=`/p/${image.url}${path}`)
     img(src=`/uploads/gallery/${image.photo}` alt=`${image.caption}`)
-    .hover__icons.row
-      .icon.row
+    .hover__icons
+      .icon
         .icon__heart
         span.icon__count= image.likes.length
         .icon__comment

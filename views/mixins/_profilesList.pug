@@ -1,13 +1,13 @@
 mixin profilesList(data = {}, title)
   - const style = "max-width: 400px; margin: 60px auto; border: solid 1px #efefef;"
   .modal__content(style=style)
-    .header.row= title
+    .header= title
     ul.contact-list
       each profile in data
-        li.row(data-user=profile.username)
+        li(data-user=profile.username)
           a.img(src=`/${profile.slug}`)
             img(src=`${h.avatar(profile, 30)}` alt=`${profile.username}'s avatar`)
-          .user-name.col
+          .user-name
             a(href=`/${profile.slug}`)= profile.username
             span #{profile.name ? profile.name : ''}
 

@@ -6,14 +6,14 @@ mixin notificationsList(data = {}, title)
     if !data.length
       .header No new notifications
     else 
-      .header.row= notification
+      .header= notification
         a(href="/api/notifications/clear") clear all
     ul.contact-list
       each profile in data
         - const { username, slug, avatar } = profile.author
         - const { url, name } = profile.image
         - const checkAvatar = avatar.includes('http') ? avatar : `/uploads/avatar/${avatar}`
-        li.row(data-user=username)
+        li(data-user=username)
           a.img(src=`/${slug}`)
             img(src=checkAvatar alt=`${username}'s avatar`)
           .user-name

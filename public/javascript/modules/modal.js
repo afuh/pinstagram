@@ -16,11 +16,11 @@ export const renderModal = (res) => {
     // Check if the avatar is an original image, a facebook cover or a gravatar
     const checkAvatar = !data.avatar ?  `${data.gravatar}&s=30` : (data.avatar.includes("http") ? data.avatar : `/uploads/avatar/${data.avatar}`);
     return `
-      <li class="row" data-user=${data.username}>
+      <li data-user=${data.username}>
         <a href="/${data.slug}" class="img">
           <img src="${checkAvatar}" alt="${data.username}'s avatar">
         </a>
-        <div class="user-name col">
+        <div class="user-name">
           <a href="/${data.slug}">${data.username}</a>
           <span> ${data.name ? data.name : ''} </span>
         </div>

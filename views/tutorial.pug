@@ -2,7 +2,7 @@ extends layout
 include mixins/_suggestions
 
 block content
-  .tutorial.col
+  .tutorial
     h3= text
     p You can visit your #[a(href=`/${user.slug}`) profile], share an image or follow other users. Here are some suggestions for you.
     +suggestions(profiles)

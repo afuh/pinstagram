@@ -1,15 +1,16 @@
 header
-  display: flex
-  justify-content: center
+  @extend .row, .centrate
   background: #fff
   border-bottom: 1px solid rgba(0,0,0, 0.1)
   .nav
+    @extend .row
     +position(space-between, center)
     +size(960px, 77px)
     &__logo
       a
         +logo()
     &__user
+      @extend .row
       height: 100%
       position: relative
       align-items: center
@@ -18,9 +19,9 @@ header
         font-weight: 300
         white-space: nowrap
       a.nav-i
+        @extend .centrate
         margin: 0 20px
         display: flex
-        +position(center, center)
         align-self: stretch
       .icon
         &__notify

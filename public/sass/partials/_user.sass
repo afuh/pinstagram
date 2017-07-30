@@ -2,17 +2,18 @@
   max-width: 960px
   margin: 0 auto
   .header
-    @extend .row
-    +position(center, center)
+    @extend .row, .centrate
     padding: 30px 0
     border: 0
     margin-top: 10px
     &__data
+      @extend .col
+      +grid(4, 6)
       height: 150px
       justify-content: space-between
-      +grid(4, 6)
       padding: 10px
       &--name
+        @extend .row
         align-items: center
         h2
           +font(32px, 200)
@@ -37,6 +38,7 @@
           border: 1px solid color(lightgray)
           color: color(black)
       &--statistics
+        @extend .row
         margin: 10px 0
         a, span
           +font(16px, 300)
@@ -47,6 +49,10 @@
         .number
           margin-right: 0.5em
           font-weight: 600
+        .posts,
+        .followers,
+        .following
+          @extend .row
       &--profile
         h2
           +font(16px, 600)
@@ -61,16 +67,16 @@
           color: color(black)
 
 .avatar
-  input[type='file']
-    position: fixed
-    right: 100%
-    bottom: 100%
-  +position(center, center)
+  @extend .centrate
   +size(150px, 100%)
   border-radius: 50%
   position: absolute
   left: 0
   background: rgba(0,0,0, 0)
+  input[type='file']
+    position: fixed
+    right: 100%
+    bottom: 100%
   &__change
     background: url(../images/edit.svg)
     cursor: pointer
@@ -87,19 +93,20 @@
 
 .header
   &__img-cont
+    @extend .row, .centrate
     +size(150px, 150px)
     border-radius: 50%
     overflow: hidden
-    display: flex
-    justify-content: center
     position: relative
   &__img
+    @extend .row
     +grid(2, 6)
     justify-content: center
     img
       +size(auto, 100%)
     &:hover
       .avatar
+        @extend .row
         background: rgba(0,0,0, 0.3)
         &__change,
         &__remove

@@ -1,7 +1,7 @@
 extends login
 
 block forms
-  form.form__reset.col(method="POST")
+  form.form__reset(method="POST")
     input(type="password" name="password" placeholder="New Password" required)
     input(type="password" name="confirm" placeholder="New Password, again" required)
     input.button(type="submit" value="Reset password")

@@ -1,8 +1,8 @@
 mixin imgCard(image = {})
   section
     .img-card(style="position: relative;")
-      .img-card__header.row
-        .user.row
+      .img-card__header
+        .user
           a.img(href=`/${image.author.slug}`) 
             img(src=h.avatar(image.author, 200), alt=`${image.author.name}'s' avatar`)
           a.username(href=`/${image.author.slug}`)= image.author.username
@@ -11,7 +11,7 @@ mixin imgCard(image = {})
       .img-card__image
         img(src=`/uploads/${image.photo}` alt=`${image.caption}`)  
       .img-card__content
-        .content__likes.row
+        .content__likes
           if user
             form.icon(method="POST", action=`/api/like/${image._id}`)
               - const likesList = image.likes.map(obj => obj.toString());
@@ -28,7 +28,7 @@ mixin imgCard(image = {})
         .content__comments   
           ul.comments
             each comment in image.comments
-              li.row
+              li
                 .row
                   a(href=`/${comment.author.slug}`)= comment.author.username
                   span= comment.text.replace(/&lt;/g,'<').replace(/&gt;/g,'>')

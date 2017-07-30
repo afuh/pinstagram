@@ -8,6 +8,6 @@ block content
       - const likes = !n ? "" : n === 1 ? `${n} like` : `${n} likes`
       .content__header
         h3= likes
-      .gallery.row
+      .gallery
         each image in images  
           +gallery(image, like = true)

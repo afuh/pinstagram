@@ -1,12 +1,12 @@
 footer
+  @extend .row
   width: 100%
   margin-top: 10%
-  display: flex
   justify-content: center
   background: #fff
   border-top: 1px solid rgba(0,0,0, 0.1)
   .footer
-    +position(center, center)
+    @extend .centrate, .col
     +size(960px, 45px)
     span
       +font(13px, 200)

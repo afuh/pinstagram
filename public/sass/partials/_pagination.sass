@@ -1,4 +1,5 @@
 .pagination
+  @extend .row
   color: color(gray)
   margin: 10px auto
   max-width: 600px
@@ -9,8 +10,7 @@
   &__next,
   &__prev,
   &__text
-    display: flex
-    +position(center, center)
+    @extend .centrate, .row
     +grid(2, 8)
   &__text
     +grid(4, 8)

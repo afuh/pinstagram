@@ -11,7 +11,7 @@ function showFollowers(e) {
   axios.get(`/api${this.pathname}`)
     .then(res => {
       content.innerHTML = `
-        <div class="header row"> Followers </div>
+        <div class="header"> Followers </div>
         <ul class="contact-list">
           ${renderModal(res.data).join(" ")}
         </ul>
@@ -26,7 +26,7 @@ function showFollowing(e) {
   axios.get(`/api${this.pathname}`)
     .then(res => {
       content.innerHTML = `
-        <div class="header row"> Following </div>
+        <div class="header"> Following </div>
         <ul class="contact-list">
           ${renderModal(res.data).join(" ")}
         </ul>

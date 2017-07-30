@@ -1,7 +1,7 @@
 .tutorial,
+  @extend .col, .gray-border
   margin: 60px auto
   max-width: 500px
-  border: 1px solid color(lightgray)
   border-radius: 3px
   background: #fff
   padding: 20px
@@ -16,10 +16,12 @@
   h3, p
     text-align: center
   .contact-list
+    @extend .row
     flex-wrap: wrap
     li.contact
+      @extend .row, .gray-border
       margin: 2px
-      border: 1px solid color(lightgray)
       flex-basis: calc(50% - 4px)
       .user-name
+        @extend .col
         justify-content: center

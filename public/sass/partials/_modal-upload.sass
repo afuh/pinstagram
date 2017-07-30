@@ -1,8 +1,8 @@
 .upload
-  input.button
-    margin: 2px 0 0 !important
   z-index: 9999
   justify-content: center
+  input.button
+    margin: 2px 0 0 !important
   &__message
     +font(17px, 600)
     text-align: center
@@ -14,13 +14,13 @@
   textarea[name="caption"]
     margin: 10px 0
     &:focus
+      +b(color(lightblue))
       outline: none
-      border: 1px solid color(lightblue)
   &__label
+    @extend .centrate, .col
     overflow-y: scroll
     max-height: 50vh
     font-weight: 300
-    +position(center, center)
     cursor: pointer
     border: 2px dashed color(bluegray)
     width: 100%
@@ -35,8 +35,8 @@
 
 // loader
 .loader-cont
+  @extend .centrate, .row
   +size(100%, 100%)
-  +position(center, center)
   .loader
     background: url(../images/tail-spin.svg)
     +size(42px, 42px)

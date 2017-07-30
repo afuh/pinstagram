@@ -1,4 +1,4 @@
 mixin formReset()
-  form.form__reset.col(action="/reset" method="POST")
+  form.form__reset(action="/reset" method="POST")
     input(type="email" name="email" placeholder="Email Address" value=`${user && user.email || ""}` required)
     input.button(type="submit" value="Reset Password")

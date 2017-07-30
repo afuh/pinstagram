@@ -20,8 +20,8 @@ function uploadImage(e) {
   content.innerHTML = `
     <div class="upload form">
       <p class="upload__message"> Share a new image! </p>
-      <form class="form__image col" action="/upload" method="POST" enctype="multipart/form-data">
-        <label for="photo" class="upload__label col">
+      <form class="form__image" action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="photo" class="upload__label">
           <div class="thumb-cont col">
             <img class="thumb">
           </div>
@@ -47,7 +47,7 @@ function loader() {
   form.removeChild(submit)
 
   const render = `
-    <div class="loader-cont row">
+    <div class="loader-cont">
       <div class="loader"></div>
     </div>
   `

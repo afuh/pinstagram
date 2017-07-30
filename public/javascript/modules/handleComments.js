@@ -18,7 +18,7 @@ function addComment(e) {
   axios.post(this.action, { text } )
     .then(res => {
       const render = `
-        <li class="row">
+        <li>
           <div class="row">
             <a href="/${res.data.slug}">${res.data.username}</a>
             <span>${text}</span>
