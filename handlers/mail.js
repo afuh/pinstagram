@@ -24,7 +24,7 @@ exports.send = async (options) => {
   const text = htmlToText.fromString(html);
 
   const mailOptions = {
-    from: 'Pinstagram <noreply@pinstagram.com>',
+    from: 'Pinstagram <pinstagramapp@gmail.com>',
     to: options.user.email,
     subject: options.subject,
     html,
