@@ -8,3 +8,4 @@ variables.env.now
 node_modules
 
 data
+public/dist

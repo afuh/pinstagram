@@ -9,12 +9,15 @@ const mongoose = require('mongoose');
 const mongodbErrorHandler = require('mongoose-mongodb-errors')
 require('dotenv').config({ path: 'variables.env' });
 
-mongoose.connect(process.env.DATABASE);
-mongoose.plugin(mongodbErrorHandler);
-mongoose.Promise = global.Promise;
-mongoose.connection.on('error', (err) => {
-  console.error(`🚫 → ${err.message}`);
+
+mongoose.connect(process.env.DATABASE, { useMongoClient: true})
+mongoose.Promise = global.Promise
+
+mongoose.connection.on('error', err => {
+  console.error(`→ ${err.message}`);
 });
+
+mongoose.plugin(mongodbErrorHandler);
 
 require('./models/User');
 require('./models/Image');
@@ -22,7 +25,9 @@ require('./models/Comment');
 
 const app = require('./app');
 
-app.set('port', process.env.PORT || 3000);
-const server = app.listen(app.get('port'), () => {
-  console.log('\x1b[33m%s\x1b[0m', `Express running → PORT ${server.address().port}`);
-});
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => console.log('\x1b[34m%s\x1b[0m', `
+  Port      → http://localhost:${PORT}
+  Database  → ${mongoose.connection.host}/${mongoose.connection.name}
+  `
+))

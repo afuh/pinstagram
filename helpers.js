@@ -1,6 +1,6 @@
 exports.siteName = `Pinstagram`;
 
-exports.dump = obj => JSON.stringify(obj, null, 2);
+exports.show = obj => JSON.stringify(obj, null, 2);
 
 exports.moment = require('moment');
 
