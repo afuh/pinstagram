@@ -22,7 +22,10 @@ const mongodbErrorHandler = require('mongoose-mongodb-errors')
 const passport = require('passport');
 require('./handlers/passport');
 
-const routes = require('./routes');
+const api = require('./routes/api');
+const auth = require('./routes/auth');
+const routes = require('./routes/routes');
+
 const helpers = require('./helpers');
 const errors = require('./handlers/errors')
 
@@ -85,7 +88,8 @@ app.use((req, res, next) => {
 
 app.use(methodOverride('_method'))
 
-app.use('/', routes);
+app.use('/', auth, routes);
+app.use('/api', api);
 
 app.use(errors.notFound);
 if (app.get('env') === 'development') {
