@@ -12,8 +12,6 @@ const Comment = require('../models/Comment');
 
 // ======== Home page ======== //
 exports.recentImages = async (req, res) => {
-  if (!req.user) return res.redirect('/login');
-
   const page = req.params.page || 1;
   const limit = 12
   const skip = (page * limit) - limit
