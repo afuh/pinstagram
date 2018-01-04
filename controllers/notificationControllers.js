@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const User = require('../models/User');
 
 // ======== Add notifications ======== //
 // Follow an user and like or comment a photo will send a notification to the user

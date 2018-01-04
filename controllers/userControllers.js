@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
 const validator = require('validator');
 const fs = require('fs');
 const promisify = require("es6-promisify");
 
-const User = mongoose.model('User');
-const Image = mongoose.model('Image');
+const User = require('../models/User');
+const Image = require('../models/Image');
 
 // ======== User profile ======== //
 exports.showProfile = async (req, res, next) => {

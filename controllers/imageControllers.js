@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-const mongoose = require('mongoose');
 const multer = require('multer');
 const jimp = require('jimp');
 const crypto = require('crypto');
@@ -7,9 +6,9 @@ const fs = require('fs');
 const promisify = require("es6-promisify");
 const { siteName } = require('../helpers');
 
-const Image = mongoose.model('Image');
-const User = mongoose.model('User');
-const Comment = mongoose.model('Comment');
+const Image = require('../models/Image');
+const User = require('../models/User');
+const Comment = require('../models/Comment');
 
 // ======== Home page ======== //
 exports.recentImages = async (req, res) => {

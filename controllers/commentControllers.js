@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
-
-const Comment = mongoose.model('Comment');
-const Image = mongoose.model('Image');
+const Comment = require('../models/Comment');
+const Image = require('../models/Image');
 
 exports.addComment = async (req, res, next) => {
   if (req.body.text.length > 140) {

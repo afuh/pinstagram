@@ -1,7 +1,6 @@
 const passport = require('passport');
-const mongoose = require('mongoose');
 
-const User = mongoose.model('User');
+const User = require('../models/User');
 
 // https://github.com/saintedlama/passport-local-mongoose#simplified-passportpassport-local-configuration
 passport.use(User.createStrategy());

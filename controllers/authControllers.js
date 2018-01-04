@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
 const promisify = require("es6-promisify");
 const passport = require('passport');
 const crypto = require('crypto');
 
 const mail = require('../handlers/mail');
-const User = mongoose.model('User');
+const User = require('../models/User')
 
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitizeBody } = require('express-validator/filter')
