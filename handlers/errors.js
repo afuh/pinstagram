@@ -10,6 +10,24 @@ exports.notFound = (req, res, next) => {
   next(err);
 };
 
+exports.developmentErrors = (err, req, res, next) => {
+  err.stack = err.stack || '';
+
+  const removeModules = err.stack.split("\n").filter(a => !a.includes('node_modules')).join("\n").toString()
+
+  const details = {
+    message: err.message,
+    status: err.status,
+    stack: removeModules.replace(/[a-z_-\d]+.js:\d+:\d+/gi, '<mark>$&</mark>')
+  };
+
+  res.status(err.status || 500);
+  res.format({
+    'text/html': () => res.render('error', details),
+    'application/json': () => res.json(details)
+  });
+};
+
 exports.productionErrors = (err, req, res, next) => {
   let message = err.message
 
