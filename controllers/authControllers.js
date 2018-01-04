@@ -6,6 +6,9 @@ const crypto = require('crypto');
 const mail = require('../handlers/mail');
 const User = mongoose.model('User');
 
+const { check, validationResult } = require('express-validator/check');
+const { matchedData, sanitizeBody } = require('express-validator/filter')
+
 // ======== Facebook  ======== //
 exports.gotoFacebook = passport.authenticate('facebook', {  scope: ['email']});
 exports.logInFacebook = passport.authenticate('facebook', {
@@ -41,36 +44,43 @@ exports.isLoggedIn = (req, res, next) => {
 
 
 // ======== Register validator ======== //
-// express-validator
-exports.validateRegister = (req, res, next) => {
-  req.sanitizeBody('username');
-  req.checkBody('username', 'Please supply an username').notEmpty();
-  req.checkBody('username', 'Invalid Username').isAlphanumeric();
+exports.validateRegister = [
+  sanitizeBody('username'),
+  check('username', 'Please supply an username')
+    .exists().isLength({ min: 1 })
+    .trim(),
 
-  req.checkBody('email', 'Invalid Email').isEmail();
-  req.sanitizeBody('email').normalizeEmail({
-    gmail_emove_dots: false,
+  check('password', 'Password Cannot be Blank')
+    .exists().isLength({ min: 1 }),
+
+  check('password-confirm', 'Confirmed Password Cannot be Blank')
+    .exists()
+    .custom((val, { req }) => val === req.body.password )
+    .withMessage('Your passwords do not match'),
+
+  check('email',  'Invalid Email')
+    .exists()
+    .isEmail()
+    .trim(),
+
+  sanitizeBody('email').normalizeEmail({
+    gmail_remove_dots: false,
     remove_extension: false,
     gmail_remove_subaddress: false
-  });
-
-  req.checkBody('password', 'Password Cannot be Blank').notEmpty();
-  req.checkBody('password-confirm', 'Confirmed Password Cannot be Blank').notEmpty();
-  req.checkBody('password-confirm', 'You passwords do not match').equals(req.body.password);
-
-  const errors = req.validationErrors();
-  if (errors) {
-    req.flash('error', errors.map(err => err.msg) );
-    res.render('register', {title: 'Register', body: req.body, flashes: req.flash() });
-    return;
-  }
-  next();
-}
+  })
+]
 
 exports.register = async (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.mapped() });
+  }
+  const valid = matchedData(req);
+
   const user = new User({ email: req.body.email, username: req.body.username });
   const register = promisify(User.register, User); // passport-local-mongoose
-  await register(user, req.body.password);
+  await register(user, valid.password);
   next();
 };
 
