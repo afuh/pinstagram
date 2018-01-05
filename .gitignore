@@ -3,8 +3,7 @@
 .LSOverride
 
 *.log
-variables.env
-variables.env.now
+.env
 node_modules
 
 data

@@ -1,7 +1,6 @@
 const passport = require('passport');
-const mongoose = require('mongoose');
 
-const User = mongoose.model('User');
+const User = require('../models/User');
 
 // https://github.com/saintedlama/passport-local-mongoose#simplified-passportpassport-local-configuration
 passport.use(User.createStrategy());
@@ -53,6 +52,6 @@ function slug (str) {
       replace(new RegExp('[' + p.join('') + ']', 'g'), ' ').
       replace(/-{2,}/g, ' ').
       replace(/^\s\s*/, '').replace(/\s\s*$/, '').
-      replace(/[^\w\ ]/gi, '').
-      replace(/[\ ]/gi, s);
+      replace(/[^\w ]/gi, '').
+      replace(/[ ]/gi, s);
 }

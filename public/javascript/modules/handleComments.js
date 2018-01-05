@@ -2,6 +2,8 @@ import axios from 'axios';
 import { get, getAll, addEach } from './shortDom';
 import dompurify from 'dompurify';
 
+const { error } = console
+
 function addComment(e) {
   e.preventDefault()
   const sibling = this.parentNode.previousSibling;
@@ -36,7 +38,7 @@ function addComment(e) {
       const remove = getAll('a.remove-comment');
       addEach(remove, 'click', removeComment)
     })
-    .catch(err => console.log(err.message))
+    .catch(err => error(err.message))
 }
 
 function removeComment(e) {
@@ -45,7 +47,7 @@ function removeComment(e) {
 
   axios.get(`/api${this.pathname}`)
     .then(() => comment.parentNode.removeChild(comment))
-    .catch(err => console.log(err.message))
+    .catch(err => error(err.message))
 }
 
 
