@@ -122,7 +122,7 @@ exports.showFollowers = async (req, res) => {
     }
   })]
 
-  if (req.path.includes('api')) {
+  if (req.originalUrl.includes('api')) {
     res.json(followers);
     return;
   }
@@ -143,7 +143,7 @@ exports.showFollowing = async (req, res) => {
     }
   })]
 
-  if (req.path.includes('api')) {
+  if (req.originalUrl.includes('api')) {
     res.json(following);
     return;
   }

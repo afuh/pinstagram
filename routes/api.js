@@ -51,10 +51,10 @@ router.get('/remove-avatar-confirm', auth.isLoggedIn, catchErrors(user.removeAva
 
 // ======== Upload Image ======== //
 router.post('/upload',
-auth.isLoggedIn,
-img.upload,
-catchErrors(img.resize),
-catchErrors(img.saveImage)
+  auth.isLoggedIn,
+  img.upload,
+  catchErrors(img.resize),
+  catchErrors(img.saveImage)
 );
 
 

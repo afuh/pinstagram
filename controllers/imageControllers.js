@@ -201,7 +201,7 @@ exports.showLikes = async (req, res) => {
     }
   })]
 
-  if (req.path.includes('api')) {
+  if (req.originalUrl.includes('api')) {
     res.json(likes)
     return;
   }

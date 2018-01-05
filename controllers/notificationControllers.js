@@ -41,7 +41,7 @@ exports.showNotifications = async (req, res) => {
   const user = await User.findOne({ _id: req.user._id })
   const notify = user.notifications.reverse();
 
-  if (req.path.includes('api')) {
+  if (req.originalUrl.includes('api')) {
     res.json(notify)
     return;
   }
