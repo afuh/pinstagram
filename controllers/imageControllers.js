@@ -12,7 +12,7 @@ const Comment = require('../models/Comment');
 
 // ======== Home page ======== //
 exports.recentImages = async (req, res) => {
-  const page = req.params.page || 1;
+  const page = req.query.page || 1;
   const limit = 12
   const skip = (page * limit) - limit
 
@@ -34,7 +34,7 @@ exports.recentImages = async (req, res) => {
 
   if(!images.length && skip) {
     req.flash('info', `Hey! You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
-    res.redirect(`/page/${pages}`);
+    res.redirect(`?page=${pages}`);
     return;
   }
 

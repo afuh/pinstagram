@@ -12,7 +12,6 @@ const notify = require('../controllers/notificationControllers');
 
 // ======== Home ======== //
 router.get('/', auth.isLoggedIn, catchErrors(img.recentImages));
-router.get('/page/:page', catchErrors(img.recentImages));
 
 // ======== Change Password ======== //
 router.get('/change-password', auth.isLoggedIn, auth.passwordForm)
