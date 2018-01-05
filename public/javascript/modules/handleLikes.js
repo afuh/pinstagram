@@ -3,7 +3,7 @@ import axios from 'axios';
 import { get } from './shortDom';
 import { showModal, renderModal } from './modal';
 
-
+const { error } = console
 
 function addLike(e) {
   e.preventDefault();
@@ -16,7 +16,7 @@ function addLike(e) {
       this.likes.classList.toggle("on");
       counter.textContent = likes;
     })
-    .catch(err => console.log(err.message));
+    .catch(err => error(err.message));
 }
 
 function showLikes(e) {
@@ -35,7 +35,7 @@ function showLikes(e) {
       `
       showModal()
     })
-    .catch(err => console.log(err.message));
+    .catch(err => error(err.message));
 }
 
 export { addLike, showLikes }

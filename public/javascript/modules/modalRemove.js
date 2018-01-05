@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { add, get } from './shortDom';
 
+const { error } = console
+
 function renderModal (parent, href) {
   if (this.nextElementSibling) return;
 
@@ -12,7 +14,6 @@ function renderModal (parent, href) {
   `
   parent.insertAdjacentHTML("beforeend", render);
 
-  // <span class="sure-modal__no>"
   const close = this.nextElementSibling.lastElementChild;
 
   // remove the entire modal
@@ -29,7 +30,7 @@ function removeImage(e){
 
   axios.put(this.href)
     .then(res => renderModal.call(this, parent, `/p/${res.data}/remove-confirm`))
-    .catch(err => console.log(err.message))
+    .catch(err => error(err.message))
 }
 
 

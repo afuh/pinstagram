@@ -42,7 +42,7 @@ exports.updateAccount = async (req, res) => {
 
   const isUrl = validator.isURL(req.body.website, {  protocols: ['http','https'], require_protocol: false });
 
-  const user = await User.findOneAndUpdate(
+  await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: {
         name: req.body.name,
@@ -153,7 +153,7 @@ exports.showFollowing = async (req, res) => {
 
 // ======== Avatar ======== //
 exports.saveAvatar = async (req, res) => {
-  const user = await User.findOneAndUpdate(
+  await User.findOneAndUpdate(
     { _id: req.user._id },
     { avatar: req.body.photo}
   )

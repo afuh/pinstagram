@@ -3,6 +3,8 @@ import axios from 'axios';
 import { get } from './shortDom';
 import { showModal } from './modal';
 
+const { error } = console
+
 
 const renderModal = (res) => {
   return res.map(data => {
@@ -61,7 +63,7 @@ function showNotifications(e) {
         </ul>
       `
       showModal()
-    }).catch(err => console.log(err.message))
+    }).catch(err => error(err.message))
 }
 
 export default showNotifications;

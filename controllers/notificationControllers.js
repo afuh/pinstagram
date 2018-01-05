@@ -50,7 +50,7 @@ exports.showNotifications = async (req, res) => {
 }
 
 exports.clearNotifications = async (req, res) => {
-  const user = await User.findOneAndUpdate(
+  await User.findOneAndUpdate(
     { _id: req.user._id  },
     { notifications: [] }
   )

@@ -78,9 +78,3 @@ add(window, 'keydown', e => {
   if (e.keyCode === 39 && next) next.click()
   if (e.keyCode === 37 && prev) prev.click()
 })
-
-
-// ======== If the page was cached, reload ======== //
-// window.onpageshow = event => {
-//   if (event.persisted) window.location.reload()
-// };

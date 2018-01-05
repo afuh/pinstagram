@@ -52,6 +52,6 @@ function slug (str) {
       replace(new RegExp('[' + p.join('') + ']', 'g'), ' ').
       replace(/-{2,}/g, ' ').
       replace(/^\s\s*/, '').replace(/\s\s*$/, '').
-      replace(/[^\w\ ]/gi, '').
-      replace(/[\ ]/gi, s);
+      replace(/[^\w ]/gi, '').
+      replace(/[ ]/gi, s);
 }
