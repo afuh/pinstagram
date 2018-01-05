@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
 const validator = require('validator');
 const fs = require('fs');
 const promisify = require("es6-promisify");
 
-const User = mongoose.model('User');
-const Image = mongoose.model('Image');
+const User = require('../models/User');
+const Image = require('../models/Image');
 
 // ======== User profile ======== //
 exports.showProfile = async (req, res, next) => {
@@ -43,7 +42,7 @@ exports.updateAccount = async (req, res) => {
 
   const isUrl = validator.isURL(req.body.website, {  protocols: ['http','https'], require_protocol: false });
 
-  const user = await User.findOneAndUpdate(
+  await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: {
         name: req.body.name,
@@ -123,7 +122,7 @@ exports.showFollowers = async (req, res) => {
     }
   })]
 
-  if (req.path.includes('api')) {
+  if (req.originalUrl.includes('api')) {
     res.json(followers);
     return;
   }
@@ -144,7 +143,7 @@ exports.showFollowing = async (req, res) => {
     }
   })]
 
-  if (req.path.includes('api')) {
+  if (req.originalUrl.includes('api')) {
     res.json(following);
     return;
   }
@@ -154,7 +153,7 @@ exports.showFollowing = async (req, res) => {
 
 // ======== Avatar ======== //
 exports.saveAvatar = async (req, res) => {
-  const user = await User.findOneAndUpdate(
+  await User.findOneAndUpdate(
     { _id: req.user._id },
     { avatar: req.body.photo}
   )

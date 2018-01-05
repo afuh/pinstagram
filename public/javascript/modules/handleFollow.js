@@ -3,6 +3,8 @@ import axios from 'axios';
 import { get } from './shortDom';
 import { showModal, renderModal } from './modal';
 
+const { error } = console
+
 const modal = get(".modal");
 const content = get(".modal__content", modal);
 
@@ -18,7 +20,7 @@ function showFollowers(e) {
       `
       showModal()
     })
-    .catch(error => console.log(err.message));
+    .catch(err => error(err.message));
 }
 
 function showFollowing(e) {
@@ -33,7 +35,7 @@ function showFollowing(e) {
         `
       showModal()
     })
-    .catch(error => console.log(err.message));
+    .catch(err => error(err.message));
 }
 
 function addFollower(e) {
@@ -50,7 +52,7 @@ function addFollower(e) {
         button.innerHTML = "Following" :
         button.innerHTML = "Follow"
     })
-    .catch(error => console.log(err.message));
+    .catch(err => error(err.message));
 }
 
 export { showFollowers, showFollowing, addFollower }

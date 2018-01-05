@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const User = require('../models/User');
 
 // ======== Add notifications ======== //
 // Follow an user and like or comment a photo will send a notification to the user
@@ -42,7 +41,7 @@ exports.showNotifications = async (req, res) => {
   const user = await User.findOne({ _id: req.user._id })
   const notify = user.notifications.reverse();
 
-  if (req.path.includes('api')) {
+  if (req.originalUrl.includes('api')) {
     res.json(notify)
     return;
   }
@@ -51,7 +50,7 @@ exports.showNotifications = async (req, res) => {
 }
 
 exports.clearNotifications = async (req, res) => {
-  const user = await User.findOneAndUpdate(
+  await User.findOneAndUpdate(
     { _id: req.user._id  },
     { notifications: [] }
   )

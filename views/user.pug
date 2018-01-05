@@ -10,7 +10,7 @@ block content
             img(src=h.avatar(profile, 200), alt=`${profile.name}'s' avatar`)
             if user && user._id.equals(profile._id)  
               .avatar
-                form(method="POST" enctype="multipart/form-data" style="height: auto;")
+                form(method="POST" action="/api/avatar" enctype="multipart/form-data" style="height: auto;")
                   label.avatar__change(for="photo")
                     input(type="file" name="photo" id="photo" accept="image/png, image/jpeg" onchange="form.submit()")
                 if user.avatar

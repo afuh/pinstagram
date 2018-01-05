@@ -3,7 +3,7 @@ extends layout
 block content
   .upload.form
     p.upload__message  Share a new image! 
-    form.form__image(action='/upload', method='POST', enctype='multipart/form-data')
+    form.form__image(action='/api/upload', method='POST', enctype='multipart/form-data')
       label.upload__label(for='photo')
         img.thumb
         .icon-modal__upload  ⬆︎ 

@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-const mongoose = require('mongoose');
 const multer = require('multer');
 const jimp = require('jimp');
 const crypto = require('crypto');
@@ -7,15 +6,13 @@ const fs = require('fs');
 const promisify = require("es6-promisify");
 const { siteName } = require('../helpers');
 
-const Image = mongoose.model('Image');
-const User = mongoose.model('User');
-const Comment = mongoose.model('Comment');
+const Image = require('../models/Image');
+const User = require('../models/User');
+const Comment = require('../models/Comment');
 
 // ======== Home page ======== //
 exports.recentImages = async (req, res) => {
-  if (!req.user) return res.redirect('/login');
-
-  const page = req.params.page || 1;
+  const page = req.query.page || 1;
   const limit = 12
   const skip = (page * limit) - limit
 
@@ -37,7 +34,7 @@ exports.recentImages = async (req, res) => {
 
   if(!images.length && skip) {
     req.flash('info', `Hey! You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
-    res.redirect(`/page/${pages}`);
+    res.redirect(`?page=${pages}`);
     return;
   }
 
@@ -204,7 +201,7 @@ exports.showLikes = async (req, res) => {
     }
   })]
 
-  if (req.path.includes('api')) {
+  if (req.originalUrl.includes('api')) {
     res.json(likes)
     return;
   }
