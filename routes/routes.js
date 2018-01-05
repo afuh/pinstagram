@@ -35,7 +35,7 @@ router.get('/p/:image', catchErrors(img.showImage));
 router.get('/p/:image/likes', catchErrors(img.showLikes))
 router.get('/p/:image/like', catchErrors(img.showLike))
 
-router.put('/p/:image/remove', catchErrors(img.removeQuestion));
+router.get('/p/:image/remove', catchErrors(img.removeQuestion));
 router.get('/p/:image/remove-confirm',
   auth.isLoggedIn,
   catchErrors(img.removeImage),

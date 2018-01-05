@@ -11,7 +11,6 @@ const expressValidator = require('express-validator');
 const path = require('path');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash')
-const methodOverride = require('method-override')
 const morgan = require('morgan')
 const promisify = require("es6-promisify");
 
@@ -85,8 +84,6 @@ app.use((req, res, next) => {
   req.login = promisify(req.login, req);
   next();
 });
-
-app.use(methodOverride('_method'))
 
 app.use('/', auth, routes);
 app.use('/api', api);

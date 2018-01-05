@@ -28,7 +28,7 @@ function removeImage(e){
   e.preventDefault()
   const parent = this.parentNode;
 
-  axios.put(this.href)
+  axios.get(this.href)
     .then(res => renderModal.call(this, parent, `/p/${res.data}/remove-confirm`))
     .catch(err => error(err.message))
 }

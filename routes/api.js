@@ -9,8 +9,6 @@ const auth = require('../controllers/authControllers');
 const user = require('../controllers/userControllers');
 const img = require('../controllers/imageControllers');
 
-// router.all("*")
-
 // ======== Comment ======== //
 router.post('/comment/:id',
   catchErrors(comment.addComment),

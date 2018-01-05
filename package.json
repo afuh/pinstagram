@@ -55,7 +55,6 @@
     "jimp": "^0.2.28",
     "juice": "^4.1.0",
     "md5": "^2.2.1",
-    "method-override": "^2.3.10",
     "moment": "^2.20.1",
     "mongoose": "^4.10.2",
     "mongoose-findorcreate": "^2.0.0",
