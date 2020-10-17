@@ -41,7 +41,6 @@ You can create your own account or login in with one of the following accounts:
 
 ## Features
 **As an unauthenticated user**:
-- I can login with Facebook or username and password.
 - I can create a new account.
 - I can reset my password via email if I already have an account.
 - I can browse other users' feed.

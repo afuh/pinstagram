@@ -5,9 +5,6 @@ const auth = require('../controllers/authControllers');
 
 const { catchErrors } = require('../handlers/errors');
 
-router.get('/login/facebook', auth.gotoFacebook);
-router.get('/login/facebook/return', auth.logInFacebook);
-
 router.get('/register', auth.registerForm);
 router.post('/register',
   auth.validateRegister,

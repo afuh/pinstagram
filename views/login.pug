@@ -6,21 +6,14 @@ html
   head
     title= `${title} | ${h.siteName}`
     link(rel="shortcut icon" type="image/png" href="/images/favicon.png")
-    link(rel='stylesheet', href='/dist/style.css') 
+    link(rel='stylesheet', href='/dist/style.css')
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     section
       block messages
-        +flash()  
+        +flash()
         .form
           +loginHeader()
-          block forms   
-            .facebook_register
-              form(method="GET", action="/login/facebook")
-                input.button(type="submit" value="Log in with Facebook")
-            .line-or
-              span
-              span.or or
-              span
+          block forms
             +formLogin()
             a.account_link(href="/register") Don't have an account?
