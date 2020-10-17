@@ -17,21 +17,13 @@ This is my first approach to the Back-end kingdom.
 - **Client side**: ES6 vanilla Javascript and Sass
 
 ## Live App
-**View it on [here](https://pinstagram.axelfuhrmann.com)**
+Create an account [here](https://pinstagram.axelfuhrmann.com) or browse other users' feeds:
+- [Red](https://pinstagram.axelfuhrmann.com/red)
+- [Yellow](https://pinstagram.axelfuhrmann.com/yellow)
+- [Purple](https://pinstagram.axelfuhrmann.com/purple)
+- [Blue](https://pinstagram.axelfuhrmann.com/blue)
 
-You can create your own account or login in with one of the following accounts:
-
-**Populated profiles**
-
-|username|password|
-|---|---|
-|yellow|123|
-|red|123|
-|purple|123|
-|blue|123|
-
-
-**Empty profiles**
+You can also login in with one of the following **empty profiles**:
 
 |username|password|
 |---|---|
