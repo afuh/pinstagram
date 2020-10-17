@@ -30,7 +30,7 @@ const errors = require('./handlers/errors')
 
 const db = process.env.NODE_ENV === 'test' ? process.env.DATABASE_LOCAL : process.env.DATABASE
 
-mongoose.connect(db, { useMongoClient: true})
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = global.Promise
 
 mongoose.connection.on('error', err => {
